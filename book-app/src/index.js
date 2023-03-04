@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 const firstBook = {
@@ -22,7 +23,14 @@ const BookList = () => {
         img={firstBook.img}
         title={firstBook.title}
         author={firstBook.author}
-      />
+      >
+        {/* (1) children: must be in between of Opening & Closing tags > in this case, <p> is in between <Book> > (***) Notes: if we just set here, but without setup the 2nd step, it won't show in the browser */}
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
+          et.
+        </p>
+      </Book>
+
       <Book
         img={secondBook.img}
         title={secondBook.title}
@@ -32,13 +40,18 @@ const BookList = () => {
   )
 }
 
-// (***) Method 2: destructuring directly at parameters
-const Book = ({ img, title, author }) => {
+const Book = (props) => {
+  // (2) we can destructuring children from the "props", or we can use directly by using "props.children" > notes: name "children" must be exact, otherwise, we can NOT get it
+  const { img, title, author, children } = props
+  console.log(props) // (***)
+
   return (
     <article className='book'>
-      <img src={img} alt='' />
+      <img src={img} alt='' width='200px' />
       <h2>{title}</h2>
       <h4>{author}</h4>
+      {children} {/* method 1 */}
+      {props.children} {/* method 2 */}
     </article>
   )
 }
