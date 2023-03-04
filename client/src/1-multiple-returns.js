@@ -1,6 +1,8 @@
 /*
-  - naming convention: use isLoading, isError 
-    > no error, no loading > load users
+  - when we get data:
+    + setLoading = false 
+
+  > to test > set Network to Fast 3g
 */
 
 import React, { useState, useEffect } from 'react'
@@ -8,12 +10,25 @@ import React, { useState, useEffect } from 'react'
 const url = 'https://api.github.com/users/QuincyLarson'
 
 const MultipleReturns = () => {
-  // (1)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true) // (1)
   const [isError, setIsError] = useState(false)
   const [user, setUser] = useState('default user')
 
   // (2)
+  useEffect(() => {
+    // setIsLoading(true) // use this if we set default value = false
+    fetch(url)
+      .then((response) => response.json())
+      .then((user) => {
+        const { login } = user
+        setUser(login)
+        setIsLoading(false) // (***)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
   if (isLoading)
     return (
       <div>
@@ -21,7 +36,6 @@ const MultipleReturns = () => {
       </div>
     )
 
-  // (3)
   if (isError)
     return (
       <div>
@@ -29,7 +43,6 @@ const MultipleReturns = () => {
       </div>
     )
 
-  // (4)
   return (
     <div>
       <h1>{user}</h1>
