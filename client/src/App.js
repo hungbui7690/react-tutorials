@@ -1,22 +1,32 @@
 /*
-  Tours Project
-  - Setup Loading
+  - Fetching Tours
 */
 
 import React, { useState, useEffect } from 'react'
-
-// (1)
 import Loading from './Loading'
 import Tours from './Tours'
 
 const url = 'https://course-api.com/react-tours-project'
 
 function App() {
-  // (2a)
   const [loading, setLoading] = useState(true)
-  const [tours, setTours] = useState([]) // (***) empty array
+  const [tours, setTours] = useState([])
 
-  // (2b)
+  // (1) create function to fetch data
+  const fetchTours = async () => {
+    // (***)
+    setLoading(true)
+
+    const response = await fetch(url)
+    const tours = await response.json()
+    console.log(tours)
+  }
+
+  // (2) use useEffect() to call function to fetch data
+  useEffect(() => {
+    fetchTours()
+  }, []) // (***)
+
   if (loading) {
     return (
       <main>
@@ -25,7 +35,6 @@ function App() {
     )
   }
 
-  // (2c)
   return (
     <main>
       <Tours />
