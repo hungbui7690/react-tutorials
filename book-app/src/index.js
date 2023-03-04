@@ -1,39 +1,45 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
-// import css file > no "from" keyword
 import './index.css'
 
-// (1) setup variables
 const root = ReactDOM.createRoot(document.getElementById('root'))
-const author = 'Amelia Hepworth'
-const title = 'I Love You to the Moon and Back'
-const img =
-  'https://images-na.ssl-images-amazon.com/images/I/8144Vic9C5L._AC_UL900_SR900,600_.jpg'
+
+// (1) setup 2 objects
+const firstBook = {
+  author: 'Amelia Hepworth',
+  title: 'I Love You to the Moon and Back',
+  img: 'https://images-na.ssl-images-amazon.com/images/I/8144Vic9C5L._AC_UL900_SR900,600_.jpg',
+}
+const secondBook = {
+  author: 'Bill Martin Jr.',
+  title: 'Brown Bear, Brown Bear, What Do You See?',
+  img: 'https://images-na.ssl-images-amazon.com/images/I/81EVdWdmOKL._AC_UL900_SR900,600_.jpg',
+}
 
 const BookList = () => {
   return (
     <section className='booklist'>
-      <Book />
-
-      {/* (3) pass props here */}
-      <Book job='developer' />
-      <Book title='random title' number={22} />
+      <Book
+        img={firstBook.img} // (2) using var when we pass props
+        title={firstBook.title}
+        author={firstBook.author}
+      />
+      <Book
+        img={secondBook.img}
+        title={secondBook.title}
+        author={secondBook.author}
+      />
     </section>
   )
 }
 
-// (4) use props here
 const Book = (props) => {
-  console.log(props)
+  // (3) use here
   return (
     <article className='book'>
-      <img src={img} alt='' width='400px' />
-      <h2>{title}</h2>
-      <h4>{author}</h4>
-      <p>{props.job}</p>
-      <p>{props.title}</p>
-      <p>{props.number}</p>
+      <img src={props.img} alt='' width='400px' />
+      <h2>{props.title}</h2>
+      <h4>{props.author}</h4>
     </article>
   )
 }
