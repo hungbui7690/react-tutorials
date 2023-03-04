@@ -6,7 +6,6 @@ const Review = () => {
   const [index, setIndex] = useState(0)
   const { name, job, image, text } = people[index]
 
-  // (1)
   const checkNumber = (number) => {
     if (number > people.length - 1) return 0
     if (number < 0) return people.length - 1
@@ -14,20 +13,36 @@ const Review = () => {
     return number
   }
 
-  // (2a) one benefit of using Functional Approach is we can write multiple lines in setState()
   const prevPerson = () => {
-    setIndex((prevIndex) => {
-      let newIndex = prevIndex - 1
+    setIndex((index) => {
+      let newIndex = index - 1
       return checkNumber(newIndex)
     })
   }
 
-  // (2b)
   const nextPerson = () => {
-    setIndex((prevIndex) => {
-      let newIndex = prevIndex + 1
+    setIndex((index) => {
+      let newIndex = index + 1
       return checkNumber(newIndex)
     })
+  }
+
+  // (1) generate random number
+  const generateRandom = () => {
+    const random = Math.floor(Math.random() * people.length)
+    return random
+  }
+
+  // (2) to avoid duplication when generate random index, there are 2 methods: [1] we can +1, -1 into the result : [2] we can do the way below
+  const randomIndex = () => {
+    let random = generateRandom()
+
+    // (***) duplication > generate index again
+    while (random === index) {
+      random = generateRandom()
+    }
+
+    setIndex(random)
   }
 
   return (
@@ -42,19 +57,19 @@ const Review = () => {
       <h4 className='author'>{name}</h4>
       <p className='job'>{job}</p>
       <p className='info'>{text}</p>
-
       <div className='button-container'>
-        {/* (3a) */}
         <button className='prev-btn' onClick={prevPerson}>
           <FaChevronLeft />
         </button>
-        {/* (3b) */}
         <button className='next-btn' onClick={nextPerson}>
           <FaChevronRight />
         </button>
       </div>
 
-      <button className='random-btn'>Suprise Me</button>
+      {/* (3) */}
+      <button className='random-btn' onClick={randomIndex}>
+        Surprise Me
+      </button>
     </article>
   )
 }

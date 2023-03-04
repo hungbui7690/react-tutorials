@@ -1,5 +1,5 @@
 /*
-  Reviews: Prev & Next Buttons
+  Reviews: Random Button
 
   (1) Review.js
 */
