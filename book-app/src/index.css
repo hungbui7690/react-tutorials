@@ -11,8 +11,12 @@ body {
   color: #333;
 }
 
+img {
+  width: 400px;
+}
+
 .booklist {
-  width: 90vw;
+  width: 70vw;
   max-width: 1170px;
   margin: 5rem auto;
   display: grid;
@@ -31,10 +35,6 @@ body {
   background-color: #fff;
   border-radius: 1rem;
   padding: 1rem 2rem;
-}
-
-img {
-  width: 100%;
 }
 
 .book h2 {
