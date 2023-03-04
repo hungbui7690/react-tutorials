@@ -1,7 +1,8 @@
 import React from 'react'
 import Tour from './Tour'
 
-const Tours = ({ tours }) => {
+// (2a) destructure remove()
+const Tours = ({ tours, removeTour }) => {
   return (
     <section>
       <div className='title'>
@@ -9,9 +10,10 @@ const Tours = ({ tours }) => {
         <div className='underline'></div>
       </div>
 
+      {/* (2b) pass remove() to Tour.js */}
       <div>
         {tours.map((tour) => {
-          return <Tour key={tour.id} {...tour}></Tour>
+          return <Tour key={tour.id} {...tour} removeTour={removeTour}></Tour>
         })}
       </div>
     </section>
