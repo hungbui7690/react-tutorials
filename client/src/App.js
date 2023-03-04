@@ -1,6 +1,5 @@
 /*
-  Single Tour
-  
+  Read More
   (1) Tour.js
 */
 
