@@ -1,10 +1,6 @@
 /*
-  - now, if we check log > "unique key prop" > reason: because later, we will add and remove many items in that list > and react wants to manage those component > that's why it blames the error > we just need to add "key" prop to fix that (remember that key must be unique)
-
-  - or we could add index > [*** books.map((book, index) => {} ***] > but this way is not recommended, since later, if we add/remove item, index will change dynamically > that's why we prefer using id 
-
-  (***) in the real world, we will work with API > there must be unique id for us to use
- */
+  All Events: https://reactjs.org/docs/events.html
+*/
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
@@ -12,7 +8,6 @@ import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-// (1) add id field
 const books = [
   {
     id: 1,
@@ -34,8 +29,6 @@ const books = [
   },
 ]
 
-// (2) use id as key
-// when we pass the props down, instead of using book={book}, we can also use spread operator > {...book}
 const BookList = () => {
   return (
     <section className='book-list'>
@@ -46,16 +39,27 @@ const BookList = () => {
   )
 }
 
-// (3) because above we spread the properties out > here we don't use "props.book", but use "prop"
-const Book = (props) => {
-  const { img, title, author } = props // (***)
-  console.log(props)
+const Book = ({ img, title, author }) => {
+  // (1) attribute, eventHandler > onClick, onMouseOver
+  // we have 2 events > click on h2, and click on the button > this is the case which we don't pass parameters into that function
+  const clickHandler = () => {
+    alert('Hello World')
+  }
 
   return (
     <article className='book'>
-      <img src={img} alt='' width='200px' />
-      <h2>{title}</h2>
+      <img src={img} alt='' />
+
+      {/* (***) */}
+      <h2 onClick={() => console.log(title)} style={{ cursor: 'pointer' }}>
+        {title}
+      </h2>
       <h4>{author}</h4>
+
+      {/* (2) */}
+      <button type='button' onClick={clickHandler}>
+        Submit
+      </button>
     </article>
   )
 }
