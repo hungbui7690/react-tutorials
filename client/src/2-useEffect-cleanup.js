@@ -1,27 +1,42 @@
 /*
   *** Cleanup
-  - after we add event listener in useEffect() > try to resize the browser, then go to Inspector > Element tab > Event Listener > resize
-    > we will see may events > if we run this continuously > memory leak > pic: event-listener
-    > this is the time we need to use clean up with useEffect
+  > add return () => {}
+
+  - cleanup function > when the the logs (the first lines)
+      render >> useEffect 
+      render >> cleanup >>> use Effect
+      render >> cleanup >>> use Effect
+      ...
+    > after initial render, every time useEffect() is called, it will also trigger cleanup 
+
+  - we can also add [] as 2nd param of useEffect(), so that event listener can only run once
+    > try to comment return () => {} + add [] > functionality will work as usual
+
+  (***) Notes: clean up is super important, remember this so that when we work with conditional rendering (work with appeared/disappeared components)
 
 */
 
 import React, { useState, useEffect } from 'react'
 
 const UseEffectCleanup = () => {
-  // (1)
   const [size, setSize] = useState(window.innerWidth)
-  // console.log(size)
 
-  // (2)
   const checkSize = () => {
     setSize(window.innerWidth)
   }
 
-  // (3) every time we resize > will call checkSize() > checkSize() will trigger re-render > useEffect() will be called > each time useEffect() is called, eventlistener will be added to window
   useEffect(() => {
+    console.log('useEffect')
     window.addEventListener('resize', checkSize)
+
+    // (***) đây là remove event listener
+    return () => {
+      console.log('cleanup')
+      window.removeEventListener('resize', checkSize)
+    }
   })
+
+  console.log('render')
 
   return (
     <React.Fragment>
