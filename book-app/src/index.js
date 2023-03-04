@@ -1,57 +1,47 @@
+/*
+  we repeat code too much > if we check in amazon website, we see that it has too many products > we cannot pass directly like we learned, but using loop
+*/
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-const firstBook = {
-  author: 'Amelia Hepworth',
-  title: 'I Love You to the Moon and Back',
-  img: 'https://images-na.ssl-images-amazon.com/images/I/8144Vic9C5L._AC_UL900_SR900,600_.jpg',
-}
+// (1) instead of create 2 separated objects, we but them in array
+const books = [
+  {
+    author: 'Amelia Hepworth',
+    title: 'I Love You to the Moon and Back',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/8144Vic9C5L._AC_UL900_SR900,600_.jpg',
+  },
+  {
+    author: 'Bill Martin Jr.',
+    title: 'Brown Bear, Brown Bear, What Do You See?',
+    img: 'https://images-na.ssl-images-amazon.com/images/I/81EVdWdmOKL._AC_UL900_SR900,600_.jpg',
+  },
+]
 
-const secondBook = {
-  author: 'Bill Martin Jr.',
-  title: 'Brown Bear, Brown Bear, What Do You See?',
-  img: 'https://images-na.ssl-images-amazon.com/images/I/81EVdWdmOKL._AC_UL900_SR900,600_.jpg',
-}
+// (2) using loop to create components
+// when we check log >> each child in a list should have a unique "key" prop
+const names = ['john', 'peter', 'susan']
+const newNames = names.map((newName) => {
+  return <h1>{newName}</h1>
+})
+console.log(newNames)
 
+// (3) if we pass directly "array of strings (names)" into BookList, then ok > but if we pass "array of objects" directly, then ERROR > so that, we have to map from objects into strings
 const BookList = () => {
-  return (
-    <section className='booklist'>
-      <Book
-        img={firstBook.img}
-        title={firstBook.title}
-        author={firstBook.author}
-      >
-        {/* (1) children: must be in between of Opening & Closing tags > in this case, <p> is in between <Book> > (***) Notes: if we just set here, but without setup the 2nd step, it won't show in the browser */}
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
-          et.
-        </p>
-      </Book>
-
-      <Book
-        img={secondBook.img}
-        title={secondBook.title}
-        author={secondBook.author}
-      />
-    </section>
-  )
+  return <section className='book-list'>{newNames}</section>
 }
 
 const Book = (props) => {
-  // (2) we can destructuring children from the "props", or we can use directly by using "props.children" > notes: name "children" must be exact, otherwise, we can NOT get it
-  const { img, title, author, children } = props
-  console.log(props) // (***)
-
+  const { img, title, author } = props
   return (
     <article className='book'>
-      <img src={img} alt='' width='200px' />
+      <img src={img} alt='' />
       <h2>{title}</h2>
       <h4>{author}</h4>
-      {children} {/* method 1 */}
-      {props.children} {/* method 2 */}
     </article>
   )
 }
