@@ -1,7 +1,7 @@
 /*
-  Display Tours
-  (1) App.js > return tours: pass props to Tours
-  (2) Tours.js 
+  Single Tour
+  
+  (1) Tour.js
 */
 
 import React, { useState, useEffect } from 'react'
@@ -40,7 +40,6 @@ function App() {
     )
   }
 
-  // (1) passing props to Tours
   return (
     <main>
       <Tours tours={tours} />

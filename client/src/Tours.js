@@ -1,7 +1,6 @@
 import React from 'react'
 import Tour from './Tour'
 
-// (2a) destruct
 const Tours = ({ tours }) => {
   return (
     <section>
@@ -11,7 +10,6 @@ const Tours = ({ tours }) => {
       </div>
 
       <div>
-        {/* (2b) return single Tour and pass props */}
         {tours.map((tour) => {
           return <Tour key={tour.id} {...tour}></Tour>
         })}
