@@ -1,28 +1,33 @@
 /*
-  - when we get data:
-    + setLoading = false 
-
-  > to test > set Network to Fast 3g
-*/
+  - handling error
+   */
 
 import React, { useState, useEffect } from 'react'
 
-const url = 'https://api.github.com/users/QuincyLarson'
+const url = 'https://api.github.com/users/QuincyLarsons'
 
 const MultipleReturns = () => {
-  const [isLoading, setIsLoading] = useState(true) // (1)
+  const [isLoading, setIsLoading] = useState(true)
   const [isError, setIsError] = useState(false)
   const [user, setUser] = useState('default user')
 
-  // (2)
   useEffect(() => {
-    // setIsLoading(true) // use this if we set default value = false
     fetch(url)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status >= 200 && response.status <= 299)
+          // (a) check error ở đây
+          return response.json()
+        else {
+          // (b)
+          setIsLoading(false)
+          setIsError(true) // (***)
+          throw new Error(response.statusText)
+        }
+      })
       .then((user) => {
         const { login } = user
         setUser(login)
-        setIsLoading(false) // (***)
+        setIsLoading(false)
       })
       .catch((err) => {
         console.log(err)
