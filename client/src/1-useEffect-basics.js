@@ -1,39 +1,27 @@
 /*
-  - now, we want to trigger useEffect() when value > 0
+  SECOND PARAMETER aka. Dependency List
+  > []: only run once at initial render (when the component is created)
+  > [value]: run every time value changes
 
-  - error if we write this way 
-      if (value > 0) {
-        useEffect(() => {
-          console.log('call useEffect')
-          document.title = `New Messages(${value})`
-        })
-      }
-    > we learned that we can not use conditional function with hooks > this is an example
-
-  > to fix, we will setup if/else inside useEffect() (below)
-
+  (***) we also can have multiple useEffect() run at the same time
 */
+
 import React, { useState, useEffect } from 'react'
 
 const UseEffectBasics = () => {
-  // (1)
   const [value, setValue] = useState(0)
 
-  // (3)
   useEffect(() => {
-    console.log('call useEffect')
+    console.log('Hello World')
+  }, []) // (1) run only once at initial render
 
-    // (***) we must write if / else inside of useEffect()
+  useEffect(() => {
     if (value > 1) document.title = `New Messages(${value})`
-  })
-
-  console.log('render component')
+  }, [value]) // (2) this won't run at initial render > run only "value" changes
 
   return (
     <React.Fragment>
       <h1>{value}</h1>
-
-      {/* (2) */}
       <button className='btn' onClick={() => setValue(value + 1)}>
         Increase
       </button>
