@@ -1,12 +1,18 @@
-import React from 'react'
-import Setup from './3-show-hide'
+/*
+  Tours Project
+  - requirement > check pic: tours-demo + tours-api-structure
+
+*/
+
+import React, { useState, useEffect } from 'react'
+import Loading from './Loading'
+import Tours from './Tours'
+
+// (***)
+const url = 'https://course-api.com/react-tours-project'
 
 function App() {
-  return (
-    <div className='container'>
-      <Setup />
-    </div>
-  )
+  return <h2>Tours Project Setup</h2>
 }
 
 export default App
