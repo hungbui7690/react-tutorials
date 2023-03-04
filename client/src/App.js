@@ -1,12 +1,16 @@
-import React from 'react'
-import Setup from './5-useState-counter'
+/*
+  Exercise: 
+  - pic: birthday-requirement
+  - data from data.js
+
+*/
+
+import React, { useState } from 'react'
+import data from './data'
+import List from './List'
 
 function App() {
-  return (
-    <div className='container'>
-      <Setup />
-    </div>
-  )
+  return <h2>reminder project setup</h2>
 }
 
 export default App
