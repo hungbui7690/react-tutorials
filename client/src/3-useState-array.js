@@ -1,26 +1,33 @@
 /*
-  - React.useState() >> viết kiểu này thì ko cần import 
-    > nếu xài nhiều thì import, ko thì làm trực tiếp như vậy cũng đc
+  - React.useState() > when we write like this, we don't need to import
+    > if we use useState() many times, then import > otherwise, use this way
 
-  - khi sử dụng onClick với các function có parameter thì sử dụng arrow function 
-    > nếu sử dụng cách bình thường (tức là ko có arrow function) >> sẽ báo lỗi
+  - we using onClick with parameters > need to use arrow function 
+    > if we don't use arrow function > function will be invoked right after component is rendered
 */
 
 import React from 'react'
 import { data } from './data' // (***)
 
 const UseStateArray = () => {
-  // (1) const [people, setPeople] = React.useState([]) // default value is empty array
   const [people, setPeople] = React.useState(data)
+
+  // (1)
+  const removeItem = (id) => {
+    let newPeople = people.filter((person) => person.id !== id)
+    setPeople(newPeople)
+  }
 
   return (
     <React.Fragment>
-      {/* (2) using map() to render array */}
       {people.map((person) => {
         const { id, name } = person
         return (
           <div key={id} className='item'>
             <h4>{name}</h4>
+
+            {/* (2) */}
+            <button onClick={() => removeItem(id)}>remove</button>
           </div>
         )
       })}
