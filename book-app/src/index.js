@@ -8,7 +8,7 @@ import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-// (1) instead of create 2 separated objects, we but them in array
+// (1) save objects into array
 const books = [
   {
     author: 'Amelia Hepworth',
@@ -22,24 +22,28 @@ const books = [
   },
 ]
 
-// (2) using loop to create components
-// when we check log >> each child in a list should have a unique "key" prop
-const names = ['john', 'peter', 'susan']
-const newNames = names.map((newName) => {
-  return <h1>{newName}</h1>
-})
-console.log(newNames)
-
-// (3) if we pass directly "array of strings (names)" into BookList, then ok > but if we pass "array of objects" directly, then ERROR > so that, we have to map from objects into strings
 const BookList = () => {
-  return <section className='book-list'>{newNames}</section>
+  return (
+    <section className='booklist'>
+      {/* (2) we use map to create new array from array of objects above (books) */}
+      {books.map((book) => {
+        const { img, title, author } = book
+        return (
+          <div className='book'>
+            <h3>{title}</h3>
+            <h4>{author}</h4>
+          </div>
+        )
+      })}
+    </section>
+  )
 }
 
 const Book = (props) => {
   const { img, title, author } = props
   return (
     <article className='book'>
-      <img src={img} alt='' />
+      <img src={img} alt='' width='200px' />
       <h2>{title}</h2>
       <h4>{author}</h4>
     </article>
