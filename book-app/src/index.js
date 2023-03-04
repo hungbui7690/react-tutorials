@@ -8,7 +8,7 @@ import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-// (1) save objects into array
+// (1)
 const books = [
   {
     author: 'Amelia Hepworth',
@@ -24,23 +24,19 @@ const books = [
 
 const BookList = () => {
   return (
-    <section className='booklist'>
-      {/* (2) we use map to create new array from array of objects above (books) */}
+    <section className='book-list'>
+      {/* (2) instead of return div, we return <Book> and pass props into it > after being displayed in the browser, it still states the error "unique key prop" > fix in next lecture */}
       {books.map((book) => {
-        const { img, title, author } = book
-        return (
-          <div className='book'>
-            <h3>{title}</h3>
-            <h4>{author}</h4>
-          </div>
-        )
+        return <Book book={book} />
       })}
     </section>
   )
 }
 
+// (3) get the props here
 const Book = (props) => {
-  const { img, title, author } = props
+  const { img, title, author } = props.book
+  console.log(props)
   return (
     <article className='book'>
       <img src={img} alt='' width='200px' />
