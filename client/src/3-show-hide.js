@@ -1,17 +1,11 @@
 /*
-  - we have Memory Leak
-
-  > without [] in dep list
-    - open app 
-    - choose Element tab, Styles sub-tab
-    - click Show/Hide
-    - Resize 
-    - choose Event Listeners sub-tab
-
-  > with [] in dep list: 
-    - do the same but click show/hide, then resize
-    - after that, open Event Listeners sub-tab
-    > we can see that though we have [], it it still create event every time we click on show/hide and resize
+  - After this lesson, we finished useEffect, so that we can start on some mini Projects: 
+    + Tours
+    + Reviews 
+    + Accordion
+    + Menu
+    + Tabs
+    + Sliders
 */
 
 import React, { useState, useEffect } from 'react'
@@ -30,19 +24,21 @@ const ShowHide = () => {
 }
 
 const Item = () => {
-  // (1)
   const [size, setSize] = useState(window.innerWidth)
 
-  // (2)
   const checkSize = () => {
     setSize(window.innerWidth)
   }
 
-  // (3) checkSize runs continuously when size is changing
   useEffect(() => {
     console.log('abc')
     window.addEventListener('resize', checkSize)
-  }, []) // (***) there's no dep list
+
+    // (***) add clean-up function in useEffect > we don't need [] in dep list anymore
+    return () => {
+      window.removeEventListener('resize', checkSize)
+    }
+  }) // (***) we don't need [] here anymore
 
   return (
     <div style={{ marginTop: '2rem' }}>
