@@ -1,5 +1,7 @@
 /*
-  All Events: https://reactjs.org/docs/events.html
+  - in this example, we use parameter
+  - if we write like this: [***  onClick={handler(author)} ***] > we call the function > function will be run immediately after it renders > so that we have to use arrow function > onClick={() => {handler(author) }}
+  - we can also use event target (e) like we work with JS
 */
 
 import React from 'react'
@@ -40,25 +42,42 @@ const BookList = () => {
 }
 
 const Book = ({ img, title, author }) => {
-  // (1) attribute, eventHandler > onClick, onMouseOver
-  // we have 2 events > click on h2, and click on the button > this is the case which we don't pass parameters into that function
-  const clickHandler = () => {
-    alert('Hello World')
+  // (1) this function receive e as parameter
+  const clickHandler = (e) => {
+    console.log(e)
+    console.log(e.target)
+  }
+
+  // (3)
+  const handler = (author) => {
+    console.log(author)
   }
 
   return (
-    <article className='book'>
-      <img src={img} alt='' />
-
-      {/* (***) */}
-      <h2 onClick={() => console.log(title)} style={{ cursor: 'pointer' }}>
-        {title}
-      </h2>
+    <article
+      className='book'
+      // (***) hover effect
+      onMouseOver={() => {
+        console.log(title)
+      }}
+    >
+      <img src={img} alt='' width='200px' />
+      <h2 onClick={() => console.log(title)}>{title}</h2>
       <h4>{author}</h4>
 
       {/* (2) */}
-      <button type='button' onClick={clickHandler}>
+      <button type='button' onClick={clickHandler} style={{ display: 'block' }}>
         Submit
+      </button>
+
+      {/* (4) use arrow function to call ref a function with param */}
+      <button
+        type='button'
+        onClick={() => {
+          handler(author)
+        }}
+      >
+        Get Log - Author
       </button>
     </article>
   )
