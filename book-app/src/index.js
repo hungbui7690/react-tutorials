@@ -1,69 +1,58 @@
-/*
-  All the functions below are called Stateless Functional Components (SFC) > because they don't have state inside
-
-  (***) we must return JSX (maybe empty tag > i.e: <h2></h2> > don't need the content, because if we don't return anything > error)
-  
-  ///////////////////////////////
-
-  (***) JSX Rules 
-  - always return single element > return () ở chỗ Greeting()
-  - using semantic html > instead of using div, we use section/article
-    >> instead of using div >> we can use <React.Fragment></React.Fragment> or <></> 
-  - use camel case for html attribute
-    + className instead of class
-  - close every element 
-  - formatting >> sử using return () > rounded brackets
-
-  ////////////////////////////////
-
-  *** Nested Components
-  - Instead of using: 
-      const Greeting = () => {
-        return (
-          <div>
-            <h2>Hello There</h2>
-            <p>Message</p>
-          </div>
-        )
-      }
-    
-  We separated into multiple components : 
-    const Greeting = () => {
-      return (
-        <div>
-          <Title />
-          <Message />
-        </div>
-      )
-    }
-
-
-  (***) Install React Dev Tools extension to debug the app
-  
-*/
-
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
+// CSS
+import './index.css'
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-const Greeting = () => {
+const BookList = () => {
   return (
-    <div>
-      <Title />
-      <Message />
-    </div>
+    <section className='book-list'>
+      <Book />
+      <Book />
+      <Book />
+      <Book />
+      <Book />
+      <Book />
+    </section>
   )
 }
 
-function Title() {
-  return <h2>Hello There</h2>
+const Book = () => {
+  return (
+    <article className='book'>
+      <Image />
+      <Title />
+      <Author />
+    </article>
+  )
 }
 
-const Message = () => <p>This is the Message</p>
+const Image = () => {
+  return (
+    <img
+      src='https://images-na.ssl-images-amazon.com/images/I/8144Vic9C5L._AC_UL900_SR900,600_.jpg'
+      alt=''
+      width='400px'
+    />
+  )
+}
+
+const Title = () => <h2>I Love You to the Moon and Back</h2>
+
+const Author = () => {
+  // 1st {}: back to JS , 2nd {{}}: object
+  // > be careful when writing this way > because later, when we use library, and some libraries may use inline style > it's hard to overwrite
+  return (
+    <h4 style={{ color: '#617d98', fontSize: '0.75rem', marginTop: '0.25rem' }}>
+      Amelia Hepworth
+    </h4>
+  )
+}
 
 root.render(
   <React.StrictMode>
-    <Greeting />
+    <BookList />
   </React.StrictMode>
 )
