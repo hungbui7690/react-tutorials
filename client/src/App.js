@@ -1,5 +1,5 @@
 import React from 'react'
-import Setup from './1-useEffect-basics'
+import Setup from './2-useEffect-cleanup'
 
 function App() {
   return (
