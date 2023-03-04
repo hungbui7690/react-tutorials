@@ -1,5 +1,5 @@
 import React from 'react'
-import Setup from './2-short-circuit'
+import Setup from './3-show-hide'
 
 function App() {
   return (
