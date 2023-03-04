@@ -1,39 +1,25 @@
-/*
-  - in this lesson, we learn how to update property in object without wiping all data > spread operator
-  
-    (***) setPerson({ ...person, message: 'hello world' })
-*/
-
 import React, { useState } from 'react'
 
 const UseStateObject = () => {
-  // (1) similar to previous lesson, we can pass variable into useState() to set default data > in this case, default value is an object
-  const [person, setPerson] = useState({
-    name: 'Peter',
-    age: 23,
-    message: 'random message',
-  })
-  // console.log(person)
+  // (1) this is the other way to write object > with this, we don't worry about wiping out data while update property
+  const [name, setName] = useState('Peter')
+  const [age, setAge] = useState(24)
+  const [message, setMessage] = useState('random message')
 
-  // (2)
   const changeMessage = () => {
-    // > setPerson({message: hello world}) // if we write like this, we will overwrite the original object with new object > wipe out the old one
-
-    // > to solve this, we need to use spread operator to copy object first, then update the property we want
-    setPerson({ ...person, message: 'hello world' })
+    // (2) set only the state we want
+    setMessage('hello')
   }
 
   return (
-    <React.Fragment>
-      <h3>{person.name}</h3>
-      <h3>{person.age}</h3>
-      <h3>{person.message}</h3>
-
-      {/* (3) */}
+    <>
+      <h3>{name}</h3>
+      <h3>{age}</h3>
+      <h3>{message}</h3>
       <button className='btn' onClick={changeMessage}>
         Change Message
       </button>
-    </React.Fragment>
+    </>
   )
 }
 
