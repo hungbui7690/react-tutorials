@@ -32,9 +32,8 @@ const BookList = () => {
   )
 }
 
-const Book = (props) => {
-  // (***) Method 1: the first way to destructuring
-  const { img, title, author } = props
+// (***) Method 2: destructuring directly at parameters
+const Book = ({ img, title, author }) => {
   return (
     <article className='book'>
       <img src={img} alt='' />
