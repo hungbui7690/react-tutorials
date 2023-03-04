@@ -1,10 +1,10 @@
 import React from 'react'
-import ErrorExample from './1-error-example'
+import UseStateBasics from './2-useStateBasics'
 
 function App() {
   return (
     <div className='container'>
-      <ErrorExample />
+      <UseStateBasics />
     </div>
   )
 }
