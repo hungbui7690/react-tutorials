@@ -1,12 +1,15 @@
 /*
-  - when we click on title, it does not change > but when we log it out, we still see the value is changed > reasons: because the value is changed, but the component is not re-rendered > this is the reason we need useState() hook
 
 */
 
-import React from 'react'
+// (***) first, we need to import {useState} > this is NAMED IMPORT > it needs to be in {} and name must be correct
+import React, { useState } from 'react'
 
 const ErrorExample = () => {
   let title = 'random title'
+
+  // (***) [undefined, f] > state = undefined, f is setState() > why it returns undefined? reason: when we call useState(), we need to pass default value, but we didn't pass default value yet
+  console.log(useState())
 
   const handleClick = () => {
     title = 'Hello'
