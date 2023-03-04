@@ -2,14 +2,14 @@
 
 */
 
-// (***) first, we need to import {useState} > this is NAMED IMPORT > it needs to be in {} and name must be correct
 import React, { useState } from 'react'
 
 const ErrorExample = () => {
   let title = 'random title'
 
-  // (***) [undefined, f] > state = undefined, f is setState() > why it returns undefined? reason: when we call useState(), we need to pass default value, but we didn't pass default value yet
-  console.log(useState())
+  const value = useState(1)[0] // set the first item in useState() = 1 and save in "value"
+  const handler = useState(1)[1] // save the second item in useState() to handler
+  console.log(value, handler) // [1, f]
 
   const handleClick = () => {
     title = 'Hello'
