@@ -1,5 +1,5 @@
 /*
-  Accordion: Display Questions (UI) 
+  Accordion: Functionality
 
   (1) Question.js
 */
@@ -16,7 +16,6 @@ function App() {
       <h3>Questions and Answers about Login</h3>
       <section className='info'>
         {questions.map((question) => {
-          // (1) spread operator
           return <SingleQuestion key={question.id} {...question} />
         })}
       </section>
