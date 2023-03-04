@@ -1,10 +1,10 @@
 import React from 'react'
-import UseStateArray from './3-useState-array'
+import Setup from './4-useState-object'
 
 function App() {
   return (
     <div className='container'>
-      <UseStateArray />
+      <Setup />
     </div>
   )
 }
