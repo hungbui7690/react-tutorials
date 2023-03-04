@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-// (3a) destructure remove()
 const Tour = ({ id, image, info, price, name, removeTour }) => {
   const [readMore, setReadMore] = useState(false)
 
@@ -18,8 +17,6 @@ const Tour = ({ id, image, info, price, name, removeTour }) => {
             {readMore ? 'Show Less' : 'Read More'}
           </button>
         </p>
-
-        {/* (3b) */}
         <button className='delete-btn' onClick={() => removeTour(id)}>
           not interested
         </button>
