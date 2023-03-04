@@ -1,27 +1,24 @@
 /*
-  React Icons 
-  - https://react-icons.github.io/react-icons > Search Icon
-  - Example: if icon name is FaGithubSquare > FA === Font Awesome > look for Font Awesome in the page and import
+  Reviews: UI
 
-  
-  (***) we can style the icons like similar text > add colors, increase size...
-  
 */
 
 import React from 'react'
 import Review from './Review'
 
-// (1)
-import { FaGithubSquare } from 'react-icons/fa'
-
 function App() {
   return (
-    <>
-      <h2>reviews project setup</h2>
+    <main>
+      <section className='container'>
+        <div className='title'>
+          <h2>our reviews</h2>
+          <div className='underline'></div>
+        </div>
 
-      {/* (2) */}
-      <FaGithubSquare />
-    </>
+        {/* (1) go to Review.js */}
+        <Review />
+      </section>
+    </main>
   )
 }
 
