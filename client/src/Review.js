@@ -1,15 +1,35 @@
 import React, { useState } from 'react'
+import people from './data'
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa'
 
-import people from './data' // (***)
-
-// (2)
 const Review = () => {
-  // (a)
   const [index, setIndex] = useState(0)
   const { name, job, image, text } = people[index]
 
-  // (b)
+  // (1)
+  const checkNumber = (number) => {
+    if (number > people.length - 1) return 0
+    if (number < 0) return people.length - 1
+
+    return number
+  }
+
+  // (2a) one benefit of using Functional Approach is we can write multiple lines in setState()
+  const prevPerson = () => {
+    setIndex((prevIndex) => {
+      let newIndex = prevIndex - 1
+      return checkNumber(newIndex)
+    })
+  }
+
+  // (2b)
+  const nextPerson = () => {
+    setIndex((prevIndex) => {
+      let newIndex = prevIndex + 1
+      return checkNumber(newIndex)
+    })
+  }
+
   return (
     <article className='review'>
       <div className='img-container'>
@@ -22,14 +42,18 @@ const Review = () => {
       <h4 className='author'>{name}</h4>
       <p className='job'>{job}</p>
       <p className='info'>{text}</p>
+
       <div className='button-container'>
-        <button className='prev-btn'>
+        {/* (3a) */}
+        <button className='prev-btn' onClick={prevPerson}>
           <FaChevronLeft />
         </button>
-        <button className='next-btn'>
+        {/* (3b) */}
+        <button className='next-btn' onClick={nextPerson}>
           <FaChevronRight />
         </button>
       </div>
+
       <button className='random-btn'>Suprise Me</button>
     </article>
   )

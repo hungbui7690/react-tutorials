@@ -1,6 +1,7 @@
 /*
-  Reviews: UI
+  Reviews: Prev & Next Buttons
 
+  (1) Review.js
 */
 
 import React from 'react'
@@ -14,8 +15,6 @@ function App() {
           <h2>our reviews</h2>
           <div className='underline'></div>
         </div>
-
-        {/* (1) go to Review.js */}
         <Review />
       </section>
     </main>
