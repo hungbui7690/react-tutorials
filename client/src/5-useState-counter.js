@@ -1,29 +1,44 @@
 import React, { useState } from 'react'
+import { data } from './data' // (***)
 
-const UseStateCounter = () => {
-  const [value, setValue] = useState(0)
+const UseStateArray = () => {
+  // (1) load data from local file
+  const [people, setPeople] = useState(data)
 
-  // (***) in setValue(), we pass function instead of passing "value+1" like previous lecture
-  // name convention = prevState or prev or oldState
-  const complexIncrease = () => {
-    setTimeout(() => {
-      setValue((prevState) => {
-        return prevState + 1
-      })
-    }, 2000)
+  /* (***) from previous lecture
+  const removeItem = (id) => {
+    let newPeople = people.filter((person) => person.id != id)
+    setPeople(newPeople)
+  }
+  */
+
+  const removeItem = (id) => {
+    // (***) functional approach: we can use anytime we want when using setState() > just remember that when use functional approach > need to have "return" keyword
+    setPeople((prevPeople) => {
+      let newPeople = prevPeople.filter((person) => person.id !== id)
+      return newPeople
+    })
   }
 
   return (
-    <>
-      <section style={{ margin: '0 4rem' }}>
-        <h2>more complex couter</h2>
-        <h1>{value}</h1>
-        <button className='btn' onClick={complexIncrease}>
-          Increase Later
-        </button>
-      </section>
-    </>
+    <React.Fragment>
+      {people.map((person) => {
+        const { id, name } = person
+
+        return (
+          <div key={id} className='item'>
+            <h4>{name}</h4>
+
+            {/* (***) */}
+            <button onClick={() => removeItem(id)}>remove</button>
+          </div>
+        )
+      })}
+      <button className='btn' onClick={() => setPeople([])}>
+        Clear Items
+      </button>
+    </React.Fragment>
   )
 }
 
-export default UseStateCounter
+export default UseStateArray
