@@ -1,8 +1,10 @@
 import React from 'react'
+import ErrorExample from './1-error-example'
+
 function App() {
   return (
     <div className='container'>
-      <h2>Advanced Hooks</h2>
+      <ErrorExample />
     </div>
   )
 }
