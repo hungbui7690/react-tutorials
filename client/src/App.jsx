@@ -1,10 +1,7 @@
 /*
-  App.js
-    (1) setup alert state
-    (2) pass props to Alert.js
+  Grocery Bud: Alert P2
 
-    (3) vào alert.js và setup
- */
+*/
 
 import React, { useState, useEffect } from 'react'
 import List from './List'
@@ -16,33 +13,33 @@ function App() {
   const [isEditing, setIsEditing] = useState(false)
   const [editID, setEditID] = useState(null)
 
-  // (1) with this setup, we can toggle the type of Alert between "danger" and "success"
+  // (1) change to default
   const [alert, setAlert] = useState({
-    show: true,
-    msg: 'hello world',
-    type: 'success',
+    show: false,
+    msg: '',
+    type: '',
   })
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    // (2) now we want to use alert when !name > we also want to hide the alert after some seconds
     if (!name) {
-      // [] display alert
+      setAlert({ show: true, msg: 'Please enter value', type: 'danger' })
     } else if (name && isEditing) {
       // [] deal with edit
     } else {
-      // [] show alert
-
       const newItem = { id: new Date().getTime().toString(), title: name }
       setList([...list, newItem])
       setName('')
+
+      // [] show alert
     }
   }
 
   return (
     <section className='section-center'>
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {/* (2) pass props to Alert.js */}
         {alert.show && <Alert {...alert} />}
         <h3>grocery bud</h3>
         <div className='form-control'>
