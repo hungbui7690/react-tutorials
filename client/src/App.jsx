@@ -1,13 +1,10 @@
 /*
-  Grocery Bud: Add Items P1
+  App.js
+    (1) setup alert state
+    (2) pass props to Alert.js
 
-  (1) handSubmit
-  (2) pass props to List.js
-  (3) go to List.js 
-
-  (***) list is only shown when having 1 or more items
-
-*/
+    (3) vào alert.js và setup
+ */
 
 import React, { useState, useEffect } from 'react'
 import List from './List'
@@ -18,22 +15,24 @@ function App() {
   const [list, setList] = useState([])
   const [isEditing, setIsEditing] = useState(false)
   const [editID, setEditID] = useState(null)
-  const [alert, setAlert] = useState({ show: false, msg: '', type: '' })
 
-  // (1)
+  // (1) with this setup, we can toggle the type of Alert between "danger" and "success"
+  const [alert, setAlert] = useState({
+    show: true,
+    msg: 'hello world',
+    type: 'success',
+  })
+
   const handleSubmit = (e) => {
-    // (a)
     e.preventDefault()
 
-    // (b)
     if (!name) {
-      // display alert
+      // [] display alert
     } else if (name && isEditing) {
-      // deal with edit
+      // [] deal with edit
     } else {
-      // (a) show alert
+      // [] show alert
 
-      // (b) create new item
       const newItem = { id: new Date().getTime().toString(), title: name }
       setList([...list, newItem])
       setName('')
@@ -43,7 +42,8 @@ function App() {
   return (
     <section className='section-center'>
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {alert.show && <Alert />}
+        {/* (2) pass props to Alert.js */}
+        {alert.show && <Alert {...alert} />}
         <h3>grocery bud</h3>
         <div className='form-control'>
           <input
@@ -59,7 +59,6 @@ function App() {
         </div>
       </form>
 
-      {/* (2) pass prop to List to display added items */}
       {list.length > 0 && (
         <div className='grocery-container'>
           <List items={list} />
