@@ -1,15 +1,21 @@
 import React from 'react'
 
-const Categories = ({ filterItems }) => {
+// (5a)
+const Categories = ({ filterItems, categories }) => {
   return (
     <div className='btn-container'>
-      {/* (3) we have to create button manually when there are some changes */}
-      <button className='filter-btn' onClick={() => filterItems('all')}>
-        all
-      </button>
-      <button className='filter-btn' onClick={() => filterItems('breakfast')}>
-        breakfast
-      </button>
+      {/* (5b) based on categories array >> we use map() to create button */}
+      {categories.map((category, index) => {
+        return (
+          <button
+            key={index}
+            className='filter-btn'
+            onClick={() => filterItems(category)}
+          >
+            {category}
+          </button>
+        )
+      })}
     </div>
   )
 }

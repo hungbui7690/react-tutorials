@@ -1,9 +1,5 @@
 /*
-  Menu:
-  - in the last lecture, we use manual approach to create buttons > but there are 2 issues with this method: 
-
-    + 1) there is no "all" button to list out all items
-    + 2) we cannot sync with our data > every time we have update in data, we need to add or update buttons
+  Menu: Buttons (Dynamic Approach)
 */
 
 import React, { useState } from 'react'
@@ -11,19 +7,22 @@ import Menu from './Menu'
 import Categories from './Categories'
 import items from './data'
 
+// (1) get all unique categories >> new Set returns object: {'breakfast', 'lunch', 'shakes'} > we have to use spread operator to convert it into array
+const allCategories = ['all', ...new Set(items.map((item) => item.category))]
+console.log(allCategories)
+
 function App() {
   const [menuItems, setMenuItems] = useState(items)
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState(allCategories) // (2) use here
 
-  // (1)
+  // (3)
   const filterItems = (category) => {
-    // (a) if button === "all" > use original data
     if (category === 'all') {
       setMenuItems(items)
       return
     }
 
-    // (b) if button !== "all", filter items
+    // (***) this must be items.filter(), not menuItems.filter() like the prev lessons (we don't use state, but use the original data)
     const newItems = items.filter((item) => item.category === category)
     setMenuItems(newItems)
   }
@@ -36,8 +35,8 @@ function App() {
           <div className='underline'></div>
         </div>
 
-        {/* (2) */}
-        <Categories filterItems={filterItems} />
+        {/* (4) */}
+        <Categories filterItems={filterItems} categories={categories} />
         <Menu items={menuItems} />
       </section>
     </main>
