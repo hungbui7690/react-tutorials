@@ -1,7 +1,9 @@
 /*
-  Grocery Bud: Remove Item P1
-  - after removed item, app still has bug 
+  Grocery Bud: Remove Item P2
   - bug: when we add item > alert will be shown in 3s > after 2s passes, we click on "Clear List" > Clear List Alert only runs in 1s
+  
+  (***) reason: we run useEffect() every time Alert component is rendered 
+    > to fix: change from [] to [list]
 
  */
 
@@ -45,16 +47,16 @@ function App() {
     showAlert(true, 'danger', 'empty list')
   }
 
-  // (1)
   const removeItem = (id) => {
-    setList(list.filter((item) => item.id !== id))
     showAlert(true, 'danger', 'item removed')
+    setList(list.filter((item) => item.id !== id))
   }
 
   return (
     <section className='section-center'>
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {alert.show && <Alert {...alert} showAlert={showAlert} />}
+        {/* (1) pass list to Alert */}
+        {alert.show && <Alert {...alert} showAlert={showAlert} list={list} />}
         <h3>grocery bud</h3>
         <div className='form-control'>
           <input
@@ -72,7 +74,6 @@ function App() {
 
       {list.length > 0 && (
         <div className='grocery-container'>
-          {/* (2) pass prop to List */}
           <List items={list} removeItem={removeItem} />
           <button className='clear-btn' onClick={clearList}>
             Clear Items
