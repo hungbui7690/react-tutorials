@@ -1,5 +1,5 @@
 /*
-  useRef: Navbar: Simple Toggle
+  useRef: Navbar: Class Toggle
 
   (1) Navbar.js
 */
