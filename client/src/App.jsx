@@ -1,16 +1,24 @@
 /*
-  Grocery Bud: Edit Item P2
-  > remember this lesson, we will use it a lot in react
+  Grocery Bud: Local Storage
+  - now we want to save the list in localStorage because we don't want to lose the item after refreshing our app
 
+  > we want to update the localStorage every time there are some changes in the list > use useEffect(, [list]) to achieve that 
  */
 
 import React, { useState, useEffect } from 'react'
 import List from './List'
 import Alert from './Alert'
 
+// (2) load from local storage
+const getLocalStorage = () => {
+  let list = localStorage.getItem('list')
+  if (list) return JSON.parse(list)
+  else return []
+}
+
 function App() {
   const [name, setName] = useState('')
-  const [list, setList] = useState([])
+  const [list, setList] = useState(getLocalStorage()) // (3) use here
   const [isEditing, setIsEditing] = useState(false)
   const [editID, setEditID] = useState(null)
 
@@ -26,7 +34,6 @@ function App() {
     if (!name) {
       showAlert(true, 'danger', 'please enter value')
     } else if (name && isEditing) {
-      // (***) (a) edit item
       setList(
         list.map((item) => {
           if (item.id === editID) {
@@ -35,15 +42,9 @@ function App() {
           return item
         })
       )
-
-      // (b)
       setName('')
-
-      // (c)
       setEditID(null)
       setIsEditing(false)
-
-      // (d)
       showAlert(true, 'success', 'value changed')
     } else {
       showAlert(true, 'success', 'item added to the list')
@@ -74,10 +75,15 @@ function App() {
     setName(specificItem.title)
   }
 
+  // (1) local storage
+  useEffect(() => {
+    localStorage.setItem('list', JSON.stringify(list)) // (***) we can only store string in local storage
+  }, [list]) // (***)
+
   return (
     <section className='section-center'>
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {alert.show && <Alert {...alert} showAlert={showAlert} list={list} />}
+        {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
         <h3>grocery bud</h3>
         <div className='form-control'>
           <input
