@@ -3,11 +3,9 @@ import { FaBars, FaTwitter } from 'react-icons/fa'
 import { links, social } from './data'
 import logo from './logo.svg'
 
-// (2) we will work with mobile first
 const Navbar = () => {
   return (
     <div className='nav-center'>
-      {/* (i) nav-header contains logo & hamburger icon */}
       <div className='nav-header'>
         <img src={logo} alt='logo' />
         <button className='nav-toggle'>
@@ -15,11 +13,42 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* (ii) */}
-      <div className='links-container show-container'></div>
+      {/* (1) we haven't learned React Router, so we use <a> > because of that, it will show warning > since in react, <a> is only used for external links > not for internal links  */}
+      <div className='links-container show-container'>
+        <ul className='links'>
+          <li>
+            <a href='#'>Home</a>
+          </li>
+          <li>
+            <a href='#'>About</a>
+          </li>
+          <li>
+            <a href='#'>Contact</a>
+          </li>
+          <li>
+            <a href='#'>Products</a>
+          </li>
+        </ul>
+      </div>
 
-      {/* (iii) social icons: only shown in big screen */}
-      <ul className='social-icons'></ul>
+      {/* (2) social icons: only shown in big screen */}
+      <ul className='social-icons'>
+        <li>
+          <a href='https://www.twitter.com'>
+            <FaTwitter />
+          </a>
+        </li>
+        <li>
+          <a href='https://www.twitter.com'>
+            <FaTwitter />
+          </a>
+        </li>
+        <li>
+          <a href='https://www.twitter.com'>
+            <FaTwitter />
+          </a>
+        </li>
+      </ul>
     </div>
   )
 }

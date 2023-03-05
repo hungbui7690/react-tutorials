@@ -1,13 +1,13 @@
 /*
-  useRef: Navbar: Structure P1
-  - pic
+  useRef: Navbar: Structure P2
+  
+  (2) Navbar.jsx
 */
 
 import React from 'react'
 import Navbar from './Navbar'
 
 function App() {
-  // (1) go to Navbar.jsx
   return (
     <>
       <Navbar />
