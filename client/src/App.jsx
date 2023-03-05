@@ -1,51 +1,58 @@
 /*
-  Lorem: Complete P2
-  - value from the input is always string > we need to convert to number
+  Colors Generator: Initial Setup
+  (***) npm i values.js
+
+  - utils.js 
+    > convert rgb to hex
+  
+  - To get the colors, we use external library: values.js
+
+  - Shades: darker colors
+  - Tints: Lighter colors
+
+////////////////////////////////////////////////////////
+
+  let colors = new Values(color).all(20) 
+    > get the shades và tints with weight=20
+
 */
 
 import React, { useState } from 'react'
-import data from './data'
+import SingleColor from './SingleColor'
+
+import Values from 'values.js'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [text, setText] = useState([])
+  // (1)
+  const [color, setColor] = useState('orange') // color names can be hex or "name" (i.e: purple, orange)
+  const [error, setError] = useState(false) // use when color code is not correct
+  const [list, setList] = useState([]) // array of colors when we give the correct color code
 
+  // (2)
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    // (1) get the number of paragraphs we want
-    let amount = parseInt(count)
-
-    if (count <= 0) amount = 1
-    if (count > 8) amount = 8
-
-    // (2) use slice() to get the data we want
-    setText(data.slice(0, amount))
+    // (***) test values.js > right now, if color code is wrong/empty > error
+    let colors = new Values(color).all(20)
+    console.log(colors) // test > correct hex (i.e. #222) > receive array of 20 colors
   }
 
+  // (3)
   return (
-    <section className='section-center'>
-      <h3>tired of boring lorem ipsum? </h3>
-      <form className='lorem-form' onSubmit={handleSubmit}>
-        <label htmlFor='amount'>Paragraphs: </label>
-        <input
-          type='number'
-          name='amount'
-          id='amount'
-          value={count}
-          onChange={(e) => setCount(e.target.value)}
-        />
-        <button type='submit' className='btn'>
-          Generate
-        </button>
-      </form>
-
-      <article className='lorem-text'>
-        {text.map((item, index) => {
-          return <p key={index}>{item}</p>
-        })}
-      </article>
-    </section>
+    <React.Fragment>
+      <section className='container'>
+        <h3>Color Generator</h3>
+        <form onSubmit={handleSubmit}>
+          <input type='text' placeholder='#f15025' />
+          <button type='submit' className='btn'>
+            Submit
+          </button>
+        </form>
+      </section>
+      <section className='colors'>
+        <h4>List goes here</h4>
+      </section>
+    </React.Fragment>
   )
 }
 
