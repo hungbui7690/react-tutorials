@@ -1,28 +1,25 @@
 /*
-  Form: Controlled Inputs P1
-  - in this lesson, we learn how to hook inputs to state values
-    > we must add 2 attributes into inputs: 
-      + value: ref the state value
-      + onChange: event listener will fire cb function each and every-time we type something in the input
+  Form: Controlled Inputs P2
+  - onChange={(e) => setFirstName(e.target.value)}
+    > now we can type 
+    > check F12, we will see the state changes
 
-
-  (***) if we add "value" att but without "onChange" > Warning > and we can NOT type 
-        > reason: because we set: const [firstName, setFirstName] = useState('') > inputs have value of '' and cannot be changed
+  (***) these inputs are not controlled by itself > but being controlled by the state > that's why we call them "Controlled Inputs"
 */
 
 import React, { useState } from 'react'
 
 const ControlledInputs = () => {
-  // (1)
-  const [firstName, setFirstName] = useState('abc')
+  const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('hello world')
+    // (2)
+    console.log(firstName, email)
   }
 
-  // (2) add value attribute
+  // (1)
   return (
     <article>
       <form className='form' onSubmit={handleSubmit}>
@@ -32,7 +29,8 @@ const ControlledInputs = () => {
             type='text'
             id='firstName'
             name='firstName'
-            value={firstName} // (a)
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)} // (a)
           />
         </div>
         <div className='form-control'>
@@ -41,7 +39,8 @@ const ControlledInputs = () => {
             type='text'
             id='email'
             name='email'
-            value={email} // (b)
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} // (b)
           />
         </div>
 
