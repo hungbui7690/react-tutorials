@@ -1,5 +1,6 @@
 /*
-  Lorem: Complete P1
+  Lorem: Complete P2
+  - value from the input is always string > we need to convert to number
 */
 
 import React, { useState } from 'react'
@@ -9,10 +10,17 @@ function App() {
   const [count, setCount] = useState(0)
   const [text, setText] = useState([])
 
-  // (1)
   const handleSubmit = (e) => {
     e.preventDefault()
-    setText(data) // use all data
+
+    // (1) get the number of paragraphs we want
+    let amount = parseInt(count)
+
+    if (count <= 0) amount = 1
+    if (count > 8) amount = 8
+
+    // (2) use slice() to get the data we want
+    setText(data.slice(0, amount))
   }
 
   return (
@@ -32,7 +40,6 @@ function App() {
         </button>
       </form>
 
-      {/* (2) */}
       <article className='lorem-text'>
         {text.map((item, index) => {
           return <p key={index}>{item}</p>
