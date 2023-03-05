@@ -42,8 +42,6 @@ function App() {
           </button>
         </form>
       </section>
-
-      {/* (1) pass hexColor prop to SingleColor */}
       <section className='colors'>
         {list.map((color, index) => {
           return (
