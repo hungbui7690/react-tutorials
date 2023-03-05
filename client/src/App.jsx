@@ -1,5 +1,5 @@
 /*
-  Tabs: Fetch Jobs
+  Tabs: Display First Job
 
 */
 
@@ -9,29 +9,22 @@ import { FaAngleDoubleRight } from 'react-icons/fa'
 const url = 'https://course-api.com/react-tabs-project'
 
 function App() {
-  // (1)
   const [loading, setLoading] = useState(true)
   const [jobs, setJobs] = useState([])
   const [index, setIndex] = useState(0)
 
-  // (2)
   const fetchJobs = async () => {
-    // (a)
     const response = await fetch(url)
     const newJobs = await response.json()
-    console.log(newJobs)
 
-    // (b) if code is at this point > no error > we should setLoading = false first
-    setLoading(false)
     setJobs(newJobs)
+    setLoading(false)
   }
 
-  // (3) use useFetch() to call the function to initial data + re-render
   useEffect(() => {
     fetchJobs()
   }, [])
 
-  // (4)
   if (loading) {
     return (
       <section className='section loading'>
@@ -40,7 +33,37 @@ function App() {
     )
   }
 
-  return <h2>tabs project setup</h2>
+  // (1) we need to destructure here (after useFetch()) > because at this line, the data is fetched > if we fetch above useEffect(), data is not fetched > error
+  const { company, dates, duties, title } = jobs[index]
+
+  // (2) use data to display
+  return (
+    <section className='section'>
+      <div className='title'>
+        <h2>experience</h2>
+        <div className='underline'></div>
+      </div>
+
+      <div className='jobs-center'>
+        {/* btn container */}
+        {/* job info */}
+
+        <article className='job-info'>
+          <h3>{title}</h3>
+          <h4>{company}</h4>
+          <p className='job-date'>{dates}</p>
+          {duties.map((duty, index) => {
+            return (
+              <div key={index} className='job-desc'>
+                <FaAngleDoubleRight className='job-icon' />
+                <p>{duty}</p>
+              </div>
+            )
+          })}
+        </article>
+      </div>
+    </section>
+  )
 }
 
 export default App
