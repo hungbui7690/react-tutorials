@@ -1,17 +1,10 @@
 /*
-  Sliders: Classes
-  (1) go to .css file and uncomment:
-      - overflow: hidden
-      - opacity: 0 
-      - some special classes at the end of the file > (a), (b), (c)
-    > activeSlide will be the one in the middle (first one ine the array) > nextSlide will be on the right, and lastSlide will be on the left (last one in the array)
-    > in general, the next slide will be the one on the right, and is being hidden (overflow:hidden + opacity:0)
-    > beside, the parent (section-center) must have height, otherwise it won't work (try to set the background for section & section-center)
+  Sliders: Prev & Next Buttons
+  - after add functionalities for prev & next button > everything is ok, but at the last item in the array, it won't work with the next button 
+    > it's the time to use useEffect() to fix 
 
-  (2) setup in App.js
-    > we must set the height for parent (section-center), otherwise, it work work > try to set background for section & section-center
-
-  (3) setup in App.js (return) > more stuffs
+  (***) why do we need to use useEffect()? 
+  - because we use setIndex() for functionalities > trigger re-render > useEffect will work
 
 */
 
@@ -22,7 +15,7 @@ import data from './data'
 
 function App() {
   const [people, setPeople] = useState(data)
-  const [index, setIndex] = useState(0) // (iv) change default index and test
+  const [index, setIndex] = useState(0)
 
   return (
     <section className='section'>
@@ -35,26 +28,17 @@ function App() {
         {people.map((person, personIndex) => {
           const { id, image, name, title, quote } = person
 
-          // (2) more stuff: check f12 > index is state, personIndex is in data.js
-          let position = 'nextSlide' // (i) default, most of the slides are nextSlide > there are just only 2 specials: lastSlide & activeSlide
+          let position = 'nextSlide'
           if (personIndex === index) {
-            position = 'activeSlide' // (ii) index = 0 and personIndex = 0 (first one in data.js) will be in the middle >> check activeSlide in css: (translateX(0))
+            position = 'activeSlide'
           }
           if (
             personIndex === index - 1 ||
             (index === 0 && personIndex === people.length - 1)
           ) {
             position = 'lastSlide'
-            /*
-                (iii) 
-                - lastSlide must be always the one before activeSlide
-                - the meaning of if condition: check if that item is the last item in the list or not (check data.js > susan is the last item) > now, there are 2 cases: [1] index !== 0 & [2] index === 0 > we must check for those 2 cases
-                - go to:   const [index, setIndex] = useState(0) and set default index to 0, 1, 2, 3 to test
-                - remove the condition after || in if condition & check
-              */
           }
 
-          // (3) add position class to <article> > className={position}
           return (
             <article key={id} className={position}>
               <img src={image} alt={name} className='person-img' />
@@ -65,10 +49,12 @@ function App() {
             </article>
           )
         })}
-        <button className='prev'>
+
+        {/* (***) */}
+        <button className='prev' onClick={() => setIndex(index - 1)}>
           <FiChevronLeft />
         </button>
-        <button className='next'>
+        <button className='next' onClick={() => setIndex(index + 1)}>
           <FiChevronRight />
         </button>
       </div>
