@@ -1,14 +1,21 @@
 /*
-  - to set height dynamically, we need to know getBoudingClientRect: https://youtu.be/v8YENdbDv1w
-    > this is from JS, not from React
+  - in css file, at media queries: 
+    .links-container {
+      height: auto !important;
+    }
 
-  (1) we need to change className like before > [className='links-container'] > without condition like last lesson 
+  - because in css, we cannot setup "current.style.height" > this is inline css > we must have !important to overwrite
+  _ if we comment that line > in small device we hide the link > when change to big screen, we won't see the links
 
-  To use useRef: 
-  (2) create 2 refs
-  (3) hook to div and ul 
-  (4) use useEffect() > run every time showLinks has changes
+/////////////////////////////////////////////////////////
 
+  Why don't we set the DIV as the one we use to adjust height, but use the UL? 
+    <div className='links-container' ref={linksContainerRef}>
+      <ul className='links' ref={linksRef}>
+      
+  - because in css, we set height link-container = 0 
+    > when we log height at (2) > when we click toggle button, it will set the height = 0 > so, we need to wrap ul insde div > so that div can get the height of ul
+  
 */
 
 import React, { useState, useRef, useEffect } from 'react'
@@ -18,14 +25,21 @@ import logo from './logo.svg'
 
 const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false)
-  // (2) crete 2 refs
   const linksContainerRef = useRef(null)
   const linksRef = useRef(null)
 
-  // (4) every time links has change > call callback function > we need to check the height of the links (linkRefs === ul) to decide the height of the container (div)
+  // (1) after finish this, we can add more links to test
   useEffect(() => {
-    const linksHeight = linksRef.current.getBoundingClientRect()
-    console.log(linksHeight) // (***) height of UL
+    const linksHeight = linksRef.current.getBoundingClientRect().height
+
+    // (2) get height of container
+    console.log(linksContainerRef.current.getBoundingClientRect()) // height = 0
+
+    if (showLinks) {
+      linksContainerRef.current.style.height = `${linksHeight}px`
+    } else {
+      linksContainerRef.current.style.height = '0px'
+    }
   }, [showLinks])
 
   return (
@@ -37,15 +51,8 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* (1) change className > remove conditional rendering */}
-      <div
-        className='links-container'
-        ref={linksContainerRef} // (3a) hook ref to component
-      >
-        <ul
-          className='links'
-          ref={linksRef} // (3b) hook
-        >
+      <div className='links-container' ref={linksContainerRef}>
+        <ul className='links' ref={linksRef}>
           {links.map((link) => {
             const { id, url, text } = link
             return (
