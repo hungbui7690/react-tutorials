@@ -1,6 +1,5 @@
 /*
-  Colors Generator: Logic P1
-  - we want to store the current alert element that is clicked into the clipboard state > check pictures: clipboard
+  Colors Generator: Logic P2
 
   (1) SingleColor.jsx
 
