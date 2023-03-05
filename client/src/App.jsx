@@ -1,12 +1,7 @@
 /*
-  Grocery Bud: Edit Item P1
-    App.js
-    (1) create function to handle edit
-    (2) pass to List.js
-  
-    List.js
-      (3) destructure
-      (4) onClick
+  Grocery Bud: Edit Item P2
+  > remember this lesson, we will use it a lot in react
+
  */
 
 import React, { useState, useEffect } from 'react'
@@ -31,7 +26,25 @@ function App() {
     if (!name) {
       showAlert(true, 'danger', 'please enter value')
     } else if (name && isEditing) {
-      // [] deal with edit
+      // (***) (a) edit item
+      setList(
+        list.map((item) => {
+          if (item.id === editID) {
+            return { ...item, title: name }
+          }
+          return item
+        })
+      )
+
+      // (b)
+      setName('')
+
+      // (c)
+      setEditID(null)
+      setIsEditing(false)
+
+      // (d)
+      showAlert(true, 'success', 'value changed')
     } else {
       showAlert(true, 'success', 'item added to the list')
       const newItem = { id: new Date().getTime().toString(), title: name }
@@ -54,7 +67,6 @@ function App() {
     setList(list.filter((item) => item.id !== id))
   }
 
-  // (1)
   const editItem = (id) => {
     const specificItem = list.find((item) => item.id === id)
     setIsEditing(true)
@@ -81,7 +93,6 @@ function App() {
         </div>
       </form>
 
-      {/* (2) pass function to List */}
       {list.length > 0 && (
         <div className='grocery-container'>
           <List items={list} removeItem={removeItem} editItem={editItem} />
