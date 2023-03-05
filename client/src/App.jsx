@@ -1,7 +1,10 @@
 /*
-    Sliders: Autoplay
-  - after add functionalities for prev & next button > everything is ok, but at the last item in the array, it won't work with the next button 
-    > it's the time to use useEffect() to fix 
+  Sliders: Alternative Method
+  - with this way, we don't have to use the first useEffect(), but we will setup directly in the buttons
+  
+  (1) create 2 functions
+  (2) use functional approach in setInterval()
+  (3) apply to buttons
 
 */
 
@@ -14,20 +17,37 @@ function App() {
   const [people, setPeople] = useState(data)
   const [index, setIndex] = useState(0)
 
-  useEffect(() => {
-    const lastIndex = people.length - 1
-    if (index < 0) setIndex(lastIndex)
-    if (index > lastIndex) setIndex(0)
-  }, [index, people])
+  // (1a) we can see the benefit of functional approach > we want to write more code in setState() > that's why we use functional approach
+  const nextSlide = () => {
+    setIndex((prevIndex) => {
+      let index = prevIndex + 1
+      if (index > people.length - 1) index = 0
 
-  // (***) setup clean up function
+      return index
+    })
+  }
+
+  // (1b)
+  const prevSlide = () => {
+    setIndex((prevIndex) => {
+      let index = prevIndex - 1
+      if (index < 0) index = people.length - 1
+
+      return index
+    })
+  }
+
+  // (2)
   useEffect(() => {
-    // (1) we must save the setInterval() into a variable
     let slider = setInterval(() => {
-      setIndex(index + 1)
+      setIndex((prevIndex) => {
+        let index = prevIndex + 1
+        if (index > people.length - 1) index = 0
+
+        return index
+      })
     }, 3000)
 
-    // (2) use clean up function to clear that interval
     return () => {
       clearInterval(slider)
     }
@@ -66,10 +86,11 @@ function App() {
           )
         })}
 
-        <button className='prev' onClick={() => setIndex(index - 1)}>
+        {/* (3) */}
+        <button className='prev' onClick={prevSlide}>
           <FiChevronLeft />
         </button>
-        <button className='next' onClick={() => setIndex(index + 1)}>
+        <button className='next' onClick={nextSlide}>
           <FiChevronRight />
         </button>
       </div>
