@@ -162,6 +162,8 @@ Slider
   text-align: center;
   position: relative;
   display: flex;
+
+  /* (a) */
   /* overflow: hidden; */
 }
 .person-img {
@@ -239,11 +241,15 @@ article {
   left: 0;
   width: 100%;
   height: 100%;
+
+  /* (b) */
   /* opacity: 0; */
   transition: var(--transition);
 }
-/* article.activeSlide {
-  opacity: 1;
+
+/* (c) */
+article.activeSlide {
+  /* opacity: 1; */
   transform: translateX(0);
 }
 article.lastSlide {
@@ -251,4 +257,4 @@ article.lastSlide {
 }
 article.nextSlide {
   transform: translateX(100%);
-} */
+}
