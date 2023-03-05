@@ -1,11 +1,15 @@
 /*
-  Colors Generator: Single Color P2
+  Colors Generator: Single Color P3
+  
+  (1) in previous lessons, we use setError(true) at catch block, but we forget the setError(false) at try block
+  (2) setup alert when we click on a box
+  (3) setup at <article> 
+      + navigator.clipboard.writeText(hexValue) > this is javascript
 
 */
 
 import React, { useState } from 'react'
 import SingleColor from './SingleColor'
-
 import Values from 'values.js'
 
 function App() {
@@ -17,8 +21,9 @@ function App() {
     e.preventDefault()
 
     try {
-      let colors = new Values(color).all(10)
+      let colors = new Values('lightpink').all(10)
       setList(colors)
+      setError(false) // (1)
     } catch (error) {
       console.log(error)
       setError(true)
