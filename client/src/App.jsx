@@ -1,10 +1,7 @@
 /*
-  Sliders: Prev & Next Buttons
+    Sliders: Autoplay
   - after add functionalities for prev & next button > everything is ok, but at the last item in the array, it won't work with the next button 
     > it's the time to use useEffect() to fix 
-
-  (***) why do we need to use useEffect()? 
-  - because we use setIndex() for functionalities > trigger re-render > useEffect will work
 
 */
 
@@ -16,6 +13,23 @@ import data from './data'
 function App() {
   const [people, setPeople] = useState(data)
   const [index, setIndex] = useState(0)
+
+  // (1) use useEffect to fix
+  useEffect(() => {
+    // (a)
+    const lastIndex = people.length - 1
+
+    // (b)
+    if (index < 0) setIndex(lastIndex) // (i) for prev case
+    if (index > lastIndex) setIndex(0) // (ii) for next
+  }, [index, people]) // (***)
+
+  // (2) autoplay > use setInterval() > this is the case which we need to use cleanup function > if we try to press next and prev continuously for sometimes or let the auto play runs for a while, we will see that everything works unexpectedly > reason: because 2 useEffect() run at the same time, because index change will trigger setInterval() to run > fix in next lesson
+  useEffect(() => {
+    setInterval(() => {
+      setIndex(index + 1)
+    }, 3000)
+  }, [index])
 
   return (
     <section className='section'>
@@ -50,7 +64,6 @@ function App() {
           )
         })}
 
-        {/* (***) */}
         <button className='prev' onClick={() => setIndex(index - 1)}>
           <FiChevronLeft />
         </button>
