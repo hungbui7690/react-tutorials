@@ -1,8 +1,12 @@
+/*
+  
+*/
+
 import React from 'react'
 import { FaEdit, FaTrash } from 'react-icons/fa'
 
-// (3a)
-const List = ({ items, removeItem }) => {
+// (3a) destructure
+const List = ({ items, removeItem, editItem }) => {
   return (
     <div className='grocery-list'>
       {items.map((item) => {
@@ -11,13 +15,18 @@ const List = ({ items, removeItem }) => {
           <article key={id} className='grocery-item'>
             <p className='title'>{title}</p>
             <div className='btn-container'>
-              <button type='button' className='edit-btn'>
+              {/* (3b) use here */}
+              <button
+                type='button'
+                className='edit-btn'
+                onClick={() => editItem(id)}
+              >
                 <FaEdit />
               </button>
               <button
-                onClick={() => removeItem(id)} // (3b)
                 type='button'
                 className='delete-btn'
+                onClick={() => removeItem(id)}
               >
                 <FaTrash />
               </button>

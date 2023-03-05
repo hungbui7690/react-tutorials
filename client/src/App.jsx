@@ -1,10 +1,12 @@
 /*
-  Grocery Bud: Remove Item P2
-  - bug: when we add item > alert will be shown in 3s > after 2s passes, we click on "Clear List" > Clear List Alert only runs in 1s
+  Grocery Bud: Edit Item P1
+    App.js
+    (1) create function to handle edit
+    (2) pass to List.js
   
-  (***) reason: we run useEffect() every time Alert component is rendered 
-    > to fix: change from [] to [list]
-
+    List.js
+      (3) destructure
+      (4) onClick
  */
 
 import React, { useState, useEffect } from 'react'
@@ -29,7 +31,7 @@ function App() {
     if (!name) {
       showAlert(true, 'danger', 'please enter value')
     } else if (name && isEditing) {
-      // deal with edit
+      // [] deal with edit
     } else {
       showAlert(true, 'success', 'item added to the list')
       const newItem = { id: new Date().getTime().toString(), title: name }
@@ -52,10 +54,17 @@ function App() {
     setList(list.filter((item) => item.id !== id))
   }
 
+  // (1)
+  const editItem = (id) => {
+    const specificItem = list.find((item) => item.id === id)
+    setIsEditing(true)
+    setEditID(id)
+    setName(specificItem.title)
+  }
+
   return (
     <section className='section-center'>
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {/* (1) pass list to Alert */}
         {alert.show && <Alert {...alert} showAlert={showAlert} list={list} />}
         <h3>grocery bud</h3>
         <div className='form-control'>
@@ -72,9 +81,10 @@ function App() {
         </div>
       </form>
 
+      {/* (2) pass function to List */}
       {list.length > 0 && (
         <div className='grocery-container'>
-          <List items={list} removeItem={removeItem} />
+          <List items={list} removeItem={removeItem} editItem={editItem} />
           <button className='clear-btn' onClick={clearList}>
             Clear Items
           </button>
