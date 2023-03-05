@@ -1,12 +1,12 @@
-import React from 'react'
-import Setup from './1-controlled-inputs'
+/*
+  Lorem: Initial Setup
+*/
+
+import React, { useState } from 'react'
+import data from './data'
 
 function App() {
-  return (
-    <div className='container'>
-      <Setup />
-    </div>
-  )
+  return <h2>lorem ipsum project setup</h2>
 }
 
 export default App
