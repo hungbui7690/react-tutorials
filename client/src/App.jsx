@@ -1,6 +1,5 @@
 /*
-  Accordion: Requirement
-  - pic: now, we can open multiple boxes at the same time > we just want to open only 1 box > similar to Colors Generator
+  Accordion: Logic P1
 
 */
 
@@ -10,13 +9,21 @@ import data from './data'
 
 function App() {
   const [questions, setQuestions] = useState(data)
+  const [prevElement, setPrevElement] = useState(null) // (1)
 
   return (
     <div className='container'>
       <h3>Questions and Answers about Login</h3>
       <section className='info'>
         {questions.map((question) => {
-          return <SingleQuestion key={question.id} {...question} />
+          return (
+            <SingleQuestion
+              key={question.id}
+              {...question}
+              prevElement={prevElement} // (2a)
+              setPrevElement={setPrevElement} // (2b)
+            />
+          )
         })}
       </section>
     </div>
