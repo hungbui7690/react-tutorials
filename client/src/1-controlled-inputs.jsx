@@ -1,25 +1,16 @@
 /*
   Form: Multiple Inputs P2
-  
-  (1) create state as object
-  (2) at the "value" att > instead of using firstName, we use person.firstName
-  (3) remove handleSubmit() (we will write this again, but in another way later) > onChange of inputs are changed to handleChange() > remove onSubmit at form, and use onClick at button
-
-  (***) when we use this method, "name" att of the inputs is so important > it must be exact to state
-  name='firstName' 
-  value={person.firstName}
+  - we use dynamic object properties in this method
+    
+  - in handleChange(), we care about these 2: 
+    + e.target.name (name attribute of input)
+    + e.target.value (value attribute of input)
 
 */
 
 import React, { useState } from 'react'
 
 const ControlledInputs = () => {
-  // (***) we don't use this anymore
-  const [firstName, setFirstName] = useState('')
-  const [age, setAge] = useState('')
-  const [email, setEmail] = useState('')
-
-  // (1) create new state as object
   const [person, setPerson] = useState({
     firstName: '',
     email: '',
@@ -27,15 +18,36 @@ const ControlledInputs = () => {
   })
   const [people, setPeople] = useState([])
 
-  // (3)
-  const handleChange = (e) => {}
+  // (1) (***)
+  const handleChange = (e) => {
+    // (a)
+    const name = e.target.name
+    const value = e.target.value
 
+    // (b) here we create new person > use dynamic object properties to add/update properties to person
+    setPerson({ ...person, [name]: value })
+    console.log(person)
+  }
+
+  // (3) submit
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    if (person.firstName && person.email && person.age) {
+      // (a) because we use setPerson() to create a new person at onChange > here we just need to add id into that person object
+      const newPerson = { ...person, id: new Date().getTime().toString() }
+      console.log(newPerson)
+
+      // (b) add newPerson to people array
+      setPeople([...people, newPerson])
+
+      // (c) set back to empty string
+      setPerson({ firstName: '', email: '', age: '' })
+    }
   }
 
   return (
-    <>
+    <React.Fragment>
       <article>
         <form className='form' onSubmit={handleSubmit}>
           <div className='form-control'>
@@ -43,9 +55,9 @@ const ControlledInputs = () => {
             <input
               type='text'
               id='firstName'
-              name='firstName' // (***) name must match exactly to the state
-              value={person.firstName} // (2a)
-              onChange={handleChange}
+              name='firstName'
+              value={person.firstName}
+              onChange={handleChange} // (2a) now, all the inputs use the same function to handle changes
             />
           </div>
           <div className='form-control'>
@@ -53,9 +65,9 @@ const ControlledInputs = () => {
             <input
               type='email'
               id='email'
-              name='email' // (***)
-              value={person.email} // (2b)
-              onChange={handleChange}
+              name='email'
+              value={person.email}
+              onChange={handleChange} // (2b)
             />
           </div>
           <div className='form-control'>
@@ -63,9 +75,9 @@ const ControlledInputs = () => {
             <input
               type='age'
               id='age'
-              name='age' // (***)
-              value={person.age} // (2c)
-              onChange={handleChange}
+              name='age'
+              value={person.age}
+              onChange={handleChange} // (2c)
             />
           </div>
 
@@ -74,16 +86,17 @@ const ControlledInputs = () => {
           </button>
         </form>
         {people.map((person, index) => {
-          const { id, firstName, email } = person
+          const { id, firstName, email, age } = person
           return (
             <div className='item' key={id}>
               <h4>{firstName}</h4>
+              <p>{age}</p>
               <p>{email}</p>
             </div>
           )
         })}
       </article>
-    </>
+    </React.Fragment>
   )
 }
 
