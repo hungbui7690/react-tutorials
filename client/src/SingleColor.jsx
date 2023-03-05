@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-// (3) destructure
 const SingleColor = ({
   rgb,
   weight,
@@ -10,16 +9,16 @@ const SingleColor = ({
   setClipboard,
 }) => {
   const [alert, setAlert] = useState(false)
-  const alertRef = useRef(null) // (4)
+  const alertRef = useRef(null)
 
   const bcg = rgb.join(',')
   const hexValue = `#${hexColor}`
 
-  // (6)
+  // (2)
   const handleClipboard = () => {
     setAlert(true)
-    navigator.clipboard.writeText(hexValue)
-    console.log(alertRef.current)
+    alertRef.current.classList.add('show') // (a) toggle class to display the hidden alert
+    setClipboard(alertRef.current) // (b) save the current element to clipboard
   }
 
   useEffect(() => {
@@ -36,15 +35,13 @@ const SingleColor = ({
     <article
       className={`color ${index > 10 && 'color-light'}`}
       style={{ backgroundColor: `rgb(${bcg})` }}
-      onClick={handleClipboard} // (7)
+      onClick={handleClipboard}
     >
       <p className='percent-value'>{weight}%</p>
       <p className='color-value'>{hexValue}</p>
 
-      <p
-        className={`${alert ? 'alert show' : 'alert'}`}
-        ref={alertRef} // (5)
-      >
+      {/* (1) the alert is always there, it is just hidden by default > and we can toggle on by adding "show" */}
+      <p className={`${alert ? 'alert show' : 'alert'}`} ref={alertRef}>
         copy to clipboard
       </p>
     </article>

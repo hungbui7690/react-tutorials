@@ -1,7 +1,8 @@
 /*
-  Colors Generator: Setup useRef & state
-  - we use hook useRef to target to the box we click > then turn on the alert for that one 
-    > the other ones we will clear the alert
+  Colors Generator: Logic P1
+  - we want to store the current alert element that is clicked into the clipboard state > check pictures: clipboard
+
+  (1) SingleColor.jsx
 
 */
 
@@ -13,7 +14,9 @@ function App() {
   const [color, setColor] = useState('')
   const [error, setError] = useState(false)
   const [list, setList] = useState([])
-  const [clipboard, setClipboard] = useState() // (1)
+  const [clipboard, setClipboard] = useState()
+
+  console.log(clipboard)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -53,8 +56,8 @@ function App() {
               {...color}
               index={index}
               hexColor={color.hex}
-              clipboard={clipboard} // (2a)
-              setClipboard={setClipboard} // (2b)
+              clipboard={clipboard}
+              setClipboard={setClipboard}
             />
           )
         })}
