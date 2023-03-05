@@ -1,38 +1,37 @@
 /*
-  Form: Multiple Inputs
-  - there are 2 inputs right now > but later, if we have 10 inputs or more > we don't want to have 10 states & 10 functions for each inputs 
+  Form: Multiple Inputs P2
+  
+  (1) create state as object
+  (2) at the "value" att > instead of using firstName, we use person.firstName
+  (3) remove handleSubmit() (we will write this again, but in another way later) > onChange of inputs are changed to handleChange() > remove onSubmit at form, and use onClick at button
 
-  (1) create another input for age
-  (2) create state for new input we just created
-
-  > in the next lesson, we will use only 1 state to control multiple inputs
+  (***) when we use this method, "name" att of the inputs is so important > it must be exact to state
+  name='firstName' 
+  value={person.firstName}
 
 */
 
 import React, { useState } from 'react'
 
 const ControlledInputs = () => {
+  // (***) we don't use this anymore
   const [firstName, setFirstName] = useState('')
+  const [age, setAge] = useState('')
   const [email, setEmail] = useState('')
+
+  // (1) create new state as object
+  const [person, setPerson] = useState({
+    firstName: '',
+    email: '',
+    age: '',
+  })
   const [people, setPeople] = useState([])
 
-  // (1)
-  const [age, setAge] = useState('')
+  // (3)
+  const handleChange = (e) => {}
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    if (firstName && email) {
-      const person = { id: new Date().getTime().toString(), firstName, email }
-      console.log(person)
-      setPeople((people) => {
-        return [...people, person]
-      })
-      setFirstName('')
-      setEmail('')
-    } else {
-      console.log('empty values')
-    }
   }
 
   return (
@@ -44,9 +43,9 @@ const ControlledInputs = () => {
             <input
               type='text'
               id='firstName'
-              name='firstName'
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              name='firstName' // (***) name must match exactly to the state
+              value={person.firstName} // (2a)
+              onChange={handleChange}
             />
           </div>
           <div className='form-control'>
@@ -54,27 +53,26 @@ const ControlledInputs = () => {
             <input
               type='email'
               id='email'
-              name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name='email' // (***)
+              value={person.email} // (2b)
+              onChange={handleChange}
             />
           </div>
-
-          {/* (2) add 1 more input  */}
           <div className='form-control'>
             <label htmlFor='age'>Age : </label>
             <input
               type='age'
               id='age'
-              name='age'
-              value={age} // (a)
-              onChange={(e) => setAge(e.target.value)} // (b)
+              name='age' // (***)
+              value={person.age} // (2c)
+              onChange={handleChange}
             />
           </div>
 
-          <button type='submit'>add person</button>
+          <button type='submit' onClick={handleSubmit}>
+            add person
+          </button>
         </form>
-
         {people.map((person, index) => {
           const { id, firstName, email } = person
           return (
