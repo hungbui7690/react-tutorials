@@ -1,11 +1,62 @@
-import React from 'react'
-import Setup from './1-useRef-basics'
+/*
+  Colors Generator: useRef Exercise
+  - when click on another box, we want "Copy to Clipboard" text on other boxes disappear right way 
+  - when we don't click on another box, hide the alert after 3s 
+
+*/
+
+import React, { useState } from 'react'
+import SingleColor from './SingleColor'
+import Values from 'values.js'
 
 function App() {
+  const [color, setColor] = useState('')
+  const [error, setError] = useState(false)
+  const [list, setList] = useState([])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    try {
+      let colors = new Values('lightpink').all(10)
+      setList(colors)
+      setError(false)
+    } catch (error) {
+      console.log(error)
+      setError(true)
+    }
+  }
+
   return (
-    <div className='container'>
-      <Setup />
-    </div>
+    <React.Fragment>
+      <section className='container'>
+        <h3>Color Generator</h3>
+        <form onSubmit={handleSubmit}>
+          <input
+            type='text'
+            placeholder='#f15025'
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+            className={`${error ? 'error' : null}`}
+          />
+          <button type='submit' className='btn'>
+            Submit
+          </button>
+        </form>
+      </section>
+      <section className='colors'>
+        {list.map((color, index) => {
+          return (
+            <SingleColor
+              key={index}
+              {...color}
+              index={index}
+              hexColor={color.hex}
+            />
+          )
+        })}
+      </section>
+    </React.Fragment>
   )
 }
 
