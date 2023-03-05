@@ -1,7 +1,7 @@
 /*
   Form: Add Items to List P1
 
-  (***) at the console.log(people) at line 28 > when add item for the first time, it won't log out > when add the 2nd item, it logs out first item... > log out the previous state
+  (***) use "new Date().getTime().toString()" as Id
 */
 
 import React, { useState } from 'react'
@@ -10,26 +10,21 @@ const ControlledInputs = () => {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
 
-  // (1) setup state
-  const [people, setPeople] = useState([]) // array
+  const [people, setPeople] = useState([])
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    // (2)
     if (firstName && email) {
-      // (a) create new person > {firstName: firstName, email: email} >> ES6
-      const person = { firstName, email }
+      // (1) to make to id more unique, we use getTime() as id
+      const person = { id: new Date().getTime().toString(), firstName, email }
 
-      // (b) add person to people array > we must have [... x, y] > otherwise, it will overwrite the whole array
       setPeople((prevPeople) => {
         return [...prevPeople, person]
       })
 
-      // (c) clean up fields
       setFirstName('')
       setEmail('')
-      console.log(people)
     } else {
       console.log('empty values')
     }
@@ -64,11 +59,11 @@ const ControlledInputs = () => {
         </button>
       </form>
 
-      {/* (3) now, we are using index as unique key, but in the real world, we should not use it > because later, when we remove or add new item, the index will be change > easy to create bugs */}
-      {people.map((person, index) => {
+      {/* (2) */}
+      {people.map((person) => {
         const { id, firstName, email } = person
         return (
-          <div key={index} className='item'>
+          <div key={id} className='item'>
             <h4>{firstName}</h4>
             <p>{email}</p>
           </div>
