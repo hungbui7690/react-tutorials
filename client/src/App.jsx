@@ -1,5 +1,5 @@
 /*
-  useRef: Navbar: Class Toggle
+  useRef: Navbar: useRef P1
 
   (1) Navbar.js
 */

@@ -1,11 +1,13 @@
 /*
-  - now we can toggle, but when click on the toggle button > missing transition > fix below
-  - after fix, we check css file, we will see: 
-    > .show-container {
-        height: 10rem;
-      }
-    > height is fixed > so that when we add more links, we cannot see > we can only see 4 links 
-    > learn in next lesson
+  - to set height dynamically, we need to know getBoudingClientRect: https://youtu.be/v8YENdbDv1w
+    > this is from JS, not from React
+
+  (1) we need to change className like before > [className='links-container'] > without condition like last lesson 
+
+  To use useRef: 
+  (2) create 2 refs
+  (3) hook to div and ul 
+  (4) use useEffect() > run every time showLinks has changes
 
 */
 
@@ -16,6 +18,15 @@ import logo from './logo.svg'
 
 const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false)
+  // (2) crete 2 refs
+  const linksContainerRef = useRef(null)
+  const linksRef = useRef(null)
+
+  // (4) every time links has change > call callback function > we need to check the height of the links (linkRefs === ul) to decide the height of the container (div)
+  useEffect(() => {
+    const linksHeight = linksRef.current.getBoundingClientRect()
+    console.log(linksHeight) // (***) height of UL
+  }, [showLinks])
 
   return (
     <div className='nav-center'>
@@ -26,13 +37,15 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* (***) use template string */}
+      {/* (1) change className > remove conditional rendering */}
       <div
-        className={`${
-          showLinks ? 'show-container links-container' : 'links-container'
-        }`}
+        className='links-container'
+        ref={linksContainerRef} // (3a) hook ref to component
       >
-        <ul className='links'>
+        <ul
+          className='links'
+          ref={linksRef} // (3b) hook
+        >
           {links.map((link) => {
             const { id, url, text } = link
             return (
