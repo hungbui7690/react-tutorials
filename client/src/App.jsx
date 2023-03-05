@@ -1,8 +1,9 @@
 /*
-  Menu: Buttons (Manual Approach)
-    (1) (2) > App.js
-    (3)     > Categories.js
+  Menu:
+  - in the last lecture, we use manual approach to create buttons > but there are 2 issues with this method: 
 
+    + 1) there is no "all" button to list out all items
+    + 2) we cannot sync with our data > every time we have update in data, we need to add or update buttons
 */
 
 import React, { useState } from 'react'
@@ -16,6 +17,13 @@ function App() {
 
   // (1)
   const filterItems = (category) => {
+    // (a) if button === "all" > use original data
+    if (category === 'all') {
+      setMenuItems(items)
+      return
+    }
+
+    // (b) if button !== "all", filter items
     const newItems = items.filter((item) => item.category === category)
     setMenuItems(newItems)
   }
@@ -28,9 +36,8 @@ function App() {
           <div className='underline'></div>
         </div>
 
-        {/* (2) pass function to Categories */}
+        {/* (2) */}
         <Categories filterItems={filterItems} />
-
         <Menu items={menuItems} />
       </section>
     </main>
