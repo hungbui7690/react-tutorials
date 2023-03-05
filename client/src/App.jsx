@@ -1,7 +1,12 @@
 /*
-  Grocery Bud: Alert P2
+  Grocery Bud: Alert P3
+  - since we use alert a lot > we set it as function for ease of use
+  - we also want to hide the alert after 3s 
+    > pass props to Alert 
 
-*/
+  (***) It's a bit confusing when we put the showAlert() in setTimeout() > normally, the function in setTimeout() will be executed after the time expires > but in this case, we run function already at (2), then we pass that function to Alert > and the duty of setTimeout() in this case is to run cleanup for us 
+    > useEffect() is in Alert > it will run when the component Alert is created ([] > empty dependency list) > when it runs, it trigger setTimeout(), then clean up after 3s
+ */
 
 import React, { useState, useEffect } from 'react'
 import List from './List'
@@ -13,19 +18,23 @@ function App() {
   const [isEditing, setIsEditing] = useState(false)
   const [editID, setEditID] = useState(null)
 
-  // (1) change to default
   const [alert, setAlert] = useState({
     show: false,
     msg: '',
     type: '',
   })
 
+  // (1)
+  const showAlert = (show = false, type = '', msg = '') => {
+    setAlert({ show, type, msg })
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    // (2) now we want to use alert when !name > we also want to hide the alert after some seconds
     if (!name) {
-      setAlert({ show: true, msg: 'Please enter value', type: 'danger' })
+      // (2) use here
+      showAlert(true, 'danger', 'please enter value')
     } else if (name && isEditing) {
       // [] deal with edit
     } else {
@@ -40,7 +49,8 @@ function App() {
   return (
     <section className='section-center'>
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {alert.show && <Alert {...alert} />}
+        {/* (3) pass prop to alert > because we want to hide alert after 3s*/}
+        {alert.show && <Alert {...alert} showAlert={showAlert} />}
         <h3>grocery bud</h3>
         <div className='form-control'>
           <input
