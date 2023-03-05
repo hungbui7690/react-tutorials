@@ -1,19 +1,26 @@
 import React, { useState, useRef } from 'react'
 
 const Question = ({ title, info, prevElement, setPrevElement }) => {
-  const infoRef = useRef(null) // (3a) hook this ref to <article>
+  const infoRef = useRef(null)
 
-  // (***) (4)
+  // (***)
   const handleAccordion = () => {
     const currentElement = infoRef.current
+
     currentElement.lastChild.classList.toggle('show')
     setPrevElement(currentElement)
 
     if (prevElement) {
+      const currentBtn = currentElement.firstChild.lastChild
+      const prevBtn = prevElement.firstChild.lastChild
+      console.log(currentBtn, prevBtn)
+      currentBtn.textContent = currentBtn.textContent === '-' ? '+' : '-'
+
       if (currentElement !== prevElement) {
         prevElement.lastChild.classList.remove('show')
-        return
-      } else {
+
+        // if the previous box is open > then change and close, otherwise, do nothing
+        if (prevBtn.textContent === '-') prevBtn.textContent = '+'
         return
       }
     } else {
@@ -22,7 +29,6 @@ const Question = ({ title, info, prevElement, setPrevElement }) => {
   }
 
   return (
-    // (3b)
     <article className='question' ref={infoRef} onClick={handleAccordion}>
       <header>
         <h4>{title}</h4>

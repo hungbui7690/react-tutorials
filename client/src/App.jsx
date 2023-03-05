@@ -1,5 +1,8 @@
 /*
-  Accordion: Logic P1
+   Accordion: Logic P2
+  - right now, if we click on the different, it still close the old one, but there are some problems: 
+    [1] we can not close the opening element when we click on it
+    [2] the (-) sign does not switch to (+) after closing
 
 */
 
@@ -9,7 +12,7 @@ import data from './data'
 
 function App() {
   const [questions, setQuestions] = useState(data)
-  const [prevElement, setPrevElement] = useState(null) // (1)
+  const [prevElement, setPrevElement] = useState(null)
 
   return (
     <div className='container'>
@@ -20,8 +23,8 @@ function App() {
             <SingleQuestion
               key={question.id}
               {...question}
-              prevElement={prevElement} // (2a)
-              setPrevElement={setPrevElement} // (2b)
+              prevElement={prevElement}
+              setPrevElement={setPrevElement}
             />
           )
         })}
