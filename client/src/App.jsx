@@ -1,9 +1,5 @@
 /*
-  Colors Generator: Single Color P1
-
-  (1) after colors are generated > setList()
-  (2) pass props into SingleColor.jsx
-  (3) go to SingleColor and setup
+  Colors Generator: Single Color P2
 
 */
 
@@ -22,9 +18,6 @@ function App() {
 
     try {
       let colors = new Values(color).all(10)
-      console.log(colors[0])
-
-      // (1)
       setList(colors)
     } catch (error) {
       console.log(error)
@@ -50,10 +43,17 @@ function App() {
         </form>
       </section>
 
-      {/* (2) setup return + pass props to SingleColor > we also pass the index (it has the usage later)  */}
+      {/* (1) pass hexColor prop to SingleColor */}
       <section className='colors'>
         {list.map((color, index) => {
-          return <SingleColor key={index} {...color} index={index} />
+          return (
+            <SingleColor
+              key={index}
+              {...color}
+              index={index}
+              hexColor={color.hex}
+            />
+          )
         })}
       </section>
     </React.Fragment>

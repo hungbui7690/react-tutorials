@@ -1,15 +1,26 @@
+/*
+  - there are 2 ways for us to create hex colors: 
+    + rgbToHex() from utils.js 
+    + color.hex from the data we get
+*/
+
 import React, { useState, useEffect } from 'react'
 import rgbToHex from './utils'
 
-// (3) destructure > if we check the colors that are returned from values.js > it has rgb & weight > we need both values to set background for each box
-const SingleColor = ({ rgb, weight, index }) => {
-  // (4)
-  const [alert, setAlert] = useState(false) // alert is for "copy to clipboard" feature
-  const bcg = rgb.join(',') // convert array into string
-  console.log(bcg)
+// (2) hexColor from App.js
+const SingleColor = ({ rgb, weight, index, hexColor }) => {
+  const [alert, setAlert] = useState(false)
+  const bcg = rgb.join(',')
+  const hex = rgbToHex(...rgb)
+  console.log(hex)
 
-  // (5)
-  return <h4>single color</h4>
+  // (3)
+  return (
+    <article className={`color`} style={{ backgroundColor: `rgb(${bcg})` }}>
+      <p className='percent-value'>{weight}%</p>
+      <p className='color-value'>{hex}</p>
+    </article>
+  )
 }
 
 export default SingleColor
