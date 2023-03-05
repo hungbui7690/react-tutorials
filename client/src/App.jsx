@@ -14,21 +14,23 @@ function App() {
   const [people, setPeople] = useState(data)
   const [index, setIndex] = useState(0)
 
-  // (1) use useEffect to fix
   useEffect(() => {
-    // (a)
     const lastIndex = people.length - 1
+    if (index < 0) setIndex(lastIndex)
+    if (index > lastIndex) setIndex(0)
+  }, [index, people])
 
-    // (b)
-    if (index < 0) setIndex(lastIndex) // (i) for prev case
-    if (index > lastIndex) setIndex(0) // (ii) for next
-  }, [index, people]) // (***)
-
-  // (2) autoplay > use setInterval() > this is the case which we need to use cleanup function > if we try to press next and prev continuously for sometimes or let the auto play runs for a while, we will see that everything works unexpectedly > reason: because 2 useEffect() run at the same time, because index change will trigger setInterval() to run > fix in next lesson
+  // (***) setup clean up function
   useEffect(() => {
-    setInterval(() => {
+    // (1) we must save the setInterval() into a variable
+    let slider = setInterval(() => {
       setIndex(index + 1)
     }, 3000)
+
+    // (2) use clean up function to clear that interval
+    return () => {
+      clearInterval(slider)
+    }
   }, [index])
 
   return (
