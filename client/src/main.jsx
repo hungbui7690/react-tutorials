@@ -1,7 +1,5 @@
 /*
-  Grocery Bud: Initial Setup
-  - pic
-  
+
 */
 
 import React from 'react'
