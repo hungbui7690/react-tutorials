@@ -1,10 +1,5 @@
 /*
-  Colors Generator: Single Color P3
-  
-  (1) in previous lessons, we use setError(true) at catch block, but we forget the setError(false) at try block
-  (2) setup alert when we click on a box
-  (3) setup at <article> 
-      + navigator.clipboard.writeText(hexValue) > this is javascript
+  Colors Generator: Copy to Clipboard P2
 
 */
 

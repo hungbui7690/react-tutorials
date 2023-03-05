@@ -213,4 +213,9 @@ input.error {
   text-transform: uppercase;
   font-size: 0.85rem;
   margin-top: 0.5rem;
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
 }

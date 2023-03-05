@@ -1,9 +1,27 @@
+/*
+  - now, it's ok, but when we we on multiple boxes, those boxes will show "copy to clipboard"
+    > we use useEffect() to hide after 3s
+      
+*/
+
 import React, { useState, useEffect } from 'react'
 
 const SingleColor = ({ rgb, weight, index, hexColor }) => {
   const [alert, setAlert] = useState(false)
   const bcg = rgb.join(',')
-  const hexValue = `#${hexColor}` // add #
+  const hexValue = `#${hexColor}`
+
+  // (***) use useEffect() to clear Alert
+  useEffect(() => {
+    // (***) only work when alert === true
+    if (alert === true) {
+      const timeout = setTimeout(() => {
+        setAlert(false)
+      }, 3000)
+
+      return () => clearTimeout(timeout)
+    }
+  }, [alert])
 
   return (
     <article
@@ -12,13 +30,13 @@ const SingleColor = ({ rgb, weight, index, hexColor }) => {
       onClick={() => {
         setAlert(true)
         navigator.clipboard.writeText(hexValue)
-      }} // (3)
+      }} // (***)
     >
       <p className='percent-value'>{weight}%</p>
       <p className='color-value'>{hexValue}</p>
 
-      {/* (2) */}
-      {alert && <p className='alert'> copy to clipboard</p>}
+      {/* (***) */}
+      <p className={`${alert ? 'alert show' : 'alert'}`}> copy to clipboard</p>
     </article>
   )
 }
