@@ -1,36 +1,18 @@
 /*
-  - JS
-    const input = document.getElementById('myText');
-    const inputValue = input.value
-  
-  - React: to get the value, it is different than JS > we need to hook up inputs to a state value 
-    > use "value", "onChange"
-
-////////////////////////////////////////////////////////
-
-
-  - htmlFor at label will link with id
-  - inputs need 2 things:
-    + id to link with label
-    + name 
-
-  - form: there are 2 ways to submit: 
-    + button > onClick 
-    + form > onSubmit
+  Form: Basics P2
 */
 
-import React from 'react'
+import React, { useState } from 'react'
 
 const ControlledInputs = () => {
-  // (1)
+  // (2)
   const handleSubmit = (e) => {
-    e.preventDefault() // (***) similar to JS, we must have this line > otherwise, page will be refreshed
+    e.preventDefault()
     console.log('hello world')
   }
 
   return (
     <article>
-      {/* (2) use onSubmit */}
       <form className='form' onSubmit={handleSubmit}>
         <div className='form-control'>
           <label htmlFor='firstName'>Name: </label>
@@ -40,7 +22,11 @@ const ControlledInputs = () => {
           <label htmlFor='email'>Email: </label>
           <input type='text' id='email' name='email' />
         </div>
-        <button type='submit'>Add Person</button>
+
+        {/* (1) use onClick on the button to handle submit */}
+        <button type='submit' onClick={handleSubmit}>
+          Add Person
+        </button>
       </form>
     </article>
   )
