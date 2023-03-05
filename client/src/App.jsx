@@ -1,10 +1,15 @@
 /*
-  Colors Generator: Values & Error
+  Colors Generator: Single Color P1
+
+  (1) after colors are generated > setList()
+  (2) pass props into SingleColor.jsx
+  (3) go to SingleColor and setup
 
 */
 
 import React, { useState } from 'react'
 import SingleColor from './SingleColor'
+
 import Values from 'values.js'
 
 function App() {
@@ -15,10 +20,12 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    // (1) put the try/catch to prevent app from crashing when the color code is not correct/empty
     try {
       let colors = new Values(color).all(10)
-      console.log(colors) // (***) actually, we have 21 items in this array > original color + 10 tins + 10 shades
+      console.log(colors[0])
+
+      // (1)
+      setList(colors)
     } catch (error) {
       console.log(error)
       setError(true)
@@ -35,15 +42,19 @@ function App() {
             placeholder='#f15025'
             value={color}
             onChange={(e) => setColor(e.target.value)}
-            className={`${error ? 'error' : null}`} // (2)
+            className={`${error ? 'error' : null}`}
           />
           <button type='submit' className='btn'>
             Submit
           </button>
         </form>
       </section>
+
+      {/* (2) setup return + pass props to SingleColor > we also pass the index (it has the usage later)  */}
       <section className='colors'>
-        <h4>List goes here</h4>
+        {list.map((color, index) => {
+          return <SingleColor key={index} {...color} index={index} />
+        })}
       </section>
     </React.Fragment>
   )
