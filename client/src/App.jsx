@@ -1,5 +1,8 @@
 /*
-  Grocery Bud: Clear Items
+  Grocery Bud: Remove Item P1
+  - after removed item, app still has bug 
+  - bug: when we add item > alert will be shown in 3s > after 2s passes, we click on "Clear List" > Clear List Alert only runs in 1s
+
  */
 
 import React, { useState, useEffect } from 'react'
@@ -24,15 +27,12 @@ function App() {
     if (!name) {
       showAlert(true, 'danger', 'please enter value')
     } else if (name && isEditing) {
-      // [] deal with edit
+      // deal with edit
     } else {
-      // (3a) create item and display
+      showAlert(true, 'success', 'item added to the list')
       const newItem = { id: new Date().getTime().toString(), title: name }
       setList([...list, newItem])
       setName('')
-
-      // (3b)
-      showAlert(true, 'success', 'item added to the list')
     }
   }
 
@@ -40,16 +40,21 @@ function App() {
     setAlert({ show, type, msg })
   }
 
-  // (1)
   const clearList = () => {
     setList([])
     showAlert(true, 'danger', 'empty list')
   }
 
+  // (1)
+  const removeItem = (id) => {
+    setList(list.filter((item) => item.id !== id))
+    showAlert(true, 'danger', 'item removed')
+  }
+
   return (
     <section className='section-center'>
       <form className='grocery-form' onSubmit={handleSubmit}>
-        {alert.show && <Alert {...alert} removeAlert={showAlert} />}
+        {alert.show && <Alert {...alert} showAlert={showAlert} />}
         <h3>grocery bud</h3>
         <div className='form-control'>
           <input
@@ -67,9 +72,8 @@ function App() {
 
       {list.length > 0 && (
         <div className='grocery-container'>
-          <List items={list} />
-
-          {/* (2) use here */}
+          {/* (2) pass prop to List */}
+          <List items={list} removeItem={removeItem} />
           <button className='clear-btn' onClick={clearList}>
             Clear Items
           </button>
