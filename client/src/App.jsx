@@ -1,5 +1,5 @@
 /*
-  Grocery Bud: Structure P1
+  Grocery Bud: Structure P2
 */
 
 import React, { useState, useEffect } from 'react'
@@ -7,24 +7,36 @@ import List from './List'
 import Alert from './Alert'
 
 function App() {
-  // (1)
   const [name, setName] = useState('')
   const [list, setList] = useState([])
   const [isEditing, setIsEditing] = useState(false)
   const [editID, setEditID] = useState(null)
-  const [alert, setAlert] = useState({ show: true, msg: '', type: '' }) // (***) we use object here since we want to display the message, and also we to to have multiple types of message
+  const [alert, setAlert] = useState({ show: false, msg: '', type: '' })
 
-  // (2)
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('hello')
   }
 
-  // (3)
   return (
     <section className='section-center'>
       <form className='grocery-form' onSubmit={handleSubmit}>
         {alert.show && <Alert />}
+
+        {/* (***) work here */}
+        <h3>grocery bud</h3>
+        <div className='form-control'>
+          <input
+            type='text'
+            className='grocery'
+            placeholder='e.g. eggs'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button type='submit' className='submit-btn'>
+            {isEditing ? 'edit' : 'submit'}
+          </button>
+        </div>
       </form>
 
       <div className='grocery-container'>
