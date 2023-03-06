@@ -1,7 +1,4 @@
 /*
-  (1) we can see that we don't set state directly like when we work with useState() > but we need to go to multiple steps 
-    > at handleSubmit(), we need to use dispatch() with type = TESTING 
-    > then in reducer(), we will catch it and handle
 
 */
 
@@ -10,19 +7,21 @@ import Modal from './Modal'
 import { data } from '../data'
 
 const reducer = (state, action) => {
-  // (1)
-  if (action.type === 'TESTING') {
-    console.log(state) // (2) when we click "Add" the first time, it show empty values > click the 2nd time, it will show the correct states that we set at "return" > if we click again, we can access to "LAST STATE VALUES"
+  // (2) take the item out, then add to the state
+  if (action.type === 'ADD_ITEM') {
+    // (a)
+    const newPeople = [...state.people, action.payload]
 
+    // (b)
     return {
       ...state,
-      people: data,
+      people: newPeople, // (c) add here
       isModalOpen: true,
       modalContent: 'item added',
-    } // destructure, and decide which value we want to change
+    }
   }
 
-  // throw new Error('No matching Action Type') // (4) throw ra error if the type is not correct
+  throw new Error('No matching Action Type')
 }
 
 const defaultState = {
@@ -38,10 +37,17 @@ const Index = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    // (1)
     if (name) {
-      dispatch({ type: 'TESTING' })
+      // (a) create item {}
+      const newItem = { id: new Date().getTime().toString(), name }
+
+      // (b) use dispatch to send to reducer() > "payload" === naming convention
+      dispatch({ type: 'ADD_ITEM', payload: newItem })
+
+      // (c)
+      setName('')
     } else {
-      // (3) sending the type that we did not handle in reducer()
       dispatch({ type: 'RANDOM' })
     }
   }
