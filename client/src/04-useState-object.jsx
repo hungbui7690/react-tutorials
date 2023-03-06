@@ -1,30 +1,38 @@
 /*
-  useState: Object P1
+  useState: Object P2
 
 */
 
 import { useState } from 'react'
 
 const UseStateObject = () => {
-  // (1) setup multiple states
-  const [name, setName] = useState('peter')
-  const [age, setAge] = useState(24)
-  const [hobby, setHobby] = useState('read books')
+  // (1)
+  const [person, setPerson] = useState({
+    name: 'peter',
+    age: 24,
+    hobby: 'read books',
+  })
 
-  // (2) update multiple states
+  // (3)
   const displayPerson = () => {
-    setName('john')
-    setAge(28)
-    setHobby('scream at the computer')
+    // (***) these 2 lines will overwrite the object
+    // setPerson({ name: 'john', age: 28, hobby: 'scream at the computer' })
+    // setPerson({ name: 'susan' })
+
+    // (***) copy object, then modify/add data
+    setPerson({ ...person, name: 'susan' })
   }
 
+  // (2) access states
   return (
     <>
-      <h3>{name}</h3>
-      <h3>{age}</h3>
-      <h4>Enjoys To: {hobby}</h4>
+      <h3>{person.name}</h3>
+      <h3>{person.age}</h3>
+      <h4>Enjoys To: {person.hobby}</h4>
+
+      {/* (4) */}
       <button className='btn' onClick={displayPerson}>
-        show john
+        show info
       </button>
     </>
   )
