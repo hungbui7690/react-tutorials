@@ -1,39 +1,37 @@
 /*
-  Form: User Challenge P3
-  - Remove User when click on Remove Button
+  Form: Multiple Inputs
 
+  (***) email must be correct to submit the form > pic: multiple-inputs
 */
 
 import { useState } from 'react'
-import { data } from './data'
 
-const UserChallenge = () => {
-  const [name, setName] = useState('')
-  const [users, setUsers] = useState(data)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    if (!name) return
-
-    const fakeID = new Date().getTime()
-    const newUser = { name, id: fakeID }
-
-    const updatedUsers = [...users, newUser]
-    setUsers(updatedUsers)
-    setName('')
-  }
+const MultipleInputs = () => {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
 
   // (***)
-  const removeUser = (id) => {
-    const updatedUsers = users.filter((u) => u.id !== Number(id))
-    setUsers(updatedUsers)
+  const handleChange = (e) => {
+    console.log(e.target.name)
+    console.log(e.target.value)
+
+    setUser({ ...user, [e.target.name]: e.target.value })
+  }
+
+  // (***) since the browser does not show the validation of the email > so, if the email is not valid > cannot submit
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(user)
   }
 
   return (
     <div>
       <form className='form' onSubmit={handleSubmit}>
-        <h4>Add User</h4>
+        <h4>Multiple Inputs</h4>
+        {/* name */}
         <div className='form-row'>
           <label htmlFor='name' className='form-label'>
             name
@@ -41,9 +39,38 @@ const UserChallenge = () => {
           <input
             type='text'
             className='form-input'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
             id='name'
+            name='name' // (***) must have "name attribute"
+            value={user.name}
+            onChange={handleChange}
+          />
+        </div>
+        {/* email */}
+        <div className='form-row'>
+          <label htmlFor='email' className='form-label'>
+            Email
+          </label>
+          <input
+            type='email'
+            className='form-input'
+            id='email'
+            name='email'
+            value={user.email}
+            onChange={handleChange}
+          />
+        </div>
+        {/* password */}
+        <div className='form-row'>
+          <label htmlFor='password' className='form-label'>
+            Password
+          </label>
+          <input
+            type='password'
+            className='form-input'
+            id='password'
+            name='password'
+            value={user.password}
+            onChange={handleChange}
           />
         </div>
 
@@ -51,23 +78,8 @@ const UserChallenge = () => {
           submit
         </button>
       </form>
-
-      {/* render users */}
-      <h2>users</h2>
-      {users.map((user) => {
-        return (
-          <div key={user.id} className='people-section'>
-            <h4>{user.name}</h4>
-
-            {/* (***) */}
-            <button className='btn' onClick={() => removeUser(user.id)}>
-              remove
-            </button>
-          </div>
-        )
-      })}
     </div>
   )
 }
 
-export default UserChallenge
+export default MultipleInputs
