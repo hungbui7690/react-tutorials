@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react'
 
-const Modal = () => {
-  return <div>i'm modal</div>
+// (3a) destructure
+const Modal = ({ modalContent }) => {
+  return (
+    <div className='modal'>
+      {/* (3b) */}
+      <p>{modalContent}</p>
+    </div>
+  )
 }
 
 export default Modal

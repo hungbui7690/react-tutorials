@@ -1,5 +1,5 @@
 /*
-  useReducer: Work with useReducer
+  useReducer: Refactor to useReducer P2
 
   (1) work in setup/index.jsx
 

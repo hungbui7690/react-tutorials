@@ -1,38 +1,32 @@
 /*
-  (1) remove state people and setModal
 
-  - when we call useState() > we receive 1 state + 1 function: 
-    > const [name, setName] = useState('') 
-      > sẽ get đc name (state) và setName() 
+  index.js
+  (1) setup default state display people array and model 
 
-  - when we call useReducer() > we also receive a state and a function: 
-    > state & dispatch()
+  index.js
+  (2) pass prop to Modal.js
+  
+  Modal.js
+  (3) destructure and display
 
-  (2) create reducer
-  (3) create default state
-  (4) useReducer(reducer, defaultState)
-  (5) use state.isModalOpen with conditional rendering 
-  (6) add state.people
+  > with reducer, when we want to update the state > we need to call dispatch(), and we just need to handle in one page > and that is reducer()
  */
 
 import React, { useState, useReducer } from 'react'
 import Modal from './Modal'
 import { data } from '../data'
 
-// (2)
 const reducer = (state, action) => {}
 
-// (3) initial state for useReducer > we will put all global states in this object > "name" is only used locally, so that we use useState()
 const defaultState = {
-  people: [],
-  isModalOpen: false,
-  modalContent: 'hello world',
+  people: data, // (1b) load local data
+  isModalOpen: true,
+  modalContent: 'hello world', // (1a)
 }
 
 const Index = () => {
-  // (1) remove people and Modal states from useState() > we will put it in defaultState object
   const [name, setName] = useState('')
-  const [state, dispatch] = useReducer(reducer, defaultState) // (4) use useReducer()
+  const [state, dispatch] = useReducer(reducer, defaultState)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -44,8 +38,8 @@ const Index = () => {
 
   return (
     <React.Fragment>
-      {/* (5) use state.isModalOpen */}
-      {state.isModalOpen && <Modal />}
+      {/* (2a) pass state to modal */}
+      {state.isModalOpen && <Modal modalContent={state.modalContent} />}
       <form onSubmit={handleSubmit} className='form'>
         <div>
           <input
@@ -57,7 +51,7 @@ const Index = () => {
         <button type='submit'>add</button>
       </form>
 
-      {/* (6) use state.people */}
+      {/* (2b) */}
       {state.people.map((person) => {
         return (
           <div key={person.id}>
