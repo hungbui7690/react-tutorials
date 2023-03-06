@@ -1,24 +1,30 @@
 /*
-  (1) set default state trở lại như cũ > original state
-  (2) dispatch() > send, must have "type" (convention of "value" of type is UPPERCASE)
-      > sau đó ở reducer() sẽ handle 
-  
-  (3) at reducer(), we MUST return some kind of state > otherwise, error
+  (1) we can see that we don't set state directly like when we work with useState() > but we need to go to multiple steps 
+    > at handleSubmit(), we need to use dispatch() with type = TESTING 
+    > then in reducer(), we will catch it and handle
 
- */
+*/
 
 import React, { useState, useReducer } from 'react'
 import Modal from './Modal'
 import { data } from '../data'
 
-// (3)
 const reducer = (state, action) => {
-  console.log(state, action) // {people: Array(0), isModalOpen: false, modalContent: ''} {type: 'TESTING'}
+  // (1)
+  if (action.type === 'TESTING') {
+    console.log(state) // (2) when we click "Add" the first time, it show empty values > click the 2nd time, it will show the correct states that we set at "return" > if we click again, we can access to "LAST STATE VALUES"
 
-  return state // (***) must "return" some states > otherwise, error
+    return {
+      ...state,
+      people: data,
+      isModalOpen: true,
+      modalContent: 'item added',
+    } // destructure, and decide which value we want to change
+  }
+
+  // throw new Error('No matching Action Type') // (4) throw ra error if the type is not correct
 }
 
-// (1) change back to default > [], false, ''
 const defaultState = {
   people: [],
   isModalOpen: false,
@@ -33,8 +39,10 @@ const Index = () => {
     e.preventDefault()
 
     if (name) {
-      dispatch({ type: 'TESTING' }) // (2) when we need to do something > call dispatch() and pass the type
+      dispatch({ type: 'TESTING' })
     } else {
+      // (3) sending the type that we did not handle in reducer()
+      dispatch({ type: 'RANDOM' })
     }
   }
 
