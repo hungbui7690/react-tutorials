@@ -1,5 +1,5 @@
 /*
-  useEffect: Multiple Effects
+  useEffect: Multiple Effects P1
   
   (***) just because we can do this, it does not mean we should do this
 */
@@ -10,13 +10,13 @@ const MultipleEffects = () => {
   const [value, setValue] = useState(0)
   const [secondValue, setSecondValue] = useState(0)
 
-  // (***) both useEffect() will run at initial renders (mounting phase) > then run again when the value in dependency list changes
   useEffect(() => {
+    console.log('********************')
     console.log('[1] hello from first useEffect')
-  }, [value])
+  }, [value, secondValue]) // (***) we can add multiple values in dep list
 
   useEffect(() => {
-    console.log('[2] hello from second useEffect')
+    console.log('> [2] hello from second useEffect')
   }, [secondValue])
 
   return (
