@@ -1,15 +1,22 @@
 /*
-  useEffect: Fundamentals P1
-  
-  - useEffect is a hook in React that allows you to perform side effects in function components. There is no need for urban dictionary - basically any work outside of the component. Some examples of side effects are: subscriptions, fetching data, directly updating the DOM, event listeners, timers, etc.
+  useEffect: Fundamentals P2
+  - [] : initial render
 
-    - useEffect hook
-    - accepts two arguments (second optional)
-    - first argument - cb function
-    - second argument - dependency array
-    - by default runs on each render (initial and re-render)
-    - cb can't return promise (so can't make it async)
-    - if dependency array empty [] runs only on initial render
+
+  (***) don't return promise from useEffect() > don't do this: add async in callback of useEffect() 
+    useEffect(async () => {
+      await ...
+    }, []) 
+
+  
+  (***) it's ok to do this: don't have async in callback of useEffect() 
+    useEffect(() => {
+      const someFunc = async () => {
+        await fetch()...
+      }
+      someFunc()
+    }, [])   
+
 */
 
 import { useState, useEffect } from 'react'
@@ -22,10 +29,9 @@ const UseEffectBasics = () => {
   }
   sayHello()
 
-  // (***) this will run in every render > default behavior
   useEffect(() => {
     console.log('hello from useEffect')
-  })
+  }, []) // (***) just run on initial render > only run once
 
   return (
     <div>
