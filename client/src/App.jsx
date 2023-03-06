@@ -1,4 +1,4 @@
-import Setup from './05-useState-gotcha'
+import Setup from './01-useEffect'
 
 function App() {
   return (
