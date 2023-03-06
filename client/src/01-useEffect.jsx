@@ -1,6 +1,16 @@
 /*
-  useEffect: Cleanup Function P3
-  - this is an example with cleanup function when we work with timer
+  useEffect: Cleanup Function P4
+  - this is an example with cleanup function when we work with event listener
+
+  
+  (***) You Might Not Need an Effect: https://beta.reactjs.org/learn/you-might-not-need-an-effect      
+    - will still utilize useEffect
+    - there is still plenty of code using useEffect
+
+    If we want to reduce of useEffect(): 
+    - fetching data > replaced by libraries - react query, rtk query, swr or next.js
+    
+
 */
 
 import { useEffect, useState } from 'react'
@@ -21,15 +31,14 @@ const CleanupFunction = () => {
 }
 const RandomComponent = () => {
   useEffect(() => {
-    const intID = setInterval(() => {
-      console.log('hello from interval')
-    }, 1000)
-
-    // (***) we setup this since we want to clear the interval above after we hide the element > after we clear, the interval is not running anymore
-    return () => {
-      clearInterval(intID)
-      console.log('*** Cleanup')
+    const someFunc = () => {
+      // some logic here
     }
+
+    window.addEventListener('scroll', someFunc)
+
+    // (***) without this line > when we check EventListeners (Elements tab) > there is many Events there > pic: cleanup-event: refresh
+    // return () => window.removeEventListener('scroll', someFunc)
   }, [])
 
   return <h1>hello there</h1>
