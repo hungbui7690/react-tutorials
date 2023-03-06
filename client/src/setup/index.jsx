@@ -1,27 +1,28 @@
 /*
-
-  index.js
-  (1) setup default state display people array and model 
-
-  index.js
-  (2) pass prop to Modal.js
+  (1) set default state trở lại như cũ > original state
+  (2) dispatch() > send, must have "type" (convention of "value" of type is UPPERCASE)
+      > sau đó ở reducer() sẽ handle 
   
-  Modal.js
-  (3) destructure and display
+  (3) at reducer(), we MUST return some kind of state > otherwise, error
 
-  > with reducer, when we want to update the state > we need to call dispatch(), and we just need to handle in one page > and that is reducer()
  */
 
 import React, { useState, useReducer } from 'react'
 import Modal from './Modal'
 import { data } from '../data'
 
-const reducer = (state, action) => {}
+// (3)
+const reducer = (state, action) => {
+  console.log(state, action) // {people: Array(0), isModalOpen: false, modalContent: ''} {type: 'TESTING'}
 
+  return state // (***) must "return" some states > otherwise, error
+}
+
+// (1) change back to default > [], false, ''
 const defaultState = {
-  people: data, // (1b) load local data
-  isModalOpen: true,
-  modalContent: 'hello world', // (1a)
+  people: [],
+  isModalOpen: false,
+  modalContent: '',
 }
 
 const Index = () => {
@@ -32,13 +33,13 @@ const Index = () => {
     e.preventDefault()
 
     if (name) {
+      dispatch({ type: 'TESTING' }) // (2) when we need to do something > call dispatch() and pass the type
     } else {
     }
   }
 
   return (
     <React.Fragment>
-      {/* (2a) pass state to modal */}
       {state.isModalOpen && <Modal modalContent={state.modalContent} />}
       <form onSubmit={handleSubmit} className='form'>
         <div>
@@ -51,7 +52,6 @@ const Index = () => {
         <button type='submit'>add</button>
       </form>
 
-      {/* (2b) */}
       {state.people.map((person) => {
         return (
           <div key={person.id}>
