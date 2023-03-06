@@ -1,39 +1,29 @@
 /*
-  Conditional Rendering + Ternary Operator
+  useEffect: Cleanup Function P1
 */
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const UserChallenge = () => {
-  const [user, setUser] = useState() // (***) change this value to test
+const CleanupFunction = () => {
+  const [toggle, setToggle] = useState(false)
 
-  const login = () => {
-    // normally connect to db or api
-    setUser({ name: 'vegan food truck' })
-  }
-  const logout = () => {
-    setUser(null)
-  }
-
+  // (***) setToggle() > mount and unmount > during mounting phase, useEffect() will be called
   return (
     <div>
-      {user ? (
-        <div>
-          <h4>hello there, {user.name}</h4>
-          <button className='btn' onClick={logout}>
-            logout
-          </button>
-        </div>
-      ) : (
-        <div>
-          <h4>Please Login</h4>
-          <button className='btn' onClick={login}>
-            login
-          </button>
-        </div>
-      )}
+      <button className='btn' onClick={() => setToggle(!toggle)}>
+        toggle component
+      </button>
+      {toggle && <RandomComponent />}
     </div>
   )
 }
+const RandomComponent = () => {
+  // (***) though we set useEffect() to run once at initial render > it still runs many times as we click the button
+  useEffect(() => {
+    console.log('hmm, this is interesting')
+  }, [])
 
-export default UserChallenge
+  return <h1>hello there</h1>
+}
+
+export default CleanupFunction
