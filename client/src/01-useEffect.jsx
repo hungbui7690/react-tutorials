@@ -1,29 +1,32 @@
 /*
-  useEffect: Multiple Returns P1: Conditional Rendering
-  - check TUTORIAL.md > we have multiple returns in JS 
-  - we also have multiple returns in React as well
+  useEffect: Multiple Returns P2: Fetch Data P1
   
 */
 
 import { useEffect, useState } from 'react'
+const url = 'https://api.github.com/users/QuincyLarson' // (***)
 
-const MultipleReturnsBasics = () => {
-  // use while fetching data
-  // convention === boolean values === "isSomething"
-  const [isLoading, setIsLoading] = useState(true)
+const MultipleReturnsFetchData = () => {
+  // (1)
+  const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false) // (***) done fetching data
-    }, 3000)
-  }, [])
-
-  // (***)
-  if (isLoading) {
-    return <h2>Loading...</h2>
+  // (2)
+  const fetchUser = async () => {
+    try {
+      const resp = await fetch(url)
+      const user = await resp.json()
+      console.log(user)
+    } catch (error) {
+      // fetch only cares about network errors
+      console.log(error)
+    }
   }
 
-  // (***)
-  return <h2>My App</h2>
+  useEffect(() => {
+    // (3)
+    fetchUser()
+  }, [])
+
+  return <h2>Fetch Example</h2>
 }
-export default MultipleReturnsBasics
+export default MultipleReturnsFetchData
