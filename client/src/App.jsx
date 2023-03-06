@@ -1,4 +1,4 @@
-import Setup from './01-leverage-js'
+import Setup from './01-controlled-inputs'
 
 function App() {
   return (
