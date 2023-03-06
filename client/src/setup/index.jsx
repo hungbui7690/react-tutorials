@@ -1,44 +1,14 @@
 /*
-  - after this lecture, every functionalities work fine, but there is still one problem:
-    > index.jsx file becomes busy > we need to refactor it to multiple files 
+  (1) create setup/reducer.js >
+  (2) import reducer in index.js
 */
 
 import React, { useState, useReducer } from 'react'
 import Modal from './Modal'
+import { data } from '../data'
 
-const reducer = (state, action) => {
-  if (action.type === 'ADD_ITEM') {
-    const newPeople = [...state.people, action.payload]
-    return {
-      ...state,
-      people: newPeople,
-      isModalOpen: true,
-      modalContent: 'item added',
-    }
-  }
-
-  if (action.type === 'NO_VALUE') {
-    return {
-      ...state,
-      isModalOpen: true,
-      modalContent: 'Please enter value',
-    }
-  }
-
-  if (action.type === 'CLOSE_MODAL') {
-    return { ...state, isModalOpen: false, modalContent: '' }
-  }
-
-  // (2)
-  if (action.type === 'REMOVE_ITEM') {
-    const newPeople = state.people.filter(
-      (person) => person.id !== action.payload
-    )
-    return { ...state, people: newPeople }
-  }
-
-  throw new Error('No matching Action Type')
-}
+// (2a)
+import reducer from './reducer'
 
 const defaultState = {
   people: [],
@@ -48,7 +18,7 @@ const defaultState = {
 
 const Index = () => {
   const [name, setName] = useState('')
-  const [state, dispatch] = useReducer(reducer, defaultState)
+  const [state, dispatch] = useReducer(reducer, defaultState) // (2b)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -87,7 +57,6 @@ const Index = () => {
           <div key={person.id} className='item'>
             <h4>{person.name}</h4>
 
-            {/* (1) create remove button > call dispatch() and pass the id in payload */}
             <button
               onClick={() =>
                 dispatch({ type: 'REMOVE_ITEM', payload: person.id })
