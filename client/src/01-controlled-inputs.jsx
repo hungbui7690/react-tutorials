@@ -1,29 +1,33 @@
 /*
-  Form: User Challenge P1
+  Form: User Challenge P2
+  - Add User when Submit
 
-  - setup controlled input (name input)
-  - setup onSubmit (for now just placeholder)
-  - import data array (first array) from data
-  - create another state value (data as default)
-  - iterate over and display right after form (h4)
-  - when user submits the form add new person to the list
-
-  - Extra Challenge
-    - add button and setup functionality to remove user
-    
 */
 
 import { useState } from 'react'
-import { data } from './data' // (***)
+import { data } from './data'
 
 const UserChallenge = () => {
-  // (1)
   const [name, setName] = useState('')
   const [users, setUsers] = useState(data)
 
+  // (***)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!name) return
+
+    const fakeID = new Date().getTime()
+    const newUser = { name, id: fakeID }
+
+    const updatedUsers = [...users, newUser] // (***) this line is important
+    setUsers(updatedUsers)
+    setName('')
+  }
+
   return (
     <div>
-      <form className='form'>
+      <form className='form' onSubmit={handleSubmit}>
         <h4>Add User</h4>
         <div className='form-row'>
           <label htmlFor='name' className='form-label'>
@@ -32,8 +36,8 @@ const UserChallenge = () => {
           <input
             type='text'
             className='form-input'
-            value={name} // (2a)
-            onChange={(e) => setName(e.target.value)} // (2b)
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             id='name'
           />
         </div>
