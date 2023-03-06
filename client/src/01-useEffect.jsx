@@ -1,10 +1,10 @@
 /*
-  useEffect: Fetch Errors "Gotcha" P2
-  - we can check for 404 error manually when working with fetch()
+  useEffect: Order Matters
+  > check TUTORIAL.md for more info
 */
 
 import { useEffect, useState } from 'react'
-const url = 'https://api.github.com/users/QuincyLarsonx'
+const url = 'https://api.github.com/users/QuincyLarson'
 
 const MultipleReturnsFetchData = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -14,13 +14,6 @@ const MultipleReturnsFetchData = () => {
   const fetchUser = async () => {
     try {
       const resp = await fetch(url)
-
-      // (***)
-      if (!resp.ok) {
-        setIsError(true)
-        setIsLoading(false)
-      }
-
       const user = await resp.json()
       setUser(user)
     } catch (error) {
@@ -33,6 +26,9 @@ const MultipleReturnsFetchData = () => {
   useEffect(() => {
     fetchUser()
   }, [])
+
+  // (***) ok > but if we move this line b4 useEffect() > error
+  const { avatar_url, name, company, bio } = user
 
   if (isLoading) {
     return <h2>Loading...</h2>
@@ -55,4 +51,5 @@ const MultipleReturnsFetchData = () => {
     </div>
   )
 }
+
 export default MultipleReturnsFetchData
