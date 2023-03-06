@@ -1,12 +1,6 @@
 /*
-  useEffect: Fetch Errors "Gotcha"
-
-  - Unlike for example Axios, by default, the fetch() API does not consider HTTP status codes in the 4xx or 5xx range to be errors. Instead, it considers these status codes to be indicative of a successful request
-
-
-  > https://[x]api.github.com/users/QuincyLarson > this will create error
-
-  > https://api.github.com/users/QuincyLarson[x] > this is a successful request though URL is not correct > reason: because fetch() does not consider 404 as error
+  useEffect: Fetch Errors "Gotcha" P2
+  - we can check for 404 error manually when working with fetch()
 */
 
 import { useEffect, useState } from 'react'
@@ -20,6 +14,13 @@ const MultipleReturnsFetchData = () => {
   const fetchUser = async () => {
     try {
       const resp = await fetch(url)
+
+      // (***)
+      if (!resp.ok) {
+        setIsError(true)
+        setIsLoading(false)
+      }
+
       const user = await resp.json()
       setUser(user)
     } catch (error) {
