@@ -1,79 +1,33 @@
 /*
-  Form: Multiple Inputs
-
-  (***) email must be correct to submit the form > pic: multiple-inputs
+  Form: Checkout Inputs
+  - input: e.target.value
+  - checkbox: e.target.checked
 */
 
 import { useState } from 'react'
 
-const MultipleInputs = () => {
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-  })
+const OtherInputs = () => {
+  const [shipping, setShipping] = useState(false)
 
-  // (***)
-  const handleChange = (e) => {
-    console.log(e.target.name)
-    console.log(e.target.value)
-
-    setUser({ ...user, [e.target.name]: e.target.value })
-  }
-
-  // (***) since the browser does not show the validation of the email > so, if the email is not valid > cannot submit
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(user)
+  const handleShipping = (e) => {
+    console.log(e.target.checked)
+    setShipping(e.target.checked)
   }
 
   return (
     <div>
-      <form className='form' onSubmit={handleSubmit}>
-        <h4>Multiple Inputs</h4>
-        {/* name */}
-        <div className='form-row'>
-          <label htmlFor='name' className='form-label'>
-            name
-          </label>
+      <form className='form'>
+        <h4>Other Inputs</h4>
+        <div className='form-row' style={{ textAlign: 'left' }}>
           <input
-            type='text'
-            className='form-input'
-            id='name'
-            name='name' // (***) must have "name attribute"
-            value={user.name}
-            onChange={handleChange}
+            type='checkbox'
+            checked={shipping} // (***) checkout: e.target.checked
+            id='shipping'
+            name='shipping'
+            onChange={handleShipping} // (***)
           />
+          <label htmlFor='shipping'> Free Shipping </label>
         </div>
-        {/* email */}
-        <div className='form-row'>
-          <label htmlFor='email' className='form-label'>
-            Email
-          </label>
-          <input
-            type='email'
-            className='form-input'
-            id='email'
-            name='email'
-            value={user.email}
-            onChange={handleChange}
-          />
-        </div>
-        {/* password */}
-        <div className='form-row'>
-          <label htmlFor='password' className='form-label'>
-            Password
-          </label>
-          <input
-            type='password'
-            className='form-input'
-            id='password'
-            name='password'
-            value={user.password}
-            onChange={handleChange}
-          />
-        </div>
-
         <button type='submit' className='btn btn-block'>
           submit
         </button>
@@ -81,5 +35,4 @@ const MultipleInputs = () => {
     </div>
   )
 }
-
-export default MultipleInputs
+export default OtherInputs
