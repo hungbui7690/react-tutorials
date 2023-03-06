@@ -1,23 +1,39 @@
 /*
-  useEffect: React Hooks Rules P2
+  Conditional Rendering + Ternary Operator
 */
 
-import { useEffect, useState } from 'react'
-const url = 'https://api.github.com/users/QuincyLarson'
+import { useState } from 'react'
 
-const MultipleReturnsFetchData = () => {
-  const [condition, setCondition] = useState(false)
+const UserChallenge = () => {
+  const [user, setUser] = useState() // (***) change this value to test
 
-  if (condition) {
-    return <h3>Example</h3>
+  const login = () => {
+    // normally connect to db or api
+    setUser({ name: 'vegan food truck' })
+  }
+  const logout = () => {
+    setUser(null)
   }
 
-  // (***) this will create a bunch of warnings and errors as well in create-react-app > don't place useEffect() after "return JSX" > reason: because this will make useEffect() runs conditionally > if condition is true : return > else : run useEffect()
-  useEffect(() => {
-    console.log('Hello')
-  }, [])
-
-  return <h2>React Hooks Rules</h2>
+  return (
+    <div>
+      {user ? (
+        <div>
+          <h4>hello there, {user.name}</h4>
+          <button className='btn' onClick={logout}>
+            logout
+          </button>
+        </div>
+      ) : (
+        <div>
+          <h4>Please Login</h4>
+          <button className='btn' onClick={login}>
+            login
+          </button>
+        </div>
+      )}
+    </div>
+  )
 }
 
-export default MultipleReturnsFetchData
+export default UserChallenge
