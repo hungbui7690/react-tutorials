@@ -1,41 +1,27 @@
 /*
-  useState: Object P2
-
+  useState: Set Function "Gotcha" 
+  - though we have the correct value on browser > when we log it out, we still get the old value
+    > later, we will learn how to get the previous value 
 */
 
 import { useState } from 'react'
 
-const UseStateObject = () => {
-  // (1)
-  const [person, setPerson] = useState({
-    name: 'peter',
-    age: 24,
-    hobby: 'read books',
-  })
+const UseStateGotcha = () => {
+  const [value, setValue] = useState(0)
 
-  // (3)
-  const displayPerson = () => {
-    // (***) these 2 lines will overwrite the object
-    // setPerson({ name: 'john', age: 28, hobby: 'scream at the computer' })
-    // setPerson({ name: 'susan' })
+  const handleClick = () => {
+    setValue(value + 1)
 
-    // (***) copy object, then modify/add data
-    setPerson({ ...person, name: 'susan' })
+    console.log(value) // (***) return previous value > //  so if you have any functionality that relies on the latest value > it will be wrong !!!
   }
-
-  // (2) access states
   return (
-    <>
-      <h3>{person.name}</h3>
-      <h3>{person.age}</h3>
-      <h4>Enjoys To: {person.hobby}</h4>
-
-      {/* (4) */}
-      <button className='btn' onClick={displayPerson}>
-        show info
+    <div>
+      <h1>{value}</h1>
+      <button className='btn' onClick={handleClick}>
+        increase
       </button>
-    </>
+    </div>
   )
 }
 
-export default UseStateObject
+export default UseStateGotcha
