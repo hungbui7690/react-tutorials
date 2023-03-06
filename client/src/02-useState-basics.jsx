@@ -1,28 +1,27 @@
 /*
-  useState: Basics P1
-
-  - useState hook
-  - returns an array with two elements: the current state value, and a function that we can use to update the state
-  - accepts default value as an argument
+  useState: Basics P2
   - state update triggers re-render
-  
+
+  (***) be careful, we can set any value
+    > setCount('pants');
+
 */
 
 import { useState } from 'react'
 
 const UseStateBasics = () => {
-  // (***) we can use useState() with anything: string, number, boolean, array, object
-  // console.log(useState());
-  // console.log(useState('hello'));
+  const [count, setCount] = useState(0)
 
-  // (***)
-  const value = useState()[0]
-  const handler = useState()[1]
-  console.log(value, handler) // undefined, f
-
+  const handleClick = () => {
+    console.log(count) // log out previous count
+    setCount(count + 1)
+  }
   return (
     <div>
-      <h1>useState() Basics</h1>
+      <h4>You clicked {count} times</h4>
+      <button className='btn' onClick={handleClick}>
+        Click me
+      </button>
     </div>
   )
 }
