@@ -1,4 +1,4 @@
-import Setup from './03-useState-array'
+import Setup from './04-useState-object'
 
 function App() {
   return (
