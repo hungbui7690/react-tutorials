@@ -1,10 +1,11 @@
 import React from 'react'
-import avatar from './assets/default-avatar.svg' // (***)
+import avatar from './assets/default-avatar.svg' // (***) load default img
 
 // (***) default params
 const Person = ({ name, nickName = 'Shake & Bake', images }) => {
-  const img =
-    (images && images[0] && images[0].small && images[0].small.url) || avatar // (***) BEFORE optional chaining
+  const img = images?.[0]?.small?.url || avatar // (***) WITH optional chaining > without ? > error
+
+  // const img = images?.[0]?.small?.url ?? avatar // (***) COMBINING with the nullish coalescing operator ??
 
   return (
     <div className='users'>
