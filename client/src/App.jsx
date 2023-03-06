@@ -1,8 +1,11 @@
-import './App.css'
-import Setup from './02-useState-basics'
+import Setup from './03-useState-array'
 
 function App() {
-  return <Setup />
+  return (
+    <div className='container'>
+      <Setup />
+    </div>
+  )
 }
 
 export default App
