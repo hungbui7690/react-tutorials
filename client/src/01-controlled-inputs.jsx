@@ -1,6 +1,6 @@
 /*
-  Form: User Challenge P2
-  - Add User when Submit
+  Form: User Challenge P3
+  - Remove User when click on Remove Button
 
 */
 
@@ -11,7 +11,6 @@ const UserChallenge = () => {
   const [name, setName] = useState('')
   const [users, setUsers] = useState(data)
 
-  // (***)
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -20,9 +19,15 @@ const UserChallenge = () => {
     const fakeID = new Date().getTime()
     const newUser = { name, id: fakeID }
 
-    const updatedUsers = [...users, newUser] // (***) this line is important
+    const updatedUsers = [...users, newUser]
     setUsers(updatedUsers)
     setName('')
+  }
+
+  // (***)
+  const removeUser = (id) => {
+    const updatedUsers = users.filter((u) => u.id !== Number(id))
+    setUsers(updatedUsers)
   }
 
   return (
@@ -53,7 +58,11 @@ const UserChallenge = () => {
         return (
           <div key={user.id} className='people-section'>
             <h4>{user.name}</h4>
-            <button className='btn'>remove</button>
+
+            {/* (***) */}
+            <button className='btn' onClick={() => removeUser(user.id)}>
+              remove
+            </button>
           </div>
         )
       })}
