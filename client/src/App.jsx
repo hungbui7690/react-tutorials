@@ -1,5 +1,5 @@
 /*
-  useReducer: Hide Model after 3s
+  useReducer: Remove Item
 
   (1) work in setup/index.jsx
 

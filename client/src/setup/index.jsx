@@ -1,12 +1,10 @@
 /*
-  Close Modal after 3s
-    (1), (2), (3) in index.js
-    (4) ở Modal.js
+  - after this lecture, every functionalities work fine, but there is still one problem:
+    > index.jsx file becomes busy > we need to refactor it to multiple files 
 */
 
 import React, { useState, useReducer } from 'react'
 import Modal from './Modal'
-import { data } from '../data'
 
 const reducer = (state, action) => {
   if (action.type === 'ADD_ITEM') {
@@ -27,9 +25,16 @@ const reducer = (state, action) => {
     }
   }
 
-  // (2) we want to close model after 3s > so that, we need to pass the prop to Modal.js
   if (action.type === 'CLOSE_MODAL') {
     return { ...state, isModalOpen: false, modalContent: '' }
+  }
+
+  // (2)
+  if (action.type === 'REMOVE_ITEM') {
+    const newPeople = state.people.filter(
+      (person) => person.id !== action.payload
+    )
+    return { ...state, people: newPeople }
   }
 
   throw new Error('No matching Action Type')
@@ -57,14 +62,12 @@ const Index = () => {
     }
   }
 
-  // (1)
   const closeModal = () => {
     dispatch({ type: 'CLOSE_MODAL' })
   }
 
   return (
     <React.Fragment>
-      {/* (3) pass prop to Modal.js [closeModal] */}
       {state.isModalOpen && (
         <Modal modalContent={state.modalContent} closeModal={closeModal} />
       )}
@@ -81,8 +84,17 @@ const Index = () => {
 
       {state.people.map((person) => {
         return (
-          <div key={person.id}>
+          <div key={person.id} className='item'>
             <h4>{person.name}</h4>
+
+            {/* (1) create remove button > call dispatch() and pass the id in payload */}
+            <button
+              onClick={() =>
+                dispatch({ type: 'REMOVE_ITEM', payload: person.id })
+              }
+            >
+              remove
+            </button>
           </div>
         )
       })}
