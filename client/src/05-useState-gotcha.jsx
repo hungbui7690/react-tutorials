@@ -1,8 +1,6 @@
 /*
-  useState: Functional Update Form
+  useState: setTimeout Example
   
-  - If you want to update the state immediately and synchronously, you can pass a function to setState that receives the previous state as an argument and returns the new state. 
-  - This can be useful if you need to update the state based on the previous state, or if you need to update the state synchronously.
 */
 
 import { useState } from 'react'
@@ -10,12 +8,12 @@ import { useState } from 'react'
 const UseStateGotcha = () => {
   const [value, setValue] = useState(0)
 
-  // (***) functional approach
+  // (***) we click multiple times, but the value just update by 1
   const handleClick = () => {
-    setValue((prevValue) => {
-      const newValue = prevValue + 1
-      return newValue // (***) must have return > otherwise, undefined
-    })
+    setTimeout(() => {
+      console.log('clicked the button')
+      setValue(value + 1)
+    }, 3000)
   }
 
   return (
