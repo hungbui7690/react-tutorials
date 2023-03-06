@@ -1,6 +1,5 @@
 /*
-  useEffect: Order Matters
-  > check TUTORIAL.md for more info
+  useEffect: Fetch Function Location
 */
 
 import { useEffect, useState } from 'react'
@@ -25,7 +24,7 @@ const MultipleReturnsFetchData = () => {
 
   useEffect(() => {
     fetchUser()
-  }, [])
+  }, []) // (***) don't add fetchUser to dep list > trigger inf loop
 
   // (***) ok > but if we move this line b4 useEffect() > error
   const { avatar_url, name, company, bio } = user
