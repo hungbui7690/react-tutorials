@@ -1,41 +1,38 @@
 /*
-  useEffect: Multiple Returns P2: Fetch Data P2
+  useEffect: Fetch Errors "Gotcha"
 
-  Data Fetching :
-  - usually three options
-    - loading - waiting for data to arrive (display loading state)
-    - error - there was an error (display error message)
-    - success - received data (display data)
-  
-  (***) test with 3g + Disable cache > pic: network-tab
+  - Unlike for example Axios, by default, the fetch() API does not consider HTTP status codes in the 4xx or 5xx range to be errors. Instead, it considers these status codes to be indicative of a successful request
 
+
+  > https://[x]api.github.com/users/QuincyLarson > this will create error
+
+  > https://api.github.com/users/QuincyLarson[x] > this is a successful request though URL is not correct > reason: because fetch() does not consider 404 as error
 */
 
 import { useEffect, useState } from 'react'
-const url = 'https://api.github.com/users/QuincyLarson'
+const url = 'https://api.github.com/users/QuincyLarsonx'
 
 const MultipleReturnsFetchData = () => {
-  const [isLoading, setIsLoading] = useState(true) // (***) default of loading is true
-  const [isError, setIsError] = useState(false) // (***)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
   const [user, setUser] = useState(null)
 
   const fetchUser = async () => {
     try {
       const resp = await fetch(url)
       const user = await resp.json()
-      setUser(user) // success
+      setUser(user)
     } catch (error) {
-      setIsError(true) // error
+      setIsError(true)
       console.log(error)
     }
-    setIsLoading(false) // (***) after successfully fetch data > setLoading to false
+    setIsLoading(false)
   }
 
   useEffect(() => {
     fetchUser()
   }, [])
 
-  // (***) order matters > we must return the whole JSX for the user at the end of the file > after isLoading & isError
   if (isLoading) {
     return <h2>Loading...</h2>
   }
