@@ -1,5 +1,5 @@
 /*
-  useState: setTimeout Example
+  useState: setTimeout Example P2
   
 */
 
@@ -8,11 +8,13 @@ import { useState } from 'react'
 const UseStateGotcha = () => {
   const [value, setValue] = useState(0)
 
-  // (***) we click multiple times, but the value just update by 1
+  // (***) to fix this > we need to use Functional Approach
   const handleClick = () => {
     setTimeout(() => {
       console.log('clicked the button')
-      setValue(value + 1)
+      setValue((prevValue) => {
+        return prevValue + 1
+      })
     }, 3000)
   }
 
