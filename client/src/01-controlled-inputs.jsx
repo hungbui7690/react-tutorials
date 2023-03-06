@@ -1,32 +1,56 @@
 /*
-  Form: Checkout Inputs
-  - input: e.target.value
-  - checkbox: e.target.checked
+  Form: Select Inputs
+  - selects: e.target.value
 */
 
 import { useState } from 'react'
 
+const frameworks = ['react', 'angular', 'vue', 'svelte'] // (***) data for selects
+
 const OtherInputs = () => {
   const [shipping, setShipping] = useState(false)
+  const [framework, setFramework] = useState('react') // (***) use here
 
   const handleShipping = (e) => {
     console.log(e.target.checked)
     setShipping(e.target.checked)
   }
 
+  // (***)
+  const handleFramework = (e) => {
+    console.log(e.target.value)
+    setFramework(e.target.value)
+  }
+
   return (
     <div>
       <form className='form'>
         <h4>Other Inputs</h4>
+        {/* name */}
         <div className='form-row' style={{ textAlign: 'left' }}>
           <input
             type='checkbox'
-            checked={shipping} // (***) checkout: e.target.checked
+            checked={shipping}
             id='shipping'
             name='shipping'
-            onChange={handleShipping} // (***)
+            onChange={handleShipping}
           />
           <label htmlFor='shipping'> Free Shipping </label>
+        </div>
+        <div className='form-row' style={{ textAlign: 'left' }}>
+          <label htmlFor='framework' className='form-label'>
+            Framework
+          </label>
+          <select
+            name='framework'
+            id='framework'
+            value={framework} // (a)
+            onChange={handleFramework} // (b)
+          >
+            {frameworks.map((framework) => {
+              return <option key={framework}>{framework}</option>
+            })}
+          </select>
         </div>
         <button type='submit' className='btn btn-block'>
           submit
