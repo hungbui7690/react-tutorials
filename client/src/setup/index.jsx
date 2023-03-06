@@ -1,5 +1,7 @@
 /*
-
+  Close Modal after 3s
+    (1), (2), (3) in index.js
+    (4) ở Modal.js
 */
 
 import React, { useState, useReducer } from 'react'
@@ -17,13 +19,17 @@ const reducer = (state, action) => {
     }
   }
 
-  // (2)
   if (action.type === 'NO_VALUE') {
     return {
       ...state,
       isModalOpen: true,
       modalContent: 'Please enter value',
     }
+  }
+
+  // (2) we want to close model after 3s > so that, we need to pass the prop to Modal.js
+  if (action.type === 'CLOSE_MODAL') {
+    return { ...state, isModalOpen: false, modalContent: '' }
   }
 
   throw new Error('No matching Action Type')
@@ -47,14 +53,21 @@ const Index = () => {
       dispatch({ type: 'ADD_ITEM', payload: newItem })
       setName('')
     } else {
-      // (1)
       dispatch({ type: 'NO_VALUE' })
     }
   }
 
+  // (1)
+  const closeModal = () => {
+    dispatch({ type: 'CLOSE_MODAL' })
+  }
+
   return (
     <React.Fragment>
-      {state.isModalOpen && <Modal modalContent={state.modalContent} />}
+      {/* (3) pass prop to Modal.js [closeModal] */}
+      {state.isModalOpen && (
+        <Modal modalContent={state.modalContent} closeModal={closeModal} />
+      )}
       <form onSubmit={handleSubmit} className='form'>
         <div>
           <input

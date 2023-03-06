@@ -1,5 +1,5 @@
 /*
-  useReducer: Add Item P4
+  useReducer: Hide Model after 3s
 
   (1) work in setup/index.jsx
 
