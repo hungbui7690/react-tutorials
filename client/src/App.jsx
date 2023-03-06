@@ -1,4 +1,4 @@
-import Setup from './01-useEffect'
+import Setup from './01-leverage-js'
 
 function App() {
   return (
