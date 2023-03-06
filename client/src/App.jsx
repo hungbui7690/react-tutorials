@@ -1,4 +1,4 @@
-import Setup from './01-controlled-inputs'
+import Setup from './01-form'
 
 function App() {
   return (
