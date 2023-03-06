@@ -1,5 +1,5 @@
 /*
-  Form: Controlled Inputs P3
+  Form: Controlled Inputs P4
 
 */
 
@@ -7,15 +7,16 @@ import { useState } from 'react'
 
 const ControlledInputs = () => {
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('') // (***) multiple inputs
 
-  const handleChange = (e) => {
-    console.log(e.target.name)
-    console.log(e.target.value)
-    setName(e.target.value) // (***) this will trigger re-render
+  // (***) email must be valid to submit since we use input with type=email > (browser sometimes does not show the form validation)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(name, email) // (***)
   }
 
   return (
-    <form className='form'>
+    <form className='form' onSubmit={handleSubmit}>
       <h4>controlled inputs</h4>
       <div className='form-row'>
         <label htmlFor='name' className='form-label'>
@@ -25,8 +26,20 @@ const ControlledInputs = () => {
           type='text'
           className='form-input'
           id='name'
-          value={name}
-          onChange={handleChange}
+          value={name} // (1a) link to "name" state
+          onChange={(e) => setName(e.target.value)} // (1b)
+        />
+      </div>
+      <div className='form-row'>
+        <label htmlFor='email' className='form-label'>
+          email
+        </label>
+        <input
+          type='email'
+          className='form-input'
+          id='email'
+          value={email} // (2a) links to "email" state
+          onChange={(e) => setEmail(e.target.value)} // (2b)
         />
       </div>
       <button type='submit' className='btn btn-block'>
