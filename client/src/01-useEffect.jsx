@@ -1,35 +1,49 @@
 /*
-  useEffect: Multiple Effects P1
+  useEffect: Fetch Data
   
-  (***) just because we can do this, it does not mean we should do this
+  - we will use axios later in the course
+
 */
 
 import { useState, useEffect } from 'react'
 
-const MultipleEffects = () => {
-  const [value, setValue] = useState(0)
-  const [secondValue, setSecondValue] = useState(0)
+const url = 'https://api.github.com/users' // (***)
+
+const FetchData = () => {
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
-    console.log('********************')
-    console.log('[1] hello from first useEffect')
-  }, [value, secondValue]) // (***) we can add multiple values in dep list
-
-  useEffect(() => {
-    console.log('> [2] hello from second useEffect')
-  }, [secondValue])
+    // (***) we can also setup function outside of useEffect()
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url)
+        const users = await response.json()
+        setUsers(users)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, []) // (***) initial render
 
   return (
-    <div>
-      <h1>value : {value}</h1>
-      <button className='btn' onClick={() => setValue(value + 1)}>
-        value
-      </button>
-      <h1>second value : {secondValue}</h1>
-      <button className='btn' onClick={() => setSecondValue(secondValue + 1)}>
-        second value
-      </button>
-    </div>
+    <section>
+      <h3>github users</h3>
+      <ul className='users'>
+        {users.map((user) => {
+          const { id, login, avatar_url, html_url } = user
+          return (
+            <li key={id}>
+              <img src={avatar_url} alt={login} />
+              <div>
+                <h5>{login}</h5>
+                <a href={html_url}>profile</a>
+              </div>
+            </li>
+          )
+        })}
+      </ul>
+    </section>
   )
 }
-export default MultipleEffects
+export default FetchData
