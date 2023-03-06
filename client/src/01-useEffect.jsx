@@ -1,5 +1,5 @@
 /*
-  useEffect: Cleanup Function P1
+  useEffect: Cleanup Function P2
 */
 
 import { useEffect, useState } from 'react'
@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react'
 const CleanupFunction = () => {
   const [toggle, setToggle] = useState(false)
 
-  // (***) setToggle() > mount and unmount > during mounting phase, useEffect() will be called
+  console.log('> render') // (***)
+
   return (
     <div>
       <button className='btn' onClick={() => setToggle(!toggle)}>
@@ -18,9 +19,11 @@ const CleanupFunction = () => {
   )
 }
 const RandomComponent = () => {
-  // (***) though we set useEffect() to run once at initial render > it still runs many times as we click the button
   useEffect(() => {
-    console.log('hmm, this is interesting')
+    // (***) every time we render component > new interval gets created > runs every 1s > after the first click, though we don't click, this function still runs
+    const intID = setInterval(() => {
+      console.log('hello from interval')
+    }, 1000)
   }, [])
 
   return <h1>hello there</h1>
