@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import './App.css'
-import Setup from './01-error-example'
+import Setup from './02-useState-basics'
 
 function App() {
   return <Setup />
