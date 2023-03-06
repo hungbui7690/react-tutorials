@@ -1,49 +1,29 @@
 /*
-  useEffect: Fetch Data
+  useEffect: Multiple Returns P1: Conditional Rendering
+  - check TUTORIAL.md > we have multiple returns in JS 
+  - we also have multiple returns in React as well
   
-  - we will use axios later in the course
-
 */
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-const url = 'https://api.github.com/users' // (***)
-
-const FetchData = () => {
-  const [users, setUsers] = useState([])
+const MultipleReturnsBasics = () => {
+  // use while fetching data
+  // convention === boolean values === "isSomething"
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // (***) we can also setup function outside of useEffect()
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url)
-        const users = await response.json()
-        setUsers(users)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, []) // (***) initial render
+    setTimeout(() => {
+      setIsLoading(false) // (***) done fetching data
+    }, 3000)
+  }, [])
 
-  return (
-    <section>
-      <h3>github users</h3>
-      <ul className='users'>
-        {users.map((user) => {
-          const { id, login, avatar_url, html_url } = user
-          return (
-            <li key={id}>
-              <img src={avatar_url} alt={login} />
-              <div>
-                <h5>{login}</h5>
-                <a href={html_url}>profile</a>
-              </div>
-            </li>
-          )
-        })}
-      </ul>
-    </section>
-  )
+  // (***)
+  if (isLoading) {
+    return <h2>Loading...</h2>
+  }
+
+  // (***)
+  return <h2>My App</h2>
 }
-export default FetchData
+export default MultipleReturnsBasics
