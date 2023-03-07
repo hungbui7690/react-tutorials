@@ -1,11 +1,14 @@
-import React, { createContext } from 'react'
+import React, { createContext, useContext } from 'react'
 
 import { useState } from 'react'
 import NavLinks from './NavLinks'
 
-// (1) in this Context, we are interesting in the "Provider"
 export const NavbarContext = createContext()
-console.log(NavbarContext)
+
+// (1) custom hook > go to UserContainer.jsx
+export const useAppContext = () => {
+  return useContext(NavbarContext)
+}
 
 const Navbar = () => {
   const [user, setUser] = useState({
@@ -20,8 +23,6 @@ const Navbar = () => {
     setUser({ name: 'something' })
   }
 
-  // (2) use "Provider" here > value={{}} : first {} === back to JS, second {} === object
-  // now, when we have those values, we can go directly to UserContainer.jsx and use
   return (
     <NavbarContext.Provider value={{ user, logout, login }}>
       <nav className='navbar'>

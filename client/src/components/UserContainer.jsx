@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
-import { NavbarContext } from './Navbar'
+import { useAppContext } from './Navbar'
 
 const UserContainer = () => {
-  // (3) get all data through context API
-  const { user, logout, login } = useContext(NavbarContext)
+  // (2) use here
+  const { user, logout, login } = useAppContext()
 
   return (
     <div className='user-container'>
