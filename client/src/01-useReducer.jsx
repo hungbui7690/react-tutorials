@@ -1,45 +1,40 @@
 /* 
-  useReducer P6: Reset List & Remove Person
+  useReducer P7: Import / Export
+  - spread into multiple files 
+
+
+  (1)
+  - create new file - actions.js
+    - copy/paste all actions
+    - export/import actions
+
+  (2)
+  - create new file - reducer.js
+    - copy/paste reducer
+    - import actions
+    - import data
+    - export/import reducer
+
+  (***) remember to have data file & actions in reducer as well
 
 */
 
 import React, { useReducer } from 'react'
 import { data } from './data'
 
-const CLEAR_LIST = 'CLEAR_LIST'
-const RESET_LIST = 'RESET_LIST'
-const REMOVE_ITEM = 'REMOVE_ITEM'
+// (1b)
+import { CLEAR_LIST, RESET_LIST, REMOVE_ITEM } from './action'
+
+// (2b)
+import { reducer } from './reducer'
 
 const initialState = {
   people: data,
 }
 
-const reducer = (state, action) => {
-  if (action.type === CLEAR_LIST) {
-    return { ...state, people: [] }
-  }
-
-  // (1b)
-  if (action.type === RESET_LIST) {
-    return { ...state, people: data }
-  }
-
-  // (2b)
-  if (action.type === REMOVE_ITEM) {
-    const newPeople = state.people.filter(
-      (person) => person.id !== action.payload.id
-    )
-    console.log(newPeople)
-    return { ...state, people: newPeople }
-  }
-
-  throw new Error(`No matching "${action.type}" action type`)
-}
-
 const ReducerBasics = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  // (2a) since we have to pass the id to reducer() > using payload (naming convention)
   const removeItem = (id) => {
     dispatch({ type: REMOVE_ITEM, payload: { id } })
   }
@@ -48,7 +43,6 @@ const ReducerBasics = () => {
     dispatch({ type: CLEAR_LIST })
   }
 
-  // (1a)
   const reset = () => {
     dispatch({ type: RESET_LIST })
   }
