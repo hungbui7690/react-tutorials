@@ -1,17 +1,6 @@
 /*
-  useReducer P1: Challenge
-    - lite version of Redux
-    - when app grows, it's hard to manage our application with just useState() > especially when there are many developers working on the same project > state management libraries like Redux come into play > create structures & rules that we need to follow to change the state > less bugs + easier code management
-
-    (***) problem with those library: require quite a bit of boilerplate code
-
-////////////////////////////////////////////////////
-
-  - Challenge: 
-    - let's add reset functionality
-    - when we remove all the items on the screen > show that reset button 
-    - when click on that button: load all data back to default
-
+  useReducer P2: Solution
+  -
 */
 
 import React from 'react'
@@ -29,6 +18,11 @@ const ReducerBasics = () => {
     setPeople([])
   }
 
+  // (1)
+  const reset = () => {
+    setPeople(data)
+  }
+
   return (
     <div className='container'>
       {people.map((person) => {
@@ -40,9 +34,21 @@ const ReducerBasics = () => {
           </div>
         )
       })}
-      <button className='btn' style={{ marginTop: '2rem' }} onClick={clearList}>
-        clear
-      </button>
+
+      {/* (2) */}
+      {people.length === 0 ? (
+        <button className='btn' style={{ marginTop: '2rem' }} onClick={reset}>
+          reset
+        </button>
+      ) : (
+        <button
+          className='btn'
+          style={{ marginTop: '2rem' }}
+          onClick={clearList}
+        >
+          clear
+        </button>
+      )}
     </div>
   )
 }
