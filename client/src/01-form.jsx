@@ -1,16 +1,8 @@
 /*
-  Form: FormData API P1: Setup
+  Form: FormData API P3: Reset Form
 
-  > https://youtu.be/5-x4OUM-SP8
-
-
-  - a great solution when you have bunch of inputs (more than 1 input)
-  - inputs must have name attribute
-
-
-  The FormData interface provides a way to construct a set of key/value pairs representing form fields and their values, which can be sent using the fetch() or XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data".
-
-  (***) "name attribute" must be different for each input
+  (***) reset()
+    - The reset() method is a built-in method in HTML that can be used to reset all form controls to their initial values. When this method is called on a form element, it will clear any user-entered data and reset the values of all form elements to their default values.
 
 */
 
@@ -21,6 +13,14 @@ const UncontrolledInputs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const newUser = Object.fromEntries(formData)
+
+    setValue(value + 1) // (***) Gotcha - re-render won't clear out the values
+    e.currentTarget.reset() // (***) reset form to default values
+
+    console.log(newUser)
   }
 
   return (
@@ -32,24 +32,14 @@ const UncontrolledInputs = () => {
           <label htmlFor='name' className='form-label'>
             name
           </label>
-          <input
-            type='text'
-            className='form-input'
-            id='name'
-            name='name' // (***)
-          />
+          <input type='text' className='form-input' id='name' name='name' />
         </div>
         {/* email */}
         <div className='form-row'>
           <label htmlFor='email' className='form-label'>
             Email
           </label>
-          <input
-            type='email'
-            className='form-input'
-            id='email'
-            name='email' // (***)
-          />
+          <input type='text' className='form-input' id='email' name='email' />
         </div>
         {/* email */}
         <div className='form-row'>
@@ -60,7 +50,7 @@ const UncontrolledInputs = () => {
             type='password'
             className='form-input'
             id='password'
-            name='password' // (***)
+            name='password'
           />
         </div>
 
