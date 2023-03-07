@@ -1,7 +1,7 @@
-import { useAppContext } from './Navbar'
+import { useAppContext } from '../context'
 
 const UserContainer = () => {
-  // (2) use here
+  // (4)
   const { user, logout, login } = useAppContext()
 
   return (
@@ -14,10 +14,13 @@ const UserContainer = () => {
           </button>
         </>
       ) : (
-        <button className='btn' onClick={login}>
-          {' '}
-          Login
-        </button>
+        <>
+          <p>Please Login</p>
+          <button className='btn' onClick={login}>
+            {' '}
+            Login
+          </button>
+        </>
       )}
     </div>
   )
