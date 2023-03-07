@@ -4,10 +4,16 @@
   - imagine if we have 60 child components > 60 renders for just one small update 
   
 
-  (***( When Component Re-Renders :
+  (***) When Component Re-Renders :
   - When the component's state or props change, React will re-render the component to reflect these changes.
   - When the parent element re-renders, even if the component's state or props have not changed.
   - lower state
+
+  (***) side notes: check pic: react-dev-tools just use the production build for production (3rd picture)
+    > when we use RDT in development (icon will be in red) > RDT will do some extra checks > app will be slower than in production
+
+  (***) check pics: rdt-profile-settings / record
+  
 */
 
 import { useState } from 'react'
