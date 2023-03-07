@@ -1,21 +1,28 @@
 /* 
-  useReducer P4: Basics
-  
+  useReducer P5: Actions & Default States
+
 */
 
 import React, { useReducer } from 'react'
 import { data } from './data'
 
+// (1)
+const CLEAR_LIST = 'CLEAR_LIST'
+const RESET_LIST = 'RESET_LIST'
+const REMOVE_ITEM = 'REMOVE_ITEM'
+
 const initialState = {
   people: data,
 }
 
-// (2) state, action params
 const reducer = (state, action) => {
-  // (***)
-  if (action.type === 'CLEAR_LIST') {
+  // (2b)
+  if (action.type === CLEAR_LIST) {
     return { ...state, people: [] }
   }
+
+  // (3b) if no action type that is matched
+  throw new Error(`No matching "${action.type}" action type`)
 }
 
 const ReducerBasics = () => {
@@ -24,11 +31,14 @@ const ReducerBasics = () => {
   const removeItem = (id) => {}
 
   const clearList = () => {
-    // (1) convention: UPPER SNAKE CASE
-    dispatch({ type: 'CLEAR_LIST' })
+    // (2a) prevent typos
+    dispatch({ type: CLEAR_LIST })
   }
 
-  const reset = () => {}
+  const reset = () => {
+    // (3a)
+    dispatch({ type: 'XYZ' })
+  }
 
   return (
     <div className='container'>
