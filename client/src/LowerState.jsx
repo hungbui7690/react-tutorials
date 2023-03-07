@@ -1,6 +1,8 @@
 /*
-  Performance P3: Lower State Challenge
-  - fix this one > decide which component that we need to move
+  Performance P4: Lower State Challenge - Solution
+  - we see that the List will be re-render > so we move the Form to another file
+
+  > Test in RDT: Profile tab
 
 */
 
@@ -8,21 +10,13 @@ import { useState } from 'react'
 import { data } from './data'
 import List from './List'
 
+import Form from './Form' // (***)
+
 const LowerStateChallenge = () => {
   const [people, setPeople] = useState(data)
-  const [name, setName] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!name) {
-      alert('Please Provide Name Value')
-      return
-    }
-    addPerson()
-    setName('')
-  }
-
-  const addPerson = () => {
+  // (***) add param name
+  const addPerson = (name) => {
     const fakeId = Date.now()
     const newPerson = { id: fakeId, name }
     setPeople([...people, newPerson])
@@ -30,24 +24,8 @@ const LowerStateChallenge = () => {
 
   return (
     <section>
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='form-row'>
-          <label htmlFor='name' className='form-label'>
-            name
-          </label>
-          <input
-            type='text'
-            name='name'
-            id='name'
-            className='form-input'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <button className='btn btn-block' type='submit'>
-          submit
-        </button>
-      </form>
+      {/* (***) pass addPerson */}
+      <Form addPerson={addPerson} />
       <List people={people} />
     </section>
   )
