@@ -1,5 +1,5 @@
 /*
-  useRef P1: Basics
+  useRef P2: focus()
 
   - DOES NOT TRIGGER RE-RENDER
   - preserves the value between renders
@@ -11,16 +11,14 @@ import { useEffect, useRef, useState } from 'react'
 
 const UseRefBasics = () => {
   const [value, setValue] = useState(0)
-  const refContainer = useRef(null) // (1)
+  const refContainer = useRef(null)
 
-  console.log(refContainer) // {current: null}
+  useEffect(() => {
+    refContainer.current.focus() // (***) focus on the page at initial render
+  }, [])
 
-  // (3)
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(refContainer.current) // get the element
-    const name = refContainer.current.value // get the property of that element
-    console.log(name)
   }
 
   return (
@@ -33,7 +31,7 @@ const UseRefBasics = () => {
           <input
             type='text'
             id='name'
-            ref={refContainer} // (2)
+            ref={refContainer} // ()
             className='form-input'
           />
         </div>
