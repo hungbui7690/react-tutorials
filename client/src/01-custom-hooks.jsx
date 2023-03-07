@@ -1,19 +1,17 @@
 /*
-  Custom Hooks P4: Fetch User Hook
-  - create useFetchPerson.jsx
-  - import and use
+  Custom Hooks P5: Generic Fetch
+  - we want to reuse that fetch() 
+    > change useFetchPerson to useFetch
+    > add url param
 
-  (***) previous lesson: we need these states > we need to return these states from the custom hook
-    
-    const [isLoading, setIsLoading] = useState(true)
-    const [isError, setIsError] = useState(false)
-    const [user, setUser] = useState(null)
 */
 
-import useFetchPerson from './useFetchPerson'
+import useFetch from './useFetch'
+
+const url = 'https://api.github.com/users/QuincyLarson' // (***)
 
 const MultipleReturnsFetchData = () => {
-  const { isLoading, isError, user } = useFetchPerson() // (***) use here + remove useEffect()
+  const { isLoading, isError, user } = useFetch(url) // arg = url
 
   if (isLoading) {
     return <h2>Loading...</h2>
