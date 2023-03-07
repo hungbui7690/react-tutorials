@@ -1,25 +1,55 @@
 /*
-  Performance P2: Lower State
-  - one possible solution is to lower the state
-
-  > move the states to another file > then import and use
+  Performance P3: Lower State Challenge
+  - fix this one > decide which component that we need to move
 
 */
 
 import { useState } from 'react'
 import { data } from './data'
 import List from './List'
-import Counter from './Counter' // (2a)
 
-const LowerState = () => {
+const LowerStateChallenge = () => {
   const [people, setPeople] = useState(data)
+  const [name, setName] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!name) {
+      alert('Please Provide Name Value')
+      return
+    }
+    addPerson()
+    setName('')
+  }
+
+  const addPerson = () => {
+    const fakeId = Date.now()
+    const newPerson = { id: fakeId, name }
+    setPeople([...people, newPerson])
+  }
 
   return (
-    <section className='container'>
-      {/* (2b) now we can test > then see that it's not re-render anymore */}
-      <Counter />
+    <section>
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='form-row'>
+          <label htmlFor='name' className='form-label'>
+            name
+          </label>
+          <input
+            type='text'
+            name='name'
+            id='name'
+            className='form-input'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <button className='btn btn-block' type='submit'>
+          submit
+        </button>
+      </form>
       <List people={people} />
     </section>
   )
 }
-export default LowerState
+export default LowerStateChallenge
