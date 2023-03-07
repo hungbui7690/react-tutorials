@@ -1,4 +1,3 @@
-// (5)
 const Person = ({ name, removePerson, id }) => {
   return (
     <div className='container'>
