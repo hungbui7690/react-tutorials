@@ -1,22 +1,22 @@
 /*
-  Custom Hooks P1: Setup
-  - same rules as regular hooks
-  - simplify component (less code)
-  - re-use functionality
-
-  (***) requirement: setShow() is used in many places > turn in to Custom Hook
+  Custom Hooks P2: Create & Use Custom Hook
+  - create useToggle.jsx
+  - import and use
 
 */
 
 import { useState } from 'react'
+import useToggle from './useToggle' // (***)
 
 const ToggleExample = () => {
-  const [show, setShow] = useState(false)
+  const { show, toggle } = useToggle(true) // (***)
 
   return (
     <div>
       <h4>Toggle Custom Hook</h4>
-      <button className='btn' onClick={() => setShow(!show)}>
+
+      {/* (***) */}
+      <button className='btn' onClick={() => toggle(!show)}>
         Toggle
       </button>
       {show && <h4>Some Stuffs</h4>}
