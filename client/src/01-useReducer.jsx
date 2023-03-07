@@ -1,12 +1,11 @@
 /* 
-  useReducer P5: Actions & Default States
+  useReducer P6: Reset List & Remove Person
 
 */
 
 import React, { useReducer } from 'react'
 import { data } from './data'
 
-// (1)
 const CLEAR_LIST = 'CLEAR_LIST'
 const RESET_LIST = 'RESET_LIST'
 const REMOVE_ITEM = 'REMOVE_ITEM'
@@ -16,28 +15,42 @@ const initialState = {
 }
 
 const reducer = (state, action) => {
-  // (2b)
   if (action.type === CLEAR_LIST) {
     return { ...state, people: [] }
   }
 
-  // (3b) if no action type that is matched
+  // (1b)
+  if (action.type === RESET_LIST) {
+    return { ...state, people: data }
+  }
+
+  // (2b)
+  if (action.type === REMOVE_ITEM) {
+    const newPeople = state.people.filter(
+      (person) => person.id !== action.payload.id
+    )
+    console.log(newPeople)
+    return { ...state, people: newPeople }
+  }
+
   throw new Error(`No matching "${action.type}" action type`)
 }
 
 const ReducerBasics = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const removeItem = (id) => {}
+  // (2a) since we have to pass the id to reducer() > using payload (naming convention)
+  const removeItem = (id) => {
+    dispatch({ type: REMOVE_ITEM, payload: { id } })
+  }
 
   const clearList = () => {
-    // (2a) prevent typos
     dispatch({ type: CLEAR_LIST })
   }
 
+  // (1a)
   const reset = () => {
-    // (3a)
-    dispatch({ type: 'XYZ' })
+    dispatch({ type: RESET_LIST })
   }
 
   return (
