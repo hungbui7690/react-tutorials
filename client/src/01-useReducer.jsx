@@ -1,37 +1,35 @@
-/*
-  useReducer P3: Setup
-  - with useState, when we call setState() > it will update the state for us right away 
-  - with useReducer, it is totally different 
-    > we need to pass (dispatch) the action type to reducer > then reducer will handle and return the state for us 
-
-
-
-  (1) remove all codes inside each function > remove functionalities
-
+/* 
+  useReducer P4: Basics
+  
 */
 
 import React, { useReducer } from 'react'
 import { data } from './data'
 
-// (1)
 const initialState = {
   people: data,
 }
 
-// (2)
-const reducer = (state, action) => {}
+// (2) state, action params
+const reducer = (state, action) => {
+  // (***)
+  if (action.type === 'CLEAR_LIST') {
+    return { ...state, people: [] }
+  }
+}
 
 const ReducerBasics = () => {
-  // (3)
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const removeItem = (id) => {}
 
-  const clearList = () => {}
+  const clearList = () => {
+    // (1) convention: UPPER SNAKE CASE
+    dispatch({ type: 'CLEAR_LIST' })
+  }
 
   const reset = () => {}
 
-  // (4) instead of "people" > now we use "state.people"
   return (
     <div className='container'>
       {state.people.map((person) => {
