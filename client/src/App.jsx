@@ -1,12 +1,8 @@
 import React from 'react'
-import ReducerBasics from './01-useReducer'
+import LowerState from './LowerState'
 
-function App() {
-  return (
-    <React.Fragment>
-      <ReducerBasics />
-    </React.Fragment>
-  )
+const App = () => {
+  return <LowerState />
 }
 
 export default App
