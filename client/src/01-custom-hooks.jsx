@@ -1,37 +1,19 @@
 /*
-  Custom Hooks P3: Fetch Data Setup
-  - Exercise: turn the function fetch data below into custom hook
+  Custom Hooks P4: Fetch User Hook
+  - create useFetchPerson.jsx
+  - import and use
 
+  (***) previous lesson: we need these states > we need to return these states from the custom hook
+    
+    const [isLoading, setIsLoading] = useState(true)
+    const [isError, setIsError] = useState(false)
+    const [user, setUser] = useState(null)
 */
 
-import { useEffect, useState } from 'react'
-
-const url = 'https://api.github.com/users/QuincyLarson'
+import useFetchPerson from './useFetchPerson'
 
 const MultipleReturnsFetchData = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [isError, setIsError] = useState(false)
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const resp = await fetch(url)
-        if (!resp.ok) {
-          setIsError(true)
-          setIsLoading(false)
-          return
-        }
-
-        const user = await resp.json()
-        setUser(user)
-      } catch (error) {
-        setIsError(true)
-      }
-      setIsLoading(false)
-    }
-    fetchUser()
-  }, [])
+  const { isLoading, isError, user } = useFetchPerson() // (***) use here + remove useEffect()
 
   if (isLoading) {
     return <h2>Loading...</h2>
