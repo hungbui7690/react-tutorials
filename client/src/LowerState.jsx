@@ -1,31 +1,23 @@
 /*
-  Performance P4: Lower State Challenge - Solution
-  - we see that the List will be re-render > so we move the Form to another file
+  React.memo()
+  - returns memoized component > the component will check whether the props have changed or not > if in this case, List does not change > it just re-render lower state component
 
-  > Test in RDT: Profile tab
-
+  (1) List
 */
 
 import { useState } from 'react'
 import { data } from './data'
 import List from './List'
 
-import Form from './Form' // (***)
-
 const LowerStateChallenge = () => {
   const [people, setPeople] = useState(data)
-
-  // (***) add param name
-  const addPerson = (name) => {
-    const fakeId = Date.now()
-    const newPerson = { id: fakeId, name }
-    setPeople([...people, newPerson])
-  }
+  const [count, setCount] = useState(0)
 
   return (
-    <section>
-      {/* (***) pass addPerson */}
-      <Form addPerson={addPerson} />
+    <section className='container'>
+      <button className='btn' onClick={() => setCount(count + 1)}>
+        count {count}
+      </button>
       <List people={people} />
     </section>
   )
