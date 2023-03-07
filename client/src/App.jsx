@@ -1,30 +1,14 @@
 /*
-  Context API P1: Without Context API
+  Context API P2: createContext(), Provider, useContext()
 
-  (1) create three components and nest them in such way :
-      - Navbar.jsx
-      - NavLinks.jsx (nested in Navbar)
-        - UserContainer.jsx (nested in NavLinks)
+  (0) remove all the props drilling in Navbar.jsx, NavLinks.jsx, UserContainer.jsx
+  (1) Navbar.jsx
 
-  (2)
-      - import Navbar.jsx in 01-context-api.jsx (remove container - CSS)
-      - in Navbar.jsx setup
-        - user state value
-          - default value {name:'something'}
-        - logout function
-          - set user back to null
-      - pass 2 of them down to UserContainer.jsx
 
-  (3)
-      - display user and button
-      - on button click set user back to null
+  - we need the Provider > we need it for the main (parent) component
+    > we used to use the Consumer > but now, since we have ContextAPI, we don't need it anymore
 
-  (4) extra challenge
-      - login functionality 
-      - if user null, in UserContainer display <p>please login</p> & login button
-
-  (***) to create this one, we have to use Prop Drilling many times 
-    > next lecture, will solve this using Context API
+  - we can see the the children component need 3 props : user, logout, login > we can use the Provider to pass it to children components 
 
 */
 
