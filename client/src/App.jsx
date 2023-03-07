@@ -1,8 +1,8 @@
 import React from 'react'
-import LowerState from './LowerState'
+import FetchData from './04-fetch-data'
 
 const App = () => {
-  return <LowerState />
+  return <FetchData />
 }
 
 export default App
