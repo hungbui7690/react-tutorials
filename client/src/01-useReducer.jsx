@@ -1,31 +1,40 @@
 /*
-  useReducer P2: Solution
-  -
+  useReducer P3: Setup
+  - with useState, when we call setState() > it will update the state for us right away 
+  - with useReducer, it is totally different 
+    > we need to pass (dispatch) the action type to reducer > then reducer will handle and return the state for us 
+
+
+
+  (1) remove all codes inside each function > remove functionalities
+
 */
 
-import React from 'react'
+import React, { useReducer } from 'react'
 import { data } from './data'
 
+// (1)
+const initialState = {
+  people: data,
+}
+
+// (2)
+const reducer = (state, action) => {}
+
 const ReducerBasics = () => {
-  const [people, setPeople] = React.useState(data)
+  // (3)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
-  const removeItem = (id) => {
-    let newPeople = people.filter((person) => person.id !== id)
-    setPeople(newPeople)
-  }
+  const removeItem = (id) => {}
 
-  const clearList = () => {
-    setPeople([])
-  }
+  const clearList = () => {}
 
-  // (1)
-  const reset = () => {
-    setPeople(data)
-  }
+  const reset = () => {}
 
+  // (4) instead of "people" > now we use "state.people"
   return (
     <div className='container'>
-      {people.map((person) => {
+      {state.people.map((person) => {
         const { id, name } = person
         return (
           <div key={id} className='item'>
@@ -35,8 +44,7 @@ const ReducerBasics = () => {
         )
       })}
 
-      {/* (2) */}
-      {people.length === 0 ? (
+      {state.people.length === 0 ? (
         <button className='btn' style={{ marginTop: '2rem' }} onClick={reset}>
           reset
         </button>
