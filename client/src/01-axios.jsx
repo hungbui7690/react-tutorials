@@ -1,11 +1,12 @@
 /*
-  Axios: POST Request P1: Setup
+  Axios: POST Request P2
   - send data to the server
   - axios.post(url, { data })
   - axios.post(url, { data },{})
     > add more options: send auth headers...
 
-
+  (***) check network tab > Fetch/XHR > Response
+    > test with john/johnn@gmail.com / susan...
 */
 
 import { useState } from 'react'
@@ -18,7 +19,14 @@ const PostRequest = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(name, email)
+
+    // (***)
+    try {
+      const response = await axios.post(url, { name: name, email: email }) // cannot use {name, email}
+      console.log(response)
+    } catch (error) {
+      console.log(error.response.data)
+    }
   }
 
   return (
