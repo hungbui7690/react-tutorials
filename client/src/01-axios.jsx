@@ -1,37 +1,59 @@
 /*
-  Axios: Setup Headers P3: Display Joke
+  Axios: POST Request P1: Setup
+  - send data to the server
+  - axios.post(url, { data })
+  - axios.post(url, { data },{})
+    > add more options: send auth headers...
+
 
 */
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
+const url = 'https://course-api.com/axios-tutorial-post'
 
-const url = 'https://icanhazdadjoke.com/'
+const PostRequest = () => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
 
-const FetchData = () => {
-  const [joke, setJoke] = useState('')
-
-  const fetchDadJoke = async () => {
-    try {
-      // (1) extract data
-      const { data } = await axios(url, {
-        headers: {
-          Accept: 'application/json',
-        },
-      })
-      setJoke(data.joke)
-    } catch (error) {
-      console.log(error.response)
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log(name, email)
   }
 
   return (
-    <section className='section text-center'>
-      <button className='btn' onClick={fetchDadJoke}>
-        random joke
-      </button>
-      <p className='dad-joke'>{joke}</p>
+    <section>
+      <h2 className='text-center'>post request</h2>
+      <form className='form' onSubmit={handleSubmit}>
+        <div className='form-row'>
+          <label htmlFor='name' className='form-label'>
+            name
+          </label>
+          <input
+            type='text'
+            className='form-input'
+            id='name'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+        <div className='form-row'>
+          <label htmlFor='email' className='form-label'>
+            email
+          </label>
+          <input
+            type='email'
+            className='form-input'
+            id='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <button type='submit' className='btn btn-block'>
+          login
+        </button>
+      </form>
     </section>
   )
 }
-export default FetchData
+export default PostRequest
