@@ -1,7 +1,6 @@
 /*
-  React Router V6: Error Page
-  
-  - <Route path='*' element={<Error />} />
+  React Router V6: Navbar & Footer
+  - this is just a basic approach > will learn the formal one later
 
 */
 
@@ -9,21 +8,19 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
 import Products from './pages/Products'
-
-// (1)
 import Error from './pages/Error'
 
 function App() {
   return (
     <BrowserRouter>
+      <nav>Navbar</nav>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='about' element={<About />} />
         <Route path='products' element={<Products />} />
-
-        {/* (2) */}
         <Route path='*' element={<Error />} />
       </Routes>
+      <footer>Footer</footer>
     </BrowserRouter>
   )
 }
