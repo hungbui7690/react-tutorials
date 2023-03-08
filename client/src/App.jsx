@@ -1,6 +1,7 @@
 /*
-  React Router V6: useNavigate() P1: Login Page
-  - we want after login > navigate to Dashboard Page > next lesson
+  React Router V6: useNavigate() P2
+  
+  (1) Login.jsx
 
 */
 import { useState } from 'react'
@@ -11,13 +12,11 @@ import Products from './pages/Products'
 import SingleProduct from './pages/SingleProduct'
 import Error from './pages/Error'
 import SharedLayout from './pages/SharedLayout'
-
-// (1a)
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 
 function App() {
-  const [user, setUser] = useState(null) // (***)
+  const [user, setUser] = useState(null)
 
   return (
     <BrowserRouter>
@@ -28,7 +27,7 @@ function App() {
           <Route path='products' element={<Products />} />
           <Route path='products/:productId' element={<SingleProduct />} />
 
-          {/* (1b) */}
+          {/* (***) remember to pass states   */}
           <Route path='login' element={<Login setUser={setUser} />} />
           <Route path='dashboard' element={<Dashboard user={user} />} />
 

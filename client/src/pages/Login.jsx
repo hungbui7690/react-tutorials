@@ -1,12 +1,21 @@
 import { useState } from 'react'
-const Login = () => {
+import { useNavigate } from 'react-router-dom' // (1)
+
+// (***) extract setUser
+const Login = ({ setUser }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
 
+  const navigate = useNavigate() // (2)
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-  }
+    if (!name || !email) return
 
+    // (3) setUser() > then navigate to /dashboard + pass User (check App.jsx)
+    setUser({ name: name, email: email })
+    navigate('/dashboard')
+  }
   return (
     <section className='section'>
       <form className='form' onSubmit={handleSubmit}>
@@ -28,7 +37,7 @@ const Login = () => {
             email
           </label>
           <input
-            type='email'
+            type='text'
             className='form-input'
             id='email'
             value={email}
