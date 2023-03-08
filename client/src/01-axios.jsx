@@ -1,10 +1,5 @@
 /*
-  Axios: Setup Headers P2: .get(url, {})
-
-  - headers format: 
-      headers: {
-        Accept: 'application/json'
-      }
+  Axios: Setup Headers P3: Display Joke
 
 */
 
@@ -18,12 +13,13 @@ const FetchData = () => {
 
   const fetchDadJoke = async () => {
     try {
-      const response = await axios(url, {
+      // (1) extract data
+      const { data } = await axios(url, {
         headers: {
-          Accept: 'application/json', // (***)
+          Accept: 'application/json',
         },
       })
-      console.log(response)
+      setJoke(data.joke)
     } catch (error) {
       console.log(error.response)
     }
