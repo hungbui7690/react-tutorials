@@ -1,5 +1,5 @@
 /*
-  React Router V6: NavLink P2: style
+  React Router V6: NavLink P3: className
   
   (1) StyledNavbar.jsx
 
