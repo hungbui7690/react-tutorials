@@ -1,7 +1,8 @@
 /*
-  React Router V6: useNavigate() P2
-  
-  (1) Login.jsx
+  React Router V6: Protected Routes
+  - right now, though we don't login, we still can go to /dashboard
+
+  (1) create pages/ProtectedRoute.jsx
 
 */
 import { useState } from 'react'
@@ -15,6 +16,8 @@ import SharedLayout from './pages/SharedLayout'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 
+import ProtectedRoute from './pages/ProtectedRoute'
+
 function App() {
   const [user, setUser] = useState(null)
 
@@ -26,10 +29,17 @@ function App() {
           <Route path='about' element={<About />} />
           <Route path='products' element={<Products />} />
           <Route path='products/:productId' element={<SingleProduct />} />
-
-          {/* (***) remember to pass states   */}
           <Route path='login' element={<Login setUser={setUser} />} />
-          <Route path='dashboard' element={<Dashboard user={user} />} />
+
+          {/* (2) */}
+          <Route
+            path='dashboard'
+            element={
+              <ProtectedRoute user={user}>
+                <Dashboard user={user} />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path='*' element={<Error />} />
         </Route>
