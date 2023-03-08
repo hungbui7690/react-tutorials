@@ -2,8 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import products from '../data'
 
 const SingleProduct = () => {
-  console.log(useParams())
-  const { productId } = useParams() // (2)
+  const { productId } = useParams()
 
   return (
     <section className='section product'>

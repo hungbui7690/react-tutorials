@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom'
 
 const StyledNavbar = () => {
   return (
-    // (***) must setup for all 3 links > we have .link and .active in css
     <nav className='navbar'>
       <NavLink
         to='/'
