@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 
-// (1) go to Home & import
 const Navbar = () => {
   return (
     <nav className='navbar'>
