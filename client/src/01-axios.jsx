@@ -1,25 +1,25 @@
 /*
-  Axios: Global Defaults P2
+  Axios: Global Defaults P3: Downsides
+  - if we make another request, it still uses that default headers
 
-  (1) create axios/global.js
-  (2) import to App.js
-
-
-  (***) Network Tab > Fetch/XHR: Headers > find Accept
+  (***) Network Tab > Fetch/XHR: 
+    > Request Headers > Accept === application/json
 
 */
 
 import { useEffect } from 'react'
-import axios from 'axios' // (***) be careful, if miss this line > no error > but return undefined
+import axios from 'axios'
 
 const productsUrl = 'https://course-api.com/react-store-products'
-const randomUserUrl = 'https://randomuser.me/api'
+const randomUserUrl = 'https://randomuser.me/api' // (***)
 
 const GlobalInstance = () => {
   const fetchData = async () => {
     try {
-      const response = await axios.get(productsUrl)
-      console.log(response)
+      const response1 = await axios.get(productsUrl)
+      const response2 = await axios.get(randomUserUrl) // (***)
+      console.log('response1', response1)
+      console.log('response2', response2)
     } catch (error) {
       console.log(error.response)
     }
