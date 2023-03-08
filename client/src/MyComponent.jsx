@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react'
 
 function MyComponent({ data }) {
-  // (***)
-  const processedData = data.map((item) => item.toUpperCase())
+  // (***) useMemo()
+  const processedData = useMemo(() => {
+    return data.map((item) => item.toUpperCase())
+  }, [data])
 
   return (
     <div>
-      {/* (2) */}
       {processedData.map((item) => (
         <div key={item}>{item}</div>
       ))}

@@ -1,17 +1,8 @@
 /*
-  useMemo Hook P1
-  - different than React.memo() that we learn in previous lessons
+  useMemo Hook P2
 
-
-  - The useMemo hook is a hook in React that allows you to memoize a value. It takes two arguments: the first is a function that returns the value you want to memoize, and the second is an array of dependencies. The hook will return the memoized value that will only change if one of the values in the dependency array changes.
-
-  - By memoizing a value, you can avoid unnecessary calculations and improve the performance of your React application. The value will only be recalculated if one of its dependencies changes, otherwise the same instance of the value will be returned. This can be useful in situations where you have an expensive calculation that you only want to recompute when its dependencies change.
-
-
-  We have original function (not use useMemo()) 
-  (1) MyComponent.jsx
-
-  > next lesson > convert to useMemo()
+  (***) In this example, the processedData value is memoized using useMemo and the data prop is passed as a dependency. This means that the processedData value will only be recalculated if the data prop changes.
+    (1) MyComponent.jsx
 
 */
 
