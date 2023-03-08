@@ -1,37 +1,36 @@
 /*
-  Axios: GET Request
-  - promise === async/await === try/catch
-  - data === response.data
-  - error === error.response (catch block)
+  Axios: Setup Headers P1
 
-  (***) unlike fetch() > Axios treats 404 as error
-    > error.response
+  - some server requires Headers
+  - url = 'https://icanhazdadjoke.com/' > this one can returns text/html or application/json or text/plain based on our use > we can pass headers to this server and get what we want > check docs
 
 */
 
-import { useEffect } from 'react'
-import axios from 'axios' // (1)
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-const url = 'https://course-api.com/react-store-products' // (***) test by changing url to create error
+const url = 'https://icanhazdadjoke.com/'
+// Accept : 'application/json'
 
 const FetchData = () => {
-  // (2)
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(url)
-      const data = response.data // (***)
+  const [joke, setJoke] = useState('random dad joke')
 
+  const fetchDadJoke = async () => {
+    try {
+      const response = await axios(url, {}) // (***) without headers > we don't get the json format as we want > html
       console.log(response)
-      console.log(data)
     } catch (error) {
-      console.log(error.response) // (***)
+      console.log(error.response)
     }
   }
 
-  useEffect(() => {
-    fetchData() // (3)
-  }, [])
-
-  return <h2 className='text-center'>first request</h2>
+  return (
+    <section className='section text-center'>
+      <button className='btn' onClick={fetchDadJoke}>
+        random joke
+      </button>
+      <p className='dad-joke'>{joke}</p>
+    </section>
+  )
 }
 export default FetchData
