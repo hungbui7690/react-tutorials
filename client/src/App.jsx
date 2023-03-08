@@ -1,35 +1,23 @@
 /*
-  React Router V6: First Pages
-  > npm install react-router-dom@6
-
-  (***) not from Official React
-
-
-  (1)
-  - setup in App.js
-  
-  <BrowserRouter>
-    <Routes>
-        <Route path='/' element={<div>home page</div>} />
-
-  (2) after setup, we have to routes: / and /testing
+  React Router V6: Page Components
+  - check pages/ folder
 */
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+// (1)
+import Home from './pages/Home'
+import About from './pages/About'
+import Products from './pages/Products'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<div>home page</div>}></Route>
-        <Route
-          path='/testing'
-          element={
-            <div>
-              <h2>testing </h2>
-            </div>
-          }
-        ></Route>
+        {/* (2) */}
+        <Route path='/' element={<Home />} />
+        <Route path='about' element={<About />} />
+        <Route path='products' element={<Products />} />
       </Routes>
     </BrowserRouter>
   )
