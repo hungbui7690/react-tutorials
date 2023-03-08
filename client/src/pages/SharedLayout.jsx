@@ -1,6 +1,4 @@
 import { Link, Outlet } from 'react-router-dom'
-
-// (2)
 import StyledNavbar from '../components/StyledNavbar'
 
 const SharedLayout = () => {
