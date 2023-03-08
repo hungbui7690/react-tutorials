@@ -1,14 +1,15 @@
 import { useState, useTransition } from 'react'
+import SlowComponent from './SlowComponent' // (1)
 
 const LatestReact = () => {
   const [text, setText] = useState('')
   const [items, setItems] = useState([])
-  const [isPending, startTransition] = useTransition() // (1) useTransition
+  const [isPending, startTransition] = useTransition()
+  const [show, setShow] = useState(false) // (2)
 
   const handleChange = (e) => {
     setText(e.target.value)
 
-    // (2) put the slow logic inside startTransition()
     startTransition(() => {
       const newItems = Array.from({ length: 5000 }, (_, index) => {
         return (
@@ -22,7 +23,7 @@ const LatestReact = () => {
   }
 
   return (
-    <section>
+    <section className='container'>
       <form className='form'>
         <input
           type='text'
@@ -33,7 +34,6 @@ const LatestReact = () => {
       </form>
       <h4>Items Below</h4>
 
-      {/* (3) */}
       {isPending ? (
         <h4>Loading...</h4>
       ) : (
@@ -47,6 +47,12 @@ const LatestReact = () => {
           {items}
         </div>
       )}
+
+      {/* (2) */}
+      <button className='btn' onClick={() => setShow(!show)}>
+        Show/Hide
+      </button>
+      {show && <SlowComponent />}
     </section>
   )
 }
