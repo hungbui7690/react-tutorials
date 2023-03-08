@@ -3,6 +3,6 @@ const Error = () => {
     <section className='section'>
       <h2>Error</h2>
     </section>
-  );
-};
-export default Error;
+  )
+}
+export default Error

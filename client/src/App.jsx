@@ -1,7 +1,9 @@
 /*
-  React Router V6: Navbar & Footer
-  - this is just a basic approach > will learn the formal one later
-
+  React Router V6: Nested Pages
+  - when we setup nested routes > the children routes will be relative to parent routes 
+    + Parent: path = /test
+      > Children: path = product 
+        > /test/product
 */
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -13,14 +15,20 @@ import Error from './pages/Error'
 function App() {
   return (
     <BrowserRouter>
-      <nav>Navbar</nav>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='about' element={<About />} />
-        <Route path='products' element={<Products />} />
+        {/* (*** a) nested routes > right now, all pages share the same Home component > /about */}
+        <Route path='/' element={<Home />}>
+          <Route path='about' element={<About />} />
+          <Route path='products' element={<Products />} />
+        </Route>
+
+        {/* (*** b) /dashboard/stats > show Dashboard */}
+        <Route path='/dashboard' element={<div>Dashboard</div>}>
+          <Route path='stats' element={<div>Stats</div>} />
+        </Route>
+
         <Route path='*' element={<Error />} />
       </Routes>
-      <footer>Footer</footer>
     </BrowserRouter>
   )
 }
