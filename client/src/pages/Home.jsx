@@ -1,14 +1,18 @@
 import { Link, Outlet } from 'react-router-dom'
 
+// (2a)
+import Navbar from './Navbar'
+
 const Home = () => {
   return (
-    <div>
-      {/* (***) shared */}
-      <h2>Home Page</h2>
+    <>
+      {/* (2b) */}
+      <Navbar />
 
-      {/* (***) About */}
-      <Outlet />
-    </div>
+      <section className='section'>
+        <Outlet />
+      </section>
+    </>
   )
 }
 export default Home

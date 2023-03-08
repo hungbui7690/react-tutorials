@@ -1,9 +1,10 @@
 /*
-  React Router V6: Shared Layout P1
-  - fix the problem of previous lecture > /about show Home
-    > we need to go to the parent: Home and import Outlet
+  React Router V6: Shared Layout P2
 
-  (1) Home.jsx
+  (1) create pages/Navbar.jsx
+
+
+  (***) after setup, go to /about is ok, but when we head back to / > nothing is displayed > next lecture
 
 */
 
