@@ -1,18 +1,23 @@
 /*
-  useMemo Hook P2
+  useMemo Hook P3: slowFunction Problem
+  - continue from the last useCallback lesson
 
-  (***) In this example, the processedData value is memoized using useMemo and the data prop is passed as a dependency. This means that the processedData value will only be recalculated if the data prop changes.
-    (1) MyComponent.jsx
+  (1)
+  - create slowFunction file
+  - setup a function
+  - import in LowerState.js and set it equal to a value
+
+
+  > now when we increase count, that slowFunction will be run 
+    > count will not be updated until slowFunction finishes
 
 */
 
 import React from 'react'
-import MyComponent from './MyComponent'
-
-const data = ['Hello', 'World']
+import LowerState from './LowerState'
 
 const App = () => {
-  return <MyComponent data={data} />
+  return <LowerState />
 }
 
 export default App
