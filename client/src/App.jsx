@@ -1,7 +1,7 @@
 /*
-  React Router V6: Product Page
+  React Router V6: Single Product Page
   
-  (1) Product/jsx
+  (1) SingleProduct/jsx
 
 */
 
