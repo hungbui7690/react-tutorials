@@ -1,11 +1,13 @@
 /*
-  React Router V6: Page Components
-  - check pages/ folder
+  React Router V6: Links
+  - user for internal links > navigate around our project
+  - if we want to navigate to external links > use <a> 
+
+  (1) /pages/Home.jsx
+  
 */
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-// (1)
 import Home from './pages/Home'
 import About from './pages/About'
 import Products from './pages/Products'
