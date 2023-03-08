@@ -1,24 +1,28 @@
 /*
-  Axios: Global Defaults P1: Setup
-  - with this, every time we send request to server, these info will be added to our request
+  Axios: Global Defaults P2
 
-  We want to setup these as default:
-    axios.defaults.headers.common['Accept'] = 'application/json';
-    axios.defaults.baseURL = 'https://api.example.com';
-    axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-    axios.defaults.headers.post['Content-Type'] =
-    'application/x-www-form-urlencoded';
+  (1) create axios/global.js
+  (2) import to App.js
+
+
+  (***) Network Tab > Fetch/XHR: Headers > find Accept
 
 */
 
 import { useEffect } from 'react'
+import axios from 'axios' // (***) be careful, if miss this line > no error > but return undefined
 
 const productsUrl = 'https://course-api.com/react-store-products'
 const randomUserUrl = 'https://randomuser.me/api'
 
 const GlobalInstance = () => {
   const fetchData = async () => {
-    console.log('global axios instance')
+    try {
+      const response = await axios.get(productsUrl)
+      console.log(response)
+    } catch (error) {
+      console.log(error.response)
+    }
   }
 
   useEffect(() => {
