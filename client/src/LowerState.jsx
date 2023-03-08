@@ -9,8 +9,8 @@ const LowerStateChallenge = () => {
   const [people, setPeople] = useState(data)
   const [count, setCount] = useState(0)
 
-  // (***)
-  const value = slowFunction()
+  // (***) now, it will run slow at initial render > after that, it will be fast
+  const value = useMemo(() => slowFunction(), [])
   console.log(value)
 
   const removePerson = useCallback(
