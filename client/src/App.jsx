@@ -1,8 +1,12 @@
+import Title from './components/Title'
+import Axios from './01-axios'
+
 function App() {
   return (
-    <div className='container'>
-      <h2>App</h2>
-    </div>
+    <main>
+      <Title />
+      <Axios />
+    </main>
   )
 }
 
