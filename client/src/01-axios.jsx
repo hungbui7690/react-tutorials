@@ -1,32 +1,37 @@
 /*
-  Axios: Setup
-  - avoid headache when using good old fetch API
-    > npm install axios
+  Axios: GET Request
+  - promise === async/await === try/catch
+  - data === response.data
+  - error === error.response (catch block)
 
-  - methods: 
-    - axios.get(url)
-    - axios.post(url)
-    - axios.patch/put(url)
-    - axios.delete(ulr)
-
-  (***) default get axios(url)
-
-  - Properties:
-    - returns a promise
-    - response data located in data property
-    - error in error.response
+  (***) unlike fetch() > Axios treats 404 as error
+    > error.response
 
 */
 
 import { useEffect } from 'react'
-// limit, if 429 wait for 15 min and try again
-const url = 'https://course-api.com/react-store-products'
+import axios from 'axios' // (1)
 
-const FirstRequest = () => {
+const url = 'https://course-api.com/react-store-products' // (***) test by changing url to create error
+
+const FetchData = () => {
+  // (2)
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(url)
+      const data = response.data // (***)
+
+      console.log(response)
+      console.log(data)
+    } catch (error) {
+      console.log(error.response) // (***)
+    }
+  }
+
   useEffect(() => {
-    console.log('first axios request')
+    fetchData() // (3)
   }, [])
 
   return <h2 className='text-center'>first request</h2>
 }
-export default FirstRequest
+export default FetchData
