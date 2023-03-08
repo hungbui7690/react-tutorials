@@ -1,9 +1,10 @@
 /*
-  React Router V6: Nested Pages
-  - when we setup nested routes > the children routes will be relative to parent routes 
-    + Parent: path = /test
-      > Children: path = product 
-        > /test/product
+  React Router V6: Shared Layout P1
+  - fix the problem of previous lecture > /about show Home
+    > we need to go to the parent: Home and import Outlet
+
+  (1) Home.jsx
+
 */
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -16,17 +17,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* (*** a) nested routes > right now, all pages share the same Home component > /about */}
         <Route path='/' element={<Home />}>
           <Route path='about' element={<About />} />
           <Route path='products' element={<Products />} />
         </Route>
-
-        {/* (*** b) /dashboard/stats > show Dashboard */}
-        <Route path='/dashboard' element={<div>Dashboard</div>}>
-          <Route path='stats' element={<div>Stats</div>} />
-        </Route>
-
         <Route path='*' element={<Error />} />
       </Routes>
     </BrowserRouter>
