@@ -1,16 +1,14 @@
 /*
-  React Router V6: Index Pages
-  - Index routes render in the parent routes outlet at the parent route's path.
-  - Index routes match when a parent route matches but none of the other children match.
-  - Index routes are the default child route for a parent route.
-  - Index routes render when the user hasn't clicked one of the items in a navigation list yet.
+  React Router V6: NavLink P1
+  - active links
+  - difference with Link > at styles & className attributes > we can pass function
 
-  (1) create SharedLayout.jsx > copy all from Home to here
-  (2) fix Home
-  (3) fix App.jsx > use "index" > will match with parent
+  (1) create /components/StyledNavbar.jsx
+  
 
-  <Route path='/' element={<SharedLayout />}>
-    <Route index element={<Home />} />
+  > After setup, we can see that the active link is different than the other links
+    > if we check Elements tab > we see that it will add "active" class for the class is clicked
+    > and because in css file, we have setup for active class > it adds the style to that link
 
 */
 
@@ -25,7 +23,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* (***) fix here */}
         <Route path='/' element={<SharedLayout />}>
           <Route index element={<Home />} />
           <Route path='about' element={<About />} />
