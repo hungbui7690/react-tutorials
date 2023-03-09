@@ -1,11 +1,7 @@
 import React from 'react'
-
-// (1a)
 import { DECREASE, INCREASE, REMOVE } from '../action'
 import { connect } from 'react-redux'
 
-// (1d) these are props that are passed from CartContainer > OK
-// we just need dispatch from 1c
 const CartItem = ({ img, title, price, amount, remove }) => {
   return (
     <div className='cart-item'>
@@ -13,7 +9,7 @@ const CartItem = ({ img, title, price, amount, remove }) => {
       <div>
         <h4>{title}</h4>
         <h4 className='item-price'>${price}</h4>
-        {/* (1e)  */}
+        {/* (1b) we don't have to change anything here > go to reducer.js  */}
         <button className='remove-btn' onClick={remove}>
           remove
         </button>
@@ -38,11 +34,11 @@ const CartItem = ({ img, title, price, amount, remove }) => {
   )
 }
 
-// (1b) setup as arrow function to prevent dispatch from invoke
-const mapDispatchToProps = (dispatch) => {
-  return { remove: () => dispatch({ type: REMOVE }) }
+// (1a) payload
+// 2nd param : ownProps: props that are passed by CartContainer or props of this component
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { id } = ownProps
+  return { remove: () => dispatch({ type: REMOVE, payload: { id } }) }
 }
 
-// (1c) since we have the props that are passed from CartContainer > we don't need to have mapStateToProps
-// but we need the dispatch function
 export default connect(null, mapDispatchToProps)(CartItem)

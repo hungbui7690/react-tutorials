@@ -10,8 +10,13 @@ function reducer(state, action) {
   if (action.type === DECREASE) {
     console.log('decrease')
   }
+
+  // (***)
   if (action.type === REMOVE) {
-    console.log('remove')
+    const newCart = state.cart.filter(
+      (cartItem) => cartItem.id !== action.payload.id
+    )
+    return { ...state, cart: newCart }
   }
 
   return state

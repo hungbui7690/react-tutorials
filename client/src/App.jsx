@@ -1,5 +1,5 @@
 /*
-  Redux: Remove Item (***)
+  Redux: Remove Complete
   
   (1) CartItem.js
 
