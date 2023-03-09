@@ -1,7 +1,7 @@
 /*
-  Redux: Connect CartContainer
+  Redux: Dispatch Clear Cart
   
-  (1) CartContainer.js
+  (1) action.js
 
 */
 

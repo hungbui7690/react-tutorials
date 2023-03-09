@@ -1,9 +1,12 @@
 import React from 'react'
 import CartItem from './CartItem'
-import { connect } from 'react-redux' // (a)
+import { connect } from 'react-redux'
 
-// (d)
-const CartContainer = ({ cart = [], total }) => {
+// (2a) check pic: dispatch-rdt > we see dispatch() in props
+import { CLEAR_CART } from '../action'
+
+// (2b) that's why we can use it here
+const CartContainer = ({ cart = [], total, dispatch }) => {
   if (cart.length === 0) {
     return (
       <section className='cart'>
@@ -32,17 +35,20 @@ const CartContainer = ({ cart = [], total }) => {
             total <span>${total.toFixed(2)}</span>
           </h4>
         </div>
-        <button className='btn clear-btn'>clear cart</button>
+        <button
+          className='btn clear-btn'
+          onClick={() => dispatch({ type: CLEAR_CART })} // (2c) go to reducer
+        >
+          clear cart
+        </button>
       </footer>
     </section>
   )
 }
 
-// (b)
 const mapStateToProps = (store) => {
   const { cart, total } = store
   return { cart, total }
 }
 
-// (c)
 export default connect(mapStateToProps)(CartContainer)
