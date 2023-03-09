@@ -1,7 +1,7 @@
 /*
-  Redux: Connect P2
+  Redux: Connect CartContainer
   
-  (1) Navbar.js
+  (1) CartContainer.js
 
 */
 
@@ -16,8 +16,8 @@ import { Provider } from 'react-redux'
 
 const initialStore = {
   cart: cartItems,
-  total: 0,
-  amount: 5, // (***)
+  total: 100,
+  amount: 5,
 }
 
 const store = createStore(reducer, initialStore)
@@ -26,7 +26,7 @@ function App() {
   return (
     <Provider store={store}>
       <Navbar />
-      <CartContainer cart={cartItems} />
+      <CartContainer />
     </Provider>
   )
 }
