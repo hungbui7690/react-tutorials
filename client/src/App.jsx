@@ -1,9 +1,9 @@
 /*
-  Redux: Refactor to Initial Setup
+  Redux: Provider Setup
+  - we will connect our app to redux
   
-  > refactor initialState
-  > remove all actions before 
-
+    a> Provider : similar to context API
+    b> connect : used in components
 
 */
 
@@ -14,7 +14,8 @@ import cartItems from './cart-items'
 import { createStore } from 'redux'
 import reducer from './reducer'
 
-// (***) change properties in store
+import { Provider } from 'react-redux' // (1) now we use 'react-redux'
+
 const initialStore = {
   cart: cartItems,
   total: 0,
@@ -24,12 +25,12 @@ const initialStore = {
 const store = createStore(reducer, initialStore)
 
 function App() {
-  // (***) remove passing props
+  // (2) wraps the app > need to have store props
   return (
-    <main>
+    <Provider store={store}>
       <Navbar />
       <CartContainer cart={cartItems} />
-    </main>
+    </Provider>
   )
 }
 
