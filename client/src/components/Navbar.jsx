@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux' // (a)
 
 const Navbar = () => {
   return (
@@ -18,4 +19,10 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+// (b) map store to props of the Navbar > now we can go up and use > next lecture
+// now we see error since we haven't return {}
+const mapStateToProps = (state) => {
+  console.log(state)
+}
+
+export default connect(mapStateToProps)(Navbar) // (c)

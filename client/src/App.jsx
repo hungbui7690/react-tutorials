@@ -1,9 +1,8 @@
 /*
-  Redux: Provider Setup
+  Redux: Connect
   - we will connect our app to redux
   
-    a> Provider : similar to context API
-    b> connect : used in components
+  (1) Navbar.js
 
 */
 
@@ -14,18 +13,17 @@ import cartItems from './cart-items'
 import { createStore } from 'redux'
 import reducer from './reducer'
 
-import { Provider } from 'react-redux' // (1) now we use 'react-redux'
+import { Provider } from 'react-redux'
 
 const initialStore = {
   cart: cartItems,
   total: 0,
-  amount: 0,
+  amount: 5, // (***)
 }
 
 const store = createStore(reducer, initialStore)
 
 function App() {
-  // (2) wraps the app > need to have store props
   return (
     <Provider store={store}>
       <Navbar />
