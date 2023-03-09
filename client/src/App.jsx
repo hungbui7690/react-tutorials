@@ -1,8 +1,5 @@
 /*
-  Redux: First Action
-  - actions: objects > MUST HAVE TYPE PROPERTY === what kind of action
-  
-  (***) DON'T MUTATE THE STATE > Redux built on IMMUTABILITY (copy)
+  Redux: Return Action Mismatch P1
 
 */
 
@@ -17,22 +14,18 @@ const initialStore = {
 }
 
 function reducer(state, action) {
-  // (2)
   if (action.type === 'DECREASE') {
     return { ...state, count: state.count - 1 }
   }
 
-  return state
+  return 'shake & bake' // (***) be careful with this one > this one change the initialState to "" > after that if we use the correct action type, it still doesn't work anymore > since initState now is "" > can not use {...state}
 }
 
 const store = createStore(reducer, initialStore)
 
-// (1)
+// (***)
+store.dispatch({ type: 'ABC' })
 store.dispatch({ type: 'DECREASE' })
-store.dispatch({ type: 'DECREASE' })
-store.dispatch({ type: 'DECREASE' })
-store.dispatch({ type: 'DECREASE' })
-
 console.log(store.getState())
 
 function App() {
