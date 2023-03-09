@@ -2,7 +2,6 @@ import React from 'react'
 import { DECREASE, INCREASE, REMOVE } from '../action'
 import { connect } from 'react-redux'
 
-// (1b)
 const CartItem = ({
   img,
   title,
@@ -43,13 +42,12 @@ const CartItem = ({
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  // (1a) we need to have the amount > check this before decrease
   const { id, amount } = ownProps
 
   return {
     remove: () => dispatch({ type: REMOVE, payload: { id } }),
     increase: () => dispatch({ type: INCREASE, payload: { id } }),
-    decrease: () => dispatch({ type: DECREASE, payload: { id, amount } }), // (***) amount
+    decrease: () => dispatch({ type: DECREASE, payload: { id, amount } }),
   }
 }
 

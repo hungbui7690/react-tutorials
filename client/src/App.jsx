@@ -1,7 +1,7 @@
 /*
-  Redux: Increase & Decrease 
+  Redux: Get Totals
   
-  (1) CartItem.js
+  (1) action.js
 
 */
 
