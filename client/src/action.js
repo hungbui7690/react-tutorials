@@ -1,4 +1,7 @@
 const CLEAR_CART = 'CLEAR_CART'
+const DECREASE = 'DECREASE'
+const INCREASE = 'INCREASE'
+const REMOVE = 'REMOVE'
 
-// (1) go to CartContainer.jsx
-export { CLEAR_CART }
+// (1) go to reducer
+export { CLEAR_CART, DECREASE, INCREASE, REMOVE }

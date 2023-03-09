@@ -1,11 +1,8 @@
 import React from 'react'
 import CartItem from './CartItem'
 import { connect } from 'react-redux'
-
-// (2a) check pic: dispatch-rdt > we see dispatch() in props
 import { CLEAR_CART } from '../action'
 
-// (2b) that's why we can use it here
 const CartContainer = ({ cart = [], total, dispatch }) => {
   if (cart.length === 0) {
     return (
@@ -37,7 +34,7 @@ const CartContainer = ({ cart = [], total, dispatch }) => {
         </div>
         <button
           className='btn clear-btn'
-          onClick={() => dispatch({ type: CLEAR_CART })} // (2c) go to reducer
+          onClick={() => dispatch({ type: CLEAR_CART })}
         >
           clear cart
         </button>

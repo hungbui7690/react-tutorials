@@ -1,5 +1,5 @@
 /*
-  Redux: Dispatch Clear Cart
+  Redux: Reducer Setup
   
   (1) action.js
 
