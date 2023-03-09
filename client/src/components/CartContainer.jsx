@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { CLEAR_CART, GET_TOTALS } from '../action'
 
 const CartContainer = ({ cart = [], total, dispatch }) => {
-  // (1) go to reducer
   useEffect(() => {
     dispatch({ type: GET_TOTALS })
   }, [cart])

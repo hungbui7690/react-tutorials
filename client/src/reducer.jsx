@@ -7,7 +7,17 @@ import {
   TOGGLE_AMOUNT,
 } from './action'
 
-function reducer(state, action) {
+import cartItems from './cart-items'
+
+// (2)
+const initialStore = {
+  cart: cartItems,
+  total: 100,
+  amount: 5,
+}
+
+// (3) set as default param
+function reducer(state = initialStore, action) {
   if (action.type === CLEAR_CART) {
     return { ...state, cart: [] }
   }
@@ -52,7 +62,6 @@ function reducer(state, action) {
     return { ...state, total: total, amount: amount }
   }
 
-  // (***)
   if (action.type === TOGGLE_AMOUNT) {
     const { id } = action.payload
     const newCart = state.cart.map((cartItem) => {

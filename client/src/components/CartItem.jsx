@@ -10,7 +10,7 @@ const CartItem = ({
   remove,
   increase,
   decrease,
-  toggle, // (b)
+  toggle,
 }) => {
   return (
     <div className='cart-item'>
@@ -24,10 +24,7 @@ const CartItem = ({
       </div>
       <div>
         {/* increase amount */}
-        <button
-          className='amount-btn'
-          onClick={() => toggle('inc')} // (c)
-        >
+        <button className='amount-btn' onClick={() => toggle('inc')}>
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
             <path d='M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z' />
           </svg>
@@ -39,7 +36,7 @@ const CartItem = ({
           className='amount-btn'
           onClick={() => {
             if (amount === 1) return remove()
-            return toggle('dec') // (d) go to reducer
+            return toggle('dec')
           }}
         >
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
@@ -59,7 +56,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     increase: () => dispatch({ type: INCREASE, payload: { id } }),
     decrease: () => dispatch({ type: DECREASE, payload: { id, amount } }),
     toggle: (toggleType) =>
-      dispatch({ type: TOGGLE_AMOUNT, payload: { id, toggleType } }), // (a)
+      dispatch({ type: TOGGLE_AMOUNT, payload: { id, toggleType } }),
   }
 }
 
