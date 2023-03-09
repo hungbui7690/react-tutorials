@@ -1,5 +1,5 @@
 /*
-  Redux: Remove Complete
+  Redux: Increase & Decrease 
   
   (1) CartItem.js
 
