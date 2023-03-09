@@ -1,5 +1,7 @@
 /*
-  Redux: More Complicated State P1
+  Redux: More Complicated State P2
+  - pre ES6: need to use Object.assign() 
+  - ES6: can use spread operator
 
 */
 
@@ -16,13 +18,18 @@ const initialStore = {
 
 function reducer(state, action) {
   if (action.type === 'DECREASE') {
-    return { count: state.count - 1 } // (***) PROBLEM: we overwrote the initialState
+    return { ...state, count: state.count - 1 } // (***) copy
   }
   if (action.type === 'INCREASE') {
-    return { count: state.count + 1 }
+    return { ...state, count: state.count + 1 }
   }
   if (action.type === 'RESET') {
-    return { count: 0 }
+    return { ...state, count: 0 }
+  }
+
+  // (***)
+  if (action.type === 'CHANGE_NAME') {
+    return { ...state, name: 'bobo' }
   }
 
   return state
@@ -30,14 +37,17 @@ function reducer(state, action) {
 
 const store = createStore(reducer, initialStore)
 
-// (***)
 console.log(store.getState()) // {count: 78, name: 'Joe Doe'}
 store.dispatch({ type: 'DECREASE' })
-console.log(store.getState()) // {count: 77}
+console.log(store.getState()) // {count: 77, name: 'Joe Doe'}
 store.dispatch({ type: 'INCREASE' })
-console.log(store.getState()) // {count: 78}
+console.log(store.getState()) // {count: 78, name: 'Joe Doe'}
 store.dispatch({ type: 'RESET' })
-console.log(store.getState()) // {count: 0}
+console.log(store.getState()) // {count: 0, name: 'Joe Doe'}
+
+// (***)
+store.dispatch({ type: 'CHANGE_NAME' })
+console.log(store.getState()) // {count: 0, name: 'bobo'}
 
 function App() {
   return (
