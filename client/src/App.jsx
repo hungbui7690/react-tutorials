@@ -1,9 +1,11 @@
 /*
-  Redux: Actions as Variables P2
-  - since we have many state 
-    > create action.js
+  Redux: Separate reducer
+  
+  > create reducer.js
+
 */
 
+import { DECREASE, INCREASE } from './action'
 import React from 'react'
 import Navbar from './components/Navbar'
 import CartContainer from './components/CartContainer'
@@ -11,22 +13,11 @@ import cartItems from './cart-items'
 import { createStore } from 'redux'
 
 // (***)
-import { DECREASE, INCREASE } from './action'
+import reducer from './reducer'
 
 const initialStore = {
   count: 78,
   name: 'Joe Doe',
-}
-
-function reducer(state, action) {
-  if (action.type === DECREASE) {
-    return { ...state, count: state.count - 1 }
-  }
-  if (action.type === INCREASE) {
-    return { ...state, count: state.count + 1 }
-  }
-
-  return state
 }
 
 const store = createStore(reducer, initialStore)
