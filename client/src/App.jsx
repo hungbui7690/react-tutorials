@@ -1,5 +1,5 @@
 /*
-  Redux: Return Action Mismatch P2
+  Redux: More Actions
 
 */
 
@@ -15,18 +15,29 @@ const initialStore = {
 
 function reducer(state, action) {
   if (action.type === 'DECREASE') {
-    return { ...state, count: state.count - 1 }
+    return { count: state.count - 1 }
   }
 
-  return state // (***) if we use this, if action mismatches > nothing happens > but if we don't have this return line > error
+  // (***)
+  if (action.type === 'INCREASE') {
+    return { count: state.count + 1 }
+  }
+  if (action.type === 'RESET') {
+    return { count: 0 }
+  }
+
+  return state
 }
 
 const store = createStore(reducer, initialStore)
 
 // (***)
-store.dispatch({ type: 'ABC' })
 store.dispatch({ type: 'DECREASE' })
-console.log(store.getState())
+console.log(store.getState()) // 77
+store.dispatch({ type: 'INCREASE' })
+console.log(store.getState()) // 78
+store.dispatch({ type: 'RESET' })
+console.log(store.getState()) // 0
 
 function App() {
   return (
