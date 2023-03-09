@@ -11,7 +11,4 @@ const cartSlice = createSlice({
   initialState,
 })
 
-console.log(cartSlice)
-
-// (1) we just want the reducer to control our store
 export default cartSlice.reducer

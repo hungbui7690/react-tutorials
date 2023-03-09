@@ -1,13 +1,20 @@
 /*
-  RTK: Create Slice P2
+  RTK: useSelector() P1
+  - access store value
 
-  (1) cartSlice.js
+  (1) create components/Navbar.jsx
 
-  > install Redux Dev Tools
 
 */
 
+// (2)
+import Navbar from './components/Navbar'
+
 function App() {
-  return <h2>Redux Toolkit</h2>
+  return (
+    <main>
+      <Navbar />
+    </main>
+  )
 }
 export default App
