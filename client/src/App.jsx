@@ -1,9 +1,5 @@
 /*
-  Redux: Setup Store 
-
-  > pic: redux-intro
-  > global states === store > similar to context API
-    > store === single source of truth
+  Redux: Initial Store
 
 */
 
@@ -11,17 +7,21 @@ import React from 'react'
 import Navbar from './components/Navbar'
 import CartContainer from './components/CartContainer'
 import cartItems from './cart-items'
-
-// (1) deprecated > later we will learn Redux Tool Kit
 import { createStore } from 'redux'
 
-// (2)
-function reducer(state, action) {
-  console.log({ state, action }) // {state: undefined, action: {…}}
+// (1)
+const initialStore = {
+  count: 0,
 }
 
-// (3)
-const store = createStore(reducer)
+function reducer(state, action) {
+  console.log({ state, action })
+
+  return state
+}
+
+// (2)
+const store = createStore(reducer, initialStore)
 
 function App() {
   return (
