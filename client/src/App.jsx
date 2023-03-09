@@ -1,9 +1,7 @@
 /*
-  Redux: Refactor Decrease
-  - if amount === 1 > run remove()
-  - else run decrease()
-  
-  (1) reducer.js
+  Redux: Toggle Amount
+
+  (1) action.js
 
 */
 

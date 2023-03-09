@@ -1,4 +1,11 @@
-import { CLEAR_CART, REMOVE, INCREASE, DECREASE, GET_TOTALS } from './action'
+import {
+  CLEAR_CART,
+  REMOVE,
+  INCREASE,
+  DECREASE,
+  GET_TOTALS,
+  TOGGLE_AMOUNT,
+} from './action'
 
 function reducer(state, action) {
   if (action.type === CLEAR_CART) {
@@ -20,8 +27,6 @@ function reducer(state, action) {
     })
     return { ...state, cart: newCart }
   }
-
-  // (***) go to CartItem.jsx
   if (action.type === DECREASE) {
     const { id } = action.payload
     const newCart = state.cart.map((cartItem) => {
@@ -33,7 +38,6 @@ function reducer(state, action) {
 
     return { ...state, cart: newCart }
   }
-
   if (action.type === GET_TOTALS) {
     let { total, amount } = state.cart.reduce(
       (acc, cur) => {
@@ -46,6 +50,21 @@ function reducer(state, action) {
 
     total = parseFloat(total.toFixed(2))
     return { ...state, total: total, amount: amount }
+  }
+
+  // (***)
+  if (action.type === TOGGLE_AMOUNT) {
+    const { id } = action.payload
+    const newCart = state.cart.map((cartItem) => {
+      if (cartItem.id === id) {
+        if (action.payload.toggleType === 'dec')
+          cartItem = { ...cartItem, amount: cartItem.amount - 1 }
+        else cartItem = { ...cartItem, amount: cartItem.amount + 1 }
+      }
+      return cartItem
+    })
+
+    return { ...state, cart: newCart }
   }
 
   return state

@@ -3,8 +3,9 @@ const DECREASE = 'DECREASE'
 const INCREASE = 'INCREASE'
 const REMOVE = 'REMOVE'
 
-// (***) go to CartContainer
 const GET_TOTALS = 'GET_TOTALS'
+
+// (***) go to CartItem
 const TOGGLE_AMOUNT = 'TOGGLE_AMOUNT'
 
-export { CLEAR_CART, DECREASE, INCREASE, REMOVE, GET_TOTALS }
+export { CLEAR_CART, DECREASE, INCREASE, REMOVE, GET_TOTALS, TOGGLE_AMOUNT }

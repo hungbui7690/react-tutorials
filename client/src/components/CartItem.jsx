@@ -1,5 +1,5 @@
 import React from 'react'
-import { DECREASE, INCREASE, REMOVE } from '../action'
+import { DECREASE, INCREASE, REMOVE, TOGGLE_AMOUNT } from '../action'
 import { connect } from 'react-redux'
 
 const CartItem = ({
@@ -10,6 +10,7 @@ const CartItem = ({
   remove,
   increase,
   decrease,
+  toggle, // (b)
 }) => {
   return (
     <div className='cart-item'>
@@ -23,7 +24,10 @@ const CartItem = ({
       </div>
       <div>
         {/* increase amount */}
-        <button className='amount-btn' onClick={() => increase()}>
+        <button
+          className='amount-btn'
+          onClick={() => toggle('inc')} // (c)
+        >
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
             <path d='M10.707 7.05L10 6.343 4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z' />
           </svg>
@@ -34,8 +38,8 @@ const CartItem = ({
         <button
           className='amount-btn'
           onClick={() => {
-            if (amount === 1) return remove() // (***)
-            return decrease()
+            if (amount === 1) return remove()
+            return toggle('dec') // (d) go to reducer
           }}
         >
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'>
@@ -54,6 +58,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     remove: () => dispatch({ type: REMOVE, payload: { id } }),
     increase: () => dispatch({ type: INCREASE, payload: { id } }),
     decrease: () => dispatch({ type: DECREASE, payload: { id, amount } }),
+    toggle: (toggleType) =>
+      dispatch({ type: TOGGLE_AMOUNT, payload: { id, toggleType } }), // (a)
   }
 }
 
