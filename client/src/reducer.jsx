@@ -20,23 +20,20 @@ function reducer(state, action) {
     })
     return { ...state, cart: newCart }
   }
+
+  // (***) go to CartItem.jsx
   if (action.type === DECREASE) {
-    let newCart = []
-    const { id, amount } = action.payload
-    if (amount === 1) {
-      newCart = state.cart.filter((cartItem) => cartItem.id !== id)
-    } else {
-      newCart = state.cart.map((cartItem) => {
-        if (cartItem.id === id) {
-          cartItem = { ...cartItem, amount: cartItem.amount - 1 }
-        }
-        return cartItem
-      })
-    }
+    const { id } = action.payload
+    const newCart = state.cart.map((cartItem) => {
+      if (cartItem.id === id) {
+        cartItem = { ...cartItem, amount: cartItem.amount - 1 }
+      }
+      return cartItem
+    })
+
     return { ...state, cart: newCart }
   }
 
-  // (***)
   if (action.type === GET_TOTALS) {
     let { total, amount } = state.cart.reduce(
       (acc, cur) => {
