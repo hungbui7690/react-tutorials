@@ -1,6 +1,5 @@
 /*
-  Redux: Connect
-  - we will connect our app to redux
+  Redux: Connect P2
   
   (1) Navbar.js
 

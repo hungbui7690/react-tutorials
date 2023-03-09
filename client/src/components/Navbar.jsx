@@ -1,7 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux' // (a)
+import { connect } from 'react-redux'
 
-const Navbar = () => {
+// (b) now, we can use like normal props
+const Navbar = ({ amount }) => {
   return (
     <nav>
       <div className='nav-center'>
@@ -11,7 +12,8 @@ const Navbar = () => {
             <path d='M16 6v2h2l2 12H0L2 8h2V6a6 6 0 1 1 12 0zm-2 0a4 4 0 1 0-8 0v2h8V6zM4 10v2h2v-2H4zm10 0v2h2v-2h-2z' />
           </svg>
           <div className='amount-container'>
-            <p className='total-amount'>0</p>
+            {/* (c) */}
+            <p className='total-amount'>{amount}</p>
           </div>
         </div>
       </div>
@@ -19,10 +21,9 @@ const Navbar = () => {
   )
 }
 
-// (b) map store to props of the Navbar > now we can go up and use > next lecture
-// now we see error since we haven't return {}
+// (a)
 const mapStateToProps = (state) => {
-  console.log(state)
+  return { amount: state.amount }
 }
 
-export default connect(mapStateToProps)(Navbar) // (c)
+export default connect(mapStateToProps)(Navbar)
