@@ -1,5 +1,5 @@
 /*
-  Redux: Initial Store
+  Redux: getState()
 
 */
 
@@ -9,9 +9,8 @@ import CartContainer from './components/CartContainer'
 import cartItems from './cart-items'
 import { createStore } from 'redux'
 
-// (1)
 const initialStore = {
-  count: 0,
+  count: 78,
 }
 
 function reducer(state, action) {
@@ -20,13 +19,14 @@ function reducer(state, action) {
   return state
 }
 
-// (2)
 const store = createStore(reducer, initialStore)
+console.log(store.getState()) // (1) {count: 0}
 
 function App() {
   return (
     <main>
-      <Navbar />
+      {/* (2) go to Navbar */}
+      <Navbar cart={store.getState()} />
       <CartContainer cart={cartItems} />
     </main>
   )
