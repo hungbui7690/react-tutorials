@@ -1,5 +1,5 @@
 /*
-  Redux: Return Action Mismatch P1
+  Redux: Return Action Mismatch P2
 
 */
 
@@ -18,7 +18,7 @@ function reducer(state, action) {
     return { ...state, count: state.count - 1 }
   }
 
-  return 'shake & bake' // (***) be careful with this one > this one change the initialState to "" > after that if we use the correct action type, it still doesn't work anymore > since initState now is "" > can not use {...state}
+  return state // (***) if we use this, if action mismatches > nothing happens > but if we don't have this return line > error
 }
 
 const store = createStore(reducer, initialStore)
