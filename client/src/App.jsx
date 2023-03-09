@@ -1,5 +1,5 @@
 /*
-  Redux: More Actions
+  Redux: More Complicated State P1
 
 */
 
@@ -11,14 +11,13 @@ import { createStore } from 'redux'
 
 const initialStore = {
   count: 78,
+  name: 'Joe Doe', // (***)
 }
 
 function reducer(state, action) {
   if (action.type === 'DECREASE') {
-    return { count: state.count - 1 }
+    return { count: state.count - 1 } // (***) PROBLEM: we overwrote the initialState
   }
-
-  // (***)
   if (action.type === 'INCREASE') {
     return { count: state.count + 1 }
   }
@@ -32,12 +31,13 @@ function reducer(state, action) {
 const store = createStore(reducer, initialStore)
 
 // (***)
+console.log(store.getState()) // {count: 78, name: 'Joe Doe'}
 store.dispatch({ type: 'DECREASE' })
-console.log(store.getState()) // 77
+console.log(store.getState()) // {count: 77}
 store.dispatch({ type: 'INCREASE' })
-console.log(store.getState()) // 78
+console.log(store.getState()) // {count: 78}
 store.dispatch({ type: 'RESET' })
-console.log(store.getState()) // 0
+console.log(store.getState()) // {count: 0}
 
 function App() {
   return (
