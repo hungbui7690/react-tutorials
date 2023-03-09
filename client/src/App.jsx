@@ -1,7 +1,8 @@
 /*
-  Redux: Action Creators
-
-  (1) action.js
+  Redux: Redux Dev Tools
+  - need to install Chrome Extension
+  - also need to config in code
+    > pic: redux-dev-tools
 
 */
 
@@ -12,8 +13,11 @@ import { createStore } from 'redux'
 import reducer from './reducer'
 import { Provider } from 'react-redux'
 
-// (1) remove initialStore arg > error > then move initialStore to reducer
-const store = createStore(reducer)
+// (***)
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 function App() {
   return (
