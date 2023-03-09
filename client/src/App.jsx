@@ -1,5 +1,8 @@
 /*
-  Redux: getState()
+  Redux: First Action
+  - actions: objects > MUST HAVE TYPE PROPERTY === what kind of action
+  
+  (***) DON'T MUTATE THE STATE > Redux built on IMMUTABILITY (copy)
 
 */
 
@@ -14,18 +17,27 @@ const initialStore = {
 }
 
 function reducer(state, action) {
-  console.log({ state, action })
+  // (2)
+  if (action.type === 'DECREASE') {
+    return { ...state, count: state.count - 1 }
+  }
 
   return state
 }
 
 const store = createStore(reducer, initialStore)
-console.log(store.getState()) // (1) {count: 0}
+
+// (1)
+store.dispatch({ type: 'DECREASE' })
+store.dispatch({ type: 'DECREASE' })
+store.dispatch({ type: 'DECREASE' })
+store.dispatch({ type: 'DECREASE' })
+
+console.log(store.getState())
 
 function App() {
   return (
     <main>
-      {/* (2) go to Navbar */}
       <Navbar cart={store.getState()} />
       <CartContainer cart={cartItems} />
     </main>
