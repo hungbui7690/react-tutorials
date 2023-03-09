@@ -1,6 +1,5 @@
 /*
-  RTK: useSelector() P2
-  - access store value
+  RTK: useSelector() P3
 
   (1) Navbar.jsx
 
