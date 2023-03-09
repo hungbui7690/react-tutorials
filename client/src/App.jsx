@@ -1,16 +1,9 @@
 /*
-  RTK: Create Slice P1
+  RTK: Create Slice P2
 
-  - slice === application feature
-    + Increase / Decrease 
-    + Clear Cart > Model
-  
-  (1)
-  - create features folder/cart
-  - create cartSlice.js
+  (1) cartSlice.js
 
-
-  (***) redux-thunk (handles async actions)
+  > install Redux Dev Tools
 
 */
 

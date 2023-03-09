@@ -6,10 +6,12 @@ const initialState = {
   total: 0,
 }
 
-// (1) back to store > import
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
 })
 
 console.log(cartSlice)
+
+// (1) we just want the reducer to control our store
+export default cartSlice.reducer
