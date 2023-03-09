@@ -1,5 +1,5 @@
 /*
-  Redux: Reducer - Default State
+  Redux: Action Creators
 
   (1) action.js
 
