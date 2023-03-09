@@ -1,7 +1,7 @@
 /*
-  Redux: Reducer Setup
+  Redux: Remove Item (***)
   
-  (1) action.js
+  (1) CartItem.js
 
 */
 

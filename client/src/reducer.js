@@ -4,8 +4,6 @@ function reducer(state, action) {
   if (action.type === CLEAR_CART) {
     return { ...state, cart: [] }
   }
-
-  // (2)
   if (action.type === INCREASE) {
     console.log('increase')
   }
