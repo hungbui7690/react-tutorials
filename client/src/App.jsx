@@ -1,34 +1,33 @@
 /*
-  Redux: Separate reducer
+  Redux: Refactor to Initial Setup
   
-  > create reducer.js
+  > refactor initialState
+  > remove all actions before 
+
 
 */
 
-import { DECREASE, INCREASE } from './action'
 import React from 'react'
 import Navbar from './components/Navbar'
 import CartContainer from './components/CartContainer'
 import cartItems from './cart-items'
 import { createStore } from 'redux'
-
-// (***)
 import reducer from './reducer'
 
+// (***) change properties in store
 const initialStore = {
-  count: 78,
-  name: 'Joe Doe',
+  cart: cartItems,
+  total: 0,
+  amount: 0,
 }
 
 const store = createStore(reducer, initialStore)
 
-store.dispatch({ type: DECREASE })
-store.dispatch({ type: INCREASE })
-
 function App() {
+  // (***) remove passing props
   return (
     <main>
-      <Navbar cart={store.getState()} />
+      <Navbar />
       <CartContainer cart={cartItems} />
     </main>
   )
